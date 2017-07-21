@@ -1,14 +1,12 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
+﻿using LexiconLMS.Models;
+using LexiconLMS.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using LexiconLMS.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace LexiconLMS.Controllers
 {
@@ -17,7 +15,7 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext _context;
         public AccountController()
         {
         }
@@ -28,6 +26,14 @@ namespace LexiconLMS.Controllers
             SignInManager = signInManager;
         }
 
+        private ApplicationDbContext MyDbContext
+        {
+            get
+            {
+                if (_context == null) _context = new Models.ApplicationDbContext();
+                return _context;
+            }
+        }
         public ApplicationSignInManager SignInManager
         {
             get
@@ -51,6 +57,7 @@ namespace LexiconLMS.Controllers
                 _userManager = value;
             }
         }
+
 
         //
         // GET: /Account/Login

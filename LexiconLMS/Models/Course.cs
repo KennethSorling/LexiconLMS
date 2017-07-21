@@ -12,5 +12,6 @@ namespace LexiconLMS.Models
         public DateTime EndDate { get; set; }
         public virtual List<Module> Modules { get; set; } 
         public virtual List<Document> Documents { get; set; }
+        public virtual List<Course> Students { get; set; }
     }
 }
