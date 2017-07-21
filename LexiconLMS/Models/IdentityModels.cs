@@ -41,5 +41,13 @@ namespace LexiconLMS.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateTeacherAccountVM> CreateTeacherAccountVMs { get; set; }
+
+        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.EditTeacherAccountVM> EditTeacherAccountVMs { get; set; }
+
+        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateStudentAccountVM> CreateStudentAccountVMs { get; set; }
+
+        //public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateTeacherAccountVM> CreateTeacherAccountVMs { get; set; }
     }
 }

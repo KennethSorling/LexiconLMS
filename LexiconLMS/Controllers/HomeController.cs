@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace LexiconLMS.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
+            if (User.IsInRole("Teacher"))
+            {
+                return RedirectToAction("Index", "Courses");
+            }
+            else if(User.IsInRole("Student"))
+            {
+                //For now, leave him right here.
+                return View("Index");
+            }
             return View();
         }
 

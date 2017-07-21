@@ -29,6 +29,16 @@
                     <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
                     <li>@Html.ActionLink("Teachers", "Index", "Account", new { wantedList = "TeacherList" })</li>
                     <li>@Html.ActionLink("Students", "Index", "Account", new { wantedList = "StudentList" })</li>
+                    @if (User.IsInRole("Teacher"))
+                    {
+                        <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
+                        <li>@Html.ActionLink("Students", "Index", "Students")</li>
+                        <li>@Html.ActionLink("Teachers", "Index", "Teachers")</li>
+                    }
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
