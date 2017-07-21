@@ -1,18 +1,13 @@
 ﻿@model LexiconLMS.Models.Course
 
-@{
-    ViewBag.Title = "Edit";
-}
-
-<h2>Edit</h2>
+<p class="page-header">Edit Course</p>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Courses"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Course</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -22,14 +17,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -49,9 +36,18 @@
             </div>
         </div>
 
+        <div class="form-group editor-multiline-field">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button type="submit" value="Save" class="btn btn-default btn-save">Save</button>
+                <span>@Html.ActionLink("Cancel", "Index", null, new { @class = "cancel-link" })</span>
             </div>
         </div>
     </div>
