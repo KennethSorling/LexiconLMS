@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Course>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Courses at Lexicon";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add Course", "Create")
 </p>
 <table class="table">
     <tr>
@@ -42,7 +42,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>

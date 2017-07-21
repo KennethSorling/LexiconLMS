@@ -12,7 +12,8 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Display(Name = "E-Mail")]
+        [EmailAddress]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Display (Name ="Name")]

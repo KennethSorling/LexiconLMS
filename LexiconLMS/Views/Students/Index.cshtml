@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<LexiconLMS.ViewModels.StudentListVM>
 
 @{
-    ViewBag.Title = "List of Students at Lexicon LMS";
+    ViewBag.Title = "Students at Lexicon";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -42,7 +42,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>

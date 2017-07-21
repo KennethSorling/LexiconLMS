@@ -1,10 +1,10 @@
 ﻿@model LexiconLMS.Models.Course
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create New Course";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Course</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -49,7 +48,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create Course" class="btn btn-default" />
             </div>
         </div>
     </div>
