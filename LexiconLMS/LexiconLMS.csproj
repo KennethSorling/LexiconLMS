@@ -227,6 +227,7 @@
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CoursesVM.cs" />
     <Compile Include="ViewModels\CreateStudentAccountVM.cs" />
     <Compile Include="ViewModels\CreateTeacherAccountVM.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />

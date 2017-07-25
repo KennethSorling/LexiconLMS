@@ -32,7 +32,7 @@ textarea {
 .page-header {
     font-size: 50px;
     line-height: 54px;
-    padding: 0 15px 18px 15px;
+    padding: 0 15px 18px 0;
     font-family: "caslonno224ef-blackregular", "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
     font-family: 'Chonburi', cursive;
     color: #202020;
@@ -54,7 +54,7 @@ a {
 }
 
 .cancel-link {
-    margin-top: 200px;
+    padding-left: 30px;
 }
 
 .editor-multiline-field textarea {
@@ -197,6 +197,39 @@ hr {
   color: #fff;
   background-color: #ee4848;
   border-color: #ee4848;
+}
+
+.btn-delete-confirm {
+    color: #d60000;
+    background-color: #d60000;
+    border-color: #d60000;
+    padding: 0 26px 0 10px;
+    margin: 0 6px 0 70px;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+}
+
+    .btn-delete-confirm:hover,
+    .btn-delete-confirm:focus,
+    .btn-delete-confirm:active,
+    .btn-delete-confirm.active,
+    .open .dropdown-toggle.btn-default {
+        color: #fff;
+        background-color: #ee4848;
+        border-color: #ee4848;
+    }
+
+.btn-with-cancel {
+    white-space: nowrap;
+    display: inline;
+    vertical-align: middle;
 }
 
 .red-divider {

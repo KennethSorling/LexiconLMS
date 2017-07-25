@@ -20,25 +20,17 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="@Url.Action("Index","Courses")">
-                    <img src="../Content/Images/lexiconlogo.png" />
+                    <img src="~/Content/Images/lexiconlogo.png" />
                 </a>
-                @*@Html.ActionLink("LEXICON LMS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
-                    <li>@Html.ActionLink("Teachers", "Index", "Account", new { wantedList = "TeacherList" })</li>
-                    <li>@Html.ActionLink("Students", "Index", "Account", new { wantedList = "StudentList" })</li>
                     @if (User.IsInRole("Teacher"))
                     {
                         <li>@Html.ActionLink("Courses", "Index", "Courses")</li>
-                        <li>@Html.ActionLink("Students", "Index", "Students")</li>
-                        <li>@Html.ActionLink("Teachers", "Index", "Teachers")</li>
+                        <li>@Html.ActionLink("Students", "Index", "Account", new { wantedList = "StudentList" })</li>
+                        <li>@Html.ActionLink("Teachers", "Index", "Account", new { wantedList = "TeacherList" })</li>
                     }
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
