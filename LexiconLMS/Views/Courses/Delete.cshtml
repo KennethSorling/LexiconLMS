@@ -1,56 +1,54 @@
 ﻿@model LexiconLMS.Models.Course
 
-@{
-    ViewBag.Title = "Delete";
-}
+<p class="page-header">Delete Course</p>
 
-<h2>Delete</h2>
+    <h3>Are you sure you want to delete this course including all modules, activities and attending students?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Course</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StartDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm("Delete", "Courses"))
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-11">
+                    <button type="submit" value="Delete" class="btn btn-default btn-delete-confirm  btn-with-cancel">Confirm Delete</button>
+                    <span>@Html.ActionLink("Cancel", "Index", null, new { @class = "cancel-link" })</span>
+                </div>
+            </div>
+        }
+    </div>

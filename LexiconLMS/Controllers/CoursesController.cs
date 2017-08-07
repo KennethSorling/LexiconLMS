@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LexiconLMS.Models;
+using LexiconLMS.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using LexiconLMS.Models;
 
 namespace LexiconLMS.Controllers
 {
+    [Authorize]
     public class CoursesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,7 +16,14 @@ namespace LexiconLMS.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            return View(db.Courses.ToList());
+            var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+
+            var courseListModel = new CoursesVM();
+
+            courseListModel.Courses = courses;
+            courseListModel.ViewTitle = "Courses";
+
+            return View("Index", courseListModel);
         }
 
         // GET: Courses/Details/5
@@ -52,7 +58,14 @@ namespace LexiconLMS.Controllers
             {
                 db.Courses.Add(course);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+
+                var courseListModel = new CoursesVM();
+
+                courseListModel.Courses = courses;
+                courseListModel.ViewTitle = "Courses";
+                return RedirectToAction("Index", courseListModel);
             }
 
             return View(course);
@@ -84,7 +97,14 @@ namespace LexiconLMS.Controllers
             {
                 db.Entry(course).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+
+                var courseListModel = new CoursesVM();
+
+                courseListModel.Courses = courses;
+                courseListModel.ViewTitle = "Courses";
+                return RedirectToAction("Index", courseListModel);
             }
             return View(course);
         }

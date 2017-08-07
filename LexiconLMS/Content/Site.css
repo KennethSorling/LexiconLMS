@@ -22,3 +22,218 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar img {
+    width: 30%;
+    height: 30%;
+    margin: 5px 5px 5px 5px;
+}
+
+.page-header {
+    font-size: 50px;
+    line-height: 54px;
+    padding: 0 15px 18px 0;
+    font-family: "caslonno224ef-blackregular", "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    font-family: 'Chonburi', cursive;
+    color: #202020;
+    font-weight: bold;
+    border: none;
+}
+
+.date {
+    font-weight: bold;
+}
+
+.course-name {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+a {
+    color: #202020;
+}
+
+.cancel-link {
+    padding-left: 30px;
+}
+
+.editor-multiline-field textarea {
+    height: 170px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 2px solid #eeeeee;
+}
+
+.btn-add {
+    color: #198521;
+    background-color: #198521;
+    border-color: #198521;
+    padding: 0 26px 0 10px;
+    margin: 50px 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+    vertical-align: text-bottom;
+}
+
+.btn-save {
+    color: #198521;
+    background-color: #198521;
+    border-color: #198521;
+    padding: 0 26px 0 10px;
+    margin: 0 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+    vertical-align: text-bottom;
+}
+
+.btn-add:hover,
+.btn-add:focus,
+.btn-add:active,
+.btn-add.active,
+.btn-save:hover,
+.btn-save:focus,
+.btn-save:active,
+.btn-save.active,
+.open .dropdown-toggle.btn-default {
+  color: #fff;
+  background-color: #50bc58;
+  border-color: #50bc58;
+}
+
+.btn-more-info {
+    color: #6e3694;
+    background-color: #6e3694;
+    border-color: #6e3694;
+    padding: 0 26px 0 10px;
+    margin: 0 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+}
+
+.btn-more-info:hover,
+.btn-more-info:focus,
+.btn-more-info:active,
+.btn-more-info.active,
+.open .dropdown-toggle.btn-default {
+  color: #fff;
+  background-color: #824aa8;
+  border-color: #824aa8;
+}
+
+.btn-edit {
+    color: #ddd424;
+    background-color: #ddd424;
+    border-color: #ddd424;
+    padding: 0 26px 0 10px;
+    margin: 0 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+}
+
+.btn-edit:hover,
+.btn-edit:focus,
+.btn-edit:active,
+.btn-edit.active,
+.open .dropdown-toggle.btn-default {
+  color: #fff;
+  background-color: #fbef06;
+  border-color: #fbef06;
+}
+
+.btn-delete {
+    color: #d60000;
+    background-color: #d60000;
+    border-color: #d60000;
+    padding: 0 26px 0 10px;
+    margin: 0 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+}
+
+.btn-delete:hover,
+.btn-delete:focus,
+.btn-delete:active,
+.btn-delete.active,
+.open .dropdown-toggle.btn-default {
+  color: #fff;
+  background-color: #ee4848;
+  border-color: #ee4848;
+}
+
+.btn-delete-confirm {
+    color: #d60000;
+    background-color: #d60000;
+    border-color: #d60000;
+    padding: 0 26px 0 10px;
+    margin: 0 6px 0 70px;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+}
+
+    .btn-delete-confirm:hover,
+    .btn-delete-confirm:focus,
+    .btn-delete-confirm:active,
+    .btn-delete-confirm.active,
+    .open .dropdown-toggle.btn-default {
+        color: #fff;
+        background-color: #ee4848;
+        border-color: #ee4848;
+    }
+
+.btn-with-cancel {
+    white-space: nowrap;
+    display: inline;
+    vertical-align: middle;
+}
+
+.red-divider {
+    color: #d60000;
+    font-size: large;
+}
+
