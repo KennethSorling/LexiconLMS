@@ -5,7 +5,7 @@ namespace LexiconLMS.Models
 {
     public class Module
     {
-        public int Id { get; set; }
+        public int Id { get; set; } //will be passed to the Activities module in the controller
         public int CourseId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

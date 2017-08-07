@@ -1,47 +1,51 @@
-﻿@model IEnumerable<LexiconLMS.Models.Module>
+﻿
+@model LexiconLMS.ViewModels.ModulesVM
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>@Model.ViewTitle</h2>
+<!--Course Description-->
+<p>@Html.DisplayFor(model => model.Description)</p><!--Description is empty-->
 
+
+<h3>Course Modules</h3>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>        
         <th>
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
+    
+@if (Model.Modules != null) {
+    foreach (var item in Model.Modules) {
+    <tr>        
         <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
+            <a href="">@Html.DisplayFor(modelItem => item.Name)</a>
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.StartDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EndDate)
@@ -52,6 +56,28 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
+    }
 }
+</table>
+
+<h3>Attending Students</h3>
+<table class="table">
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>@Html.DisplayNameFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayNameFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayNameFor(modelItem => item.Email)</td>
+            </tr>
+        }
+
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            </tr>
+        }
 
 </table>

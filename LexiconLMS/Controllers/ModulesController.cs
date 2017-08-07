@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LexiconLMS.Models;
+using LexiconLMS.ViewModels;
 
 namespace LexiconLMS.Controllers
 {
@@ -15,12 +16,37 @@ namespace LexiconLMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Modules
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.Modules.ToList());
+            //receive an id 
+            id = 1;
+            var modules = db.Modules.
+                             Where(c => c.CourseId == id).OrderByDescending(s => s.StartDate).ToList();
+            //var courses = db.Courses.Where(c => c.Id == id).OrderByDescending(s => s.StartDate).ToList();
+            var students = db.Users.ToList();
+
+            var moduleListModel = new ModulesVM();
+            //var courseListModel = new CoursesVM();
+            //Details(id);
+            moduleListModel.Modules = modules; //moduleList from the database is sent to the ViewModel
+            moduleListModel.Students = students;
+            //courseListModel.Courses = courses;
+
+            Course course = db.Courses.Find(id);
+
+            moduleListModel.Description = course.Description;
+            moduleListModel.ViewTitle = course.Name;
+            return View("Index", moduleListModel);
+
+
+
+            //return View(db.Modules.ToList());
+            //create the action model: populate the model with the right data
+
         }
 
         // GET: Modules/Details/5
+        //
         public ActionResult Details(int? id)
         {
             if (id == null)
