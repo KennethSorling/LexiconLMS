@@ -27,6 +27,7 @@ namespace LexiconLMS.Controllers
 
             var moduleListModel = new ModulesVM();
             //var courseListModel = new CoursesVM();
+            //TEst
             //Details(id);
             moduleListModel.Modules = modules; //moduleList from the database is sent to the ViewModel
             moduleListModel.Students = students;
