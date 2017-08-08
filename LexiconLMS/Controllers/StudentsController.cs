@@ -84,7 +84,7 @@ namespace LexiconLMS.Controllers
         // GET: Students/Create
         [HttpGet]
         [Authorize(Roles ="Teacher")]
-        public ActionResult Create()
+        public ActionResult Create(int? courseId)
         {
             var vm = new CreateStudentAccountVM
             {
@@ -94,7 +94,10 @@ namespace LexiconLMS.Controllers
                     Text = x.Name
                 })
             };
-
+            if (courseId != null)
+            {
+                vm.CourseId = courseId.GetValueOrDefault();
+            }
             return View(vm);
         }
 
@@ -134,7 +137,7 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Users.Find(id) as Student;
+            ApplicationUser student = db.Users.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -168,6 +171,7 @@ namespace LexiconLMS.Controllers
                 student.CourseId = vm.CourseId;
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["Message"] = "Account Updated";
                 return RedirectToAction("Index");
             }
             vm.Courses = db.Courses.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
@@ -181,7 +185,7 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Users.Find(id) as Student;
+            ApplicationUser student = db.Users.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -203,9 +207,10 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Student student = db.Users.Find(id) as Student;
+            ApplicationUser student = db.Users.Find(id);
             db.Users.Remove(student);
             db.SaveChanges();
+            TempData["Message"] = "Account deleted.";
             return RedirectToAction("Index");
         }
 

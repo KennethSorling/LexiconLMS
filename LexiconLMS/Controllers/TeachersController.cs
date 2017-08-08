@@ -212,7 +212,8 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Teacher teacher = db.Users.Find(id) as Teacher;
+            //Teacher teacher = db.Users.Find(id) as Teacher;
+            ApplicationUser teacher = db.Users.Where(t => t.Id == id).FirstOrDefault();
             if (teacher == null)
             {
                 return HttpNotFound();
@@ -232,9 +233,10 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Teacher teacher = db.Users.Find(id) as Teacher;
+            ApplicationUser teacher = db.Users.Find(id);
             db.Users.Remove(teacher);
             db.SaveChanges();
+            TempData["Message"] = "Account Deleted.";
             return RedirectToAction("Index");
         }
 

@@ -113,11 +113,14 @@ namespace LexiconLMS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ModuleId,ActivityTypeId,Name,Description,StartDate,EndDate,DateApproved,External")] Activity activity)
         {
+            int moduleId = 0;
             if (ModelState.IsValid)
             {
+                moduleId = activity.ModuleId;
                 db.Entry(activity).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                TempData["Message"] = "Activity updated.";
+                return RedirectToAction("Manage", "Modules",  new { id = moduleId });
             }
             ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "Id", "TypeName", activity.ActivityTypeId);
             return View(activity);
