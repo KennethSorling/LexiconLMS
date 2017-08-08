@@ -178,41 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707191334393_InitialProjectCreated.cs" />
-    <Compile Include="Migrations\201707191334393_InitialProjectCreated.Designer.cs">
-      <DependentUpon>201707191334393_InitialProjectCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707191350299_AddingSeedCode.cs" />
-    <Compile Include="Migrations\201707191350299_AddingSeedCode.Designer.cs">
-      <DependentUpon>201707191350299_AddingSeedCode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707200934389_addedAccountCreationViewModels.cs" />
-    <Compile Include="Migrations\201707200934389_addedAccountCreationViewModels.Designer.cs">
-      <DependentUpon>201707200934389_addedAccountCreationViewModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707201207159_addedTeacherAndStudentEntities.cs" />
-    <Compile Include="Migrations\201707201207159_addedTeacherAndStudentEntities.Designer.cs">
-      <DependentUpon>201707201207159_addedTeacherAndStudentEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707201313107_addedMoreViewModels.cs" />
-    <Compile Include="Migrations\201707201313107_addedMoreViewModels.Designer.cs">
-      <DependentUpon>201707201313107_addedMoreViewModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707201358285_addedViewModelForEditingTeachers.cs" />
-    <Compile Include="Migrations\201707201358285_addedViewModelForEditingTeachers.Designer.cs">
-      <DependentUpon>201707201358285_addedViewModelForEditingTeachers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707210732087_updateedVMforStudentCreation.cs" />
-    <Compile Include="Migrations\201707210732087_updateedVMforStudentCreation.Designer.cs">
-      <DependentUpon>201707210732087_updateedVMforStudentCreation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707210942351_useraccountsworkingprettywell.cs" />
-    <Compile Include="Migrations\201707210942351_useraccountsworkingprettywell.Designer.cs">
-      <DependentUpon>201707210942351_useraccountsworkingprettywell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707211253111_prettifiedtheviewmodels.cs" />
-    <Compile Include="Migrations\201707211253111_prettifiedtheviewmodels.Designer.cs">
-      <DependentUpon>201707211253111_prettifiedtheviewmodels.cs</DependentUpon>
+    <Compile Include="Migrations\201708080913121_Reinitialize.cs" />
+    <Compile Include="Migrations\201708080913121_Reinitialize.Designer.cs">
+      <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -235,7 +203,7 @@
     <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
-    <Compile Include="ViewModels\ModuleManageVM.cs" />
+    <Compile Include="ViewModels\ManageVM.cs" />
     <Compile Include="ViewModels\ModulesVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
     <Compile Include="Views\TeacherListVM.cs" />
@@ -322,10 +290,9 @@
     <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Courses\CoursesList.cshtml" />
-    <Content Include="Views\Modules\Manage.cshtml" />
-    <Content Include="Views\Activities\Manage.cshtml" />
-    <Content Include="Views\Shared\_ActivityList.cshtml" />
+    <Content Include="Views\Shared\_ModuleListView.cshtml" />
+    <Content Include="Views\Courses\Manage.cshtml" />
+    <Content Include="Views\Shared\_StudentListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,32 +307,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707191334393_InitialProjectCreated.resx">
-      <DependentUpon>201707191334393_InitialProjectCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707191350299_AddingSeedCode.resx">
-      <DependentUpon>201707191350299_AddingSeedCode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707200934389_addedAccountCreationViewModels.resx">
-      <DependentUpon>201707200934389_addedAccountCreationViewModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707201207159_addedTeacherAndStudentEntities.resx">
-      <DependentUpon>201707201207159_addedTeacherAndStudentEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707201313107_addedMoreViewModels.resx">
-      <DependentUpon>201707201313107_addedMoreViewModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707201358285_addedViewModelForEditingTeachers.resx">
-      <DependentUpon>201707201358285_addedViewModelForEditingTeachers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707210732087_updateedVMforStudentCreation.resx">
-      <DependentUpon>201707210732087_updateedVMforStudentCreation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707210942351_useraccountsworkingprettywell.resx">
-      <DependentUpon>201707210942351_useraccountsworkingprettywell.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707211253111_prettifiedtheviewmodels.resx">
-      <DependentUpon>201707211253111_prettifiedtheviewmodels.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708080913121_Reinitialize.resx">
+      <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
