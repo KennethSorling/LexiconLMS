@@ -14,6 +14,17 @@ namespace LexiconLMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Courses
+        public ActionResult Manage(int? id=1)
+        {
+
+            var course = db.Courses.Where(c => c.Id == id).FirstOrDefault();
+            var students = db.ApplicationUsers.Where(s => s.CourseId == id).ToList();
+            course.Students = students;
+            ViewBag.Title = "Course Details";
+            return View(course);
+        }
+
+
         public ActionResult Index()
         {
             var courses = db.Courses.OrderByDescending(s => s.StartDate);

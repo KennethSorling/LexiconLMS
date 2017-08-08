@@ -1,0 +1,32 @@
+﻿@model LexiconLMS.Models.Course
+@{
+    ViewBag.Title = "Course Details";
+    ViewBag.CourseId = Model.Id;
+}
+<div class="row">
+    <div class="col col-md-8">
+        <div class="course-name">
+            <p class="page-header">@Model.Name</p>
+        </div>
+        <span class="date"> @Model.StartDate</span>
+        <span class="date">  -  </span>
+        <span class="date">@Model.EndDate</span>        
+    </div>    
+</div>
+
+<div class="row">
+    <div class="col col-md-8">
+        <p class="description">
+            @Model.Description
+        </p>
+    </div>
+    <div class="col-6 col-md-4">
+        @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit " })
+        <br />
+        @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete " })       
+    </div>
+</div>
+
+<P>@Html.Partial("_ModuleListView", Model.Modules)</P>
+<p>Number of Students: @Model.Students.Count()</p>
+<P>@Html.Partial("_StudentListView", Model.Students)</P>

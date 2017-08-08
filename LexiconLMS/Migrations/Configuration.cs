@@ -1,18 +1,19 @@
 namespace LexiconLMS.Migrations
 {
-    using LexiconLMS.Models;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.Linq;
+    using LexiconLMS.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity;
 
     internal sealed class Configuration : DbMigrationsConfiguration<LexiconLMS.Models.ApplicationDbContext>
     {
-
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
-
 
         protected override void Seed(LexiconLMS.Models.ApplicationDbContext context)
         {
@@ -33,7 +34,7 @@ namespace LexiconLMS.Migrations
             if (roleManager.FindByName("Teacher") == null)
             {
                 teacherRole = new IdentityRole("Teacher");
-                result =  roleManager.Create(teacherRole);
+                result = roleManager.Create(teacherRole);
             }
             if (roleManager.FindByName("Student") == null)
             {
@@ -42,12 +43,13 @@ namespace LexiconLMS.Migrations
             }
             if (userManager.FindByEmail("oscar.jakobsson@lexicon.se") == null)
             {
-                user = new Teacher {
-                        FirstName = "Oscar",
-                        LastName = "Jakobsson",
-                        Email = "oscar.jakobsson@lexicon.se",
-                        UserName = "oscar.jakobsson@lexicon.se"
-                    };
+                user = new Teacher
+                {
+                    FirstName = "Oscar",
+                    LastName = "Jakobsson",
+                    Email = "oscar.jakobsson@lexicon.se",
+                    UserName = "oscar.jakobsson@lexicon.se"
+                };
                 result = userManager.Create(user, "VerySecret123!");
                 result = userManager.AddToRole(user.Id, "Teacher");
             }
@@ -63,7 +65,7 @@ namespace LexiconLMS.Migrations
                     Email = "student.studentsson@lexicon.se",
                     CourseId = 1,
                     UserName = "student.studentsson@lexicon.se"
-                    
+
                 };
                 result = userManager.Create(user, "VerySecret123!");
                 result = userManager.AddToRole(user.Id, "Student");
