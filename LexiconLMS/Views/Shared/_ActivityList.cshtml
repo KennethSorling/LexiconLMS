@@ -1,0 +1,48 @@
+﻿@model IEnumerable<LexiconLMS.Models.Activity>
+
+<p>
+    @Html.ActionLink("Add Activity", "Create", "Activities", new { moduleId = ViewBag.ModuleId }, new {@Class="btn btn-default btn-add" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            End Time
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @item.StartDate.ToShortDateString()
+        </td>
+        <td>
+            @item.StartDate.TimeOfDay
+        </td>
+        <td>
+            @item.EndDate.ToShortDateString()
+        </td>
+        <td>
+            @item.EndDate.TimeOfDay
+        </td>
+        <td>
+            @Html.ActionLink("Manage", "Manage", "Activities", new { id=item.Id }, new {@class="btn btn-default btn-edit"})
+        </td>
+    </tr>
+}
+
+</table>

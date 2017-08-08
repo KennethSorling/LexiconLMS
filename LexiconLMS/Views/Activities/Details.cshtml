@@ -1,10 +1,10 @@
 ﻿@model LexiconLMS.Models.Activity
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Activity Details";
 }
 
-<h2>Details</h2>
+<p class="page-header">@ViewBag.Title</p>
 
 <div>
     <h4>Activity</h4>
@@ -16,14 +16,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Type.TypeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModuleId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModuleId)
         </dd>
 
         <dt>
@@ -58,13 +50,6 @@
             @Html.DisplayFor(model => model.EndDate)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateApproved)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateApproved)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.External)
@@ -77,6 +62,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new {@class="btn btn-default btn-edit" })
+    <br />
+    @Html.ActionLink("Back", "Manage", "Modules", new { id = Model.ModuleId }, new { })
 </p>

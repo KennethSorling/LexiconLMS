@@ -4,7 +4,7 @@
     ViewBag.Title = "Account Created";
 }
 
-<h2>@ViewBag.Title</h2>
+<p class="page-title">@ViewBag.Title</p>
 
 <div>
     <hr />
@@ -44,6 +44,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new {@class="btn btn-default btn-edit" })
+    <br />
+    @Html.ActionLink("Back", "Index")
 </p>

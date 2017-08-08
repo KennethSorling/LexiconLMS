@@ -13,9 +13,13 @@
     <div class="col col-md-8">
         <p class="page-header">@ViewBag.Title</p>
     </div>
+    @*<div class="col-6 col-md-4">
+        <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
+    </div>*@
     <div class="col-6 col-md-4">
-        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add btnAddCourse" })
+        @Html.ActionLink("Add Course", "Create", "Courses", new { @class="btn btn-default btn-add btnAddCourse"})
     </div>
+
 </div>
 
 @*<ol class="breadcrumb">

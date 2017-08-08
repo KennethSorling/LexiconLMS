@@ -37,11 +37,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete Account" class="btn btn-default" /> |
+            <input type="submit" value="Delete Account" class="btn btn-default btn-delete" />
+            <br />
             @Html.ActionLink("Back to List", "Index")
         </div>
     }
