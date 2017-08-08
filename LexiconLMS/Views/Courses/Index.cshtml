@@ -8,9 +8,13 @@
     <div class="col col-md-8">
         <p class="page-header">@Model.ViewTitle</p>
     </div>
-    <div class="col-6 col-md-4">
+    @*<div class="col-6 col-md-4">
         <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
+    </div>*@
+    <div class="col-6 col-md-4">
+        @Html.ActionLink("Add Course", "Create", "Courses", new { @class="btn btn-default btn-add btnAddCourse"})
     </div>
+
 </div>
 
 <ol class="breadcrumb">
@@ -86,9 +90,9 @@
         <hr />
         @*<div class="row">
             <div class="col col-md-8">*@
-                <div class="course-name">
-                    @Html.ActionLink(item.Name, "Index", "Modules", new { id = item.Id }, null)
-                </div>
+        <div class="course-name">
+            @Html.ActionLink(item.Name, "Index", "Modules", new { id = item.Id }, null)
+        </div>
 
                 <span class="date"> @Html.DisplayFor(modelItem => item.StartDate)</span>
                 <span class="date">  -  </span>
@@ -97,12 +101,12 @@
                 <p class="description">
                     @Html.DisplayFor(modelItem => item.Description)
                 </p>
-            @*</div>*@
-            @*<div class="col-6 col-md-4">*@
+                @*</div>*@
+                @*<div class="col-6 col-md-4">*@
                 <button type="button" class="btn btn-default btn-edit" onclick="location.href='@Url.Action("Edit", "Courses")';return false;">Edit Course</button>
                 <br />
                 <button type="button" class="btn btn-default btn-delete" onclick="location.href='@Url.Action("Delete", "Courses")';return false;">Delete Course</button>
-            @*</div>*@
-        @*</div>*@
+                @*</div>*@
+                @*</div>*@
     }
 }

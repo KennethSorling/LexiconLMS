@@ -227,14 +227,18 @@
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CourseManageVM.cs" />
     <Compile Include="ViewModels\CoursesVM.cs" />
+    <Compile Include="ViewModels\CreateEditActivityVM.cs" />
     <Compile Include="ViewModels\CreateStudentAccountVM.cs" />
     <Compile Include="ViewModels\CreateTeacherAccountVM.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
+    <Compile Include="ViewModels\ModuleManageVM.cs" />
+    <Compile Include="ViewModels\ModulesVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
-    <Compile Include="ViewModels\TeacherListVM.cs" />
+    <Compile Include="Views\TeacherListVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -253,6 +257,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lexiconlms.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -317,6 +322,10 @@
     <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
+    <Content Include="Views\Courses\CoursesList.cshtml" />
+    <Content Include="Views\Modules\Manage.cshtml" />
+    <Content Include="Views\Activities\Manage.cshtml" />
+    <Content Include="Views\Shared\_ActivityList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

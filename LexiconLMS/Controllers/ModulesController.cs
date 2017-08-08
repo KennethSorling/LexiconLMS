@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LexiconLMS.Models;
+using LexiconLMS.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using LexiconLMS.Models;
-using LexiconLMS.ViewModels;
 
 namespace LexiconLMS.Controllers
 {
+    [Authorize]
     public class ModulesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -112,6 +110,14 @@ namespace LexiconLMS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            return View(module);
+        }
+
+        public ActionResult Manage(int id)
+        {
+            var module = db.Modules.Where(m => m.Id == id).FirstOrDefault();
+            var course = db.Courses.Where(c => c.Id == module.CourseId).FirstOrDefault();
+            ViewBag.CourseName = course.Name;
             return View(module);
         }
 

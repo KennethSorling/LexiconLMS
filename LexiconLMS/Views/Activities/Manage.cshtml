@@ -1,0 +1,33 @@
+﻿@model LexiconLMS.Models.Activity
+
+@{
+    ViewBag.Title = "Manage Activity";
+}
+
+<p class="page-header">@ViewBag.Title</p>
+
+<div class="row">
+    <div class="col-md-8">
+            <div class="col-md-4 bold-info">
+                Course: @ViewBag.CourseName
+            </div>
+            <div class="col-md-4 bold-info">
+                Module: @ViewBag.ModuleName
+            </div>
+            <div class="col-md-4 bold-info">
+                Activity: @Model.Name
+            </div>
+            <div class="col-md-12">
+                @Html.DisplayFor(model => Model.Description)
+            </div>
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new {@class="btn btn-default btn-edit" })
+        <br />
+        @Html.ActionLink("Delete", "Delete", "Activities", new { id = Model.Id }, new {@class="btn btn-default btn-delete" })
+        <br />
+        @Html.ActionLink("Back", "Manage", "Modules", new { id=Model.ModuleId }, new {})
+    </div>
+    </div>
+<p>
+</p>
