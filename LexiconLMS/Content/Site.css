@@ -68,6 +68,11 @@ hr {
     border-top: 2px solid #eeeeee;
 }
 
+.btn-left-margin {
+    margin-left: 100px;
+}
+
+
 .btn-add {
     color: #198521;
     background-color: #198521;
@@ -85,6 +90,46 @@ hr {
     display: block;
     vertical-align: text-bottom;
 }
+
+.btn-add {
+    color: #198521;
+    background-color: #198521;
+    border-color: #198521;
+    padding: 0 26px 0 10px;
+    margin: 50px 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+    vertical-align: text-bottom;
+}
+
+.btn-add-module, 
+.btn-add-student {
+    color: #198521;
+    background-color: #198521;
+    border-color: #198521;
+    padding: 0 26px 0 10px;
+    margin: 10px 6px 0 0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    height: 40px;
+    width: 160px;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    display: block;
+    vertical-align: text-bottom;
+}
+
+
+
 
 .btn-save {
     color: #198521;
@@ -112,6 +157,12 @@ hr {
 .btn-save:focus,
 .btn-save:active,
 .btn-save.active,
+.btn-add-module:hover, 
+.btn-add-student:hover,
+.btn-add-module:focus, 
+.btn-add-student:focus,
+.btn-add-module:active, 
+.btn-add-student:active,
 .open .dropdown-toggle.btn-default {
   color: #fff;
   background-color: #50bc58;
@@ -146,7 +197,7 @@ hr {
 }
 
 .btn-edit {
-    color: #ddd424;
+ 
     background-color: #ddd424;
     border-color: #ddd424;
     padding: 0 26px 0 10px;

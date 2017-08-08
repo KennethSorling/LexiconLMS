@@ -7,7 +7,7 @@ using System.Web;
 
 namespace LexiconLMS.ViewModels
 {
-    public class ModulesVM
+    public class ModulesVM  //Name to change 2/3
     {
         //Properties from Models.Module.cs
         public int      Id          { get; set; }
