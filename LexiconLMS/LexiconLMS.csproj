@@ -233,6 +233,7 @@
     <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
+    <Compile Include="ViewModels\ModulesVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
     <Compile Include="ViewModels\TeacherListVM.cs" />
   </ItemGroup>

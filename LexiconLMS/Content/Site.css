@@ -72,7 +72,7 @@ hr {
     color: #198521;
     background-color: #198521;
     border-color: #198521;
-    padding: 0 26px 0 10px;
+    padding: 9px 26px 0 10px;
     margin: 50px 6px 0 0;
     font-weight: 700;
     text-align: center;
@@ -90,7 +90,7 @@ hr {
     color: #198521;
     background-color: #198521;
     border-color: #198521;
-    padding: 0 26px 0 10px;
+    padding: 0 26px 0px 10px;
     margin: 0 6px 0 0;
     font-weight: 700;
     text-align: center;
@@ -149,7 +149,7 @@ hr {
     color: #ddd424;
     background-color: #ddd424;
     border-color: #ddd424;
-    padding: 0 26px 0 10px;
+    padding: 9px 26px 0 10px;
     margin: 0 6px 0 0;
     font-weight: 700;
     text-align: center;
@@ -176,7 +176,7 @@ hr {
     color: #d60000;
     background-color: #d60000;
     border-color: #d60000;
-    padding: 0 26px 0 10px;
+    padding: 9px 26px 0 10px;
     margin: 0 6px 0 0;
     font-weight: 700;
     text-align: center;
@@ -203,7 +203,7 @@ hr {
     color: #d60000;
     background-color: #d60000;
     border-color: #d60000;
-    padding: 0 26px 0 10px;
+    padding: 11px 23px 11px 23px;
     margin: 0 6px 0 70px;
     font-weight: 700;
     text-align: center;

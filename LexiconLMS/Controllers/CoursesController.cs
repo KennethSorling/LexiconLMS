@@ -1,5 +1,5 @@
 ﻿using LexiconLMS.Models;
-using LexiconLMS.ViewModels;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -16,14 +16,11 @@ namespace LexiconLMS.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+            var courses = db.Courses.OrderByDescending(s => s.StartDate);
 
-            var courseListModel = new CoursesVM();
+            ViewBag.Title = "Courses";
 
-            courseListModel.Courses = courses;
-            courseListModel.ViewTitle = "Courses";
-
-            return View("Index", courseListModel);
+            return View("Index", courses.ToList());
         }
 
         // GET: Courses/Details/5
@@ -59,13 +56,9 @@ namespace LexiconLMS.Controllers
                 db.Courses.Add(course);
                 db.SaveChanges();
 
-                var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+                TempData["Message"] = "The new course " + '"' + course.Name + '"' + " was added";
 
-                var courseListModel = new CoursesVM();
-
-                courseListModel.Courses = courses;
-                courseListModel.ViewTitle = "Courses";
-                return RedirectToAction("Index", courseListModel);
+                return RedirectToAction("Index");
             }
 
             return View(course);
@@ -98,13 +91,9 @@ namespace LexiconLMS.Controllers
                 db.Entry(course).State = EntityState.Modified;
                 db.SaveChanges();
 
-                var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+                TempData["Message"] = "Edits for the course " + '"' + course.Name + '"' + " were saved";
 
-                var courseListModel = new CoursesVM();
-
-                courseListModel.Courses = courses;
-                courseListModel.ViewTitle = "Courses";
-                return RedirectToAction("Index", courseListModel);
+                return RedirectToAction("Index");
             }
             return View(course);
         }
@@ -132,6 +121,9 @@ namespace LexiconLMS.Controllers
             Course course = db.Courses.Find(id);
             db.Courses.Remove(course);
             db.SaveChanges();
+
+            TempData["Message"] = "The course " + '"' + course.Name + '"' + " was deleted";
+
             return RedirectToAction("Index");
         }
 

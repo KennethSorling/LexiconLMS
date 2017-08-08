@@ -1,27 +1,32 @@
-﻿@model LexiconLMS.ViewModels.CoursesVM
+﻿@model IEnumerable<LexiconLMS.Models.Course>
 
-@*@{
-        ViewBag.Title = "Index";
-    }*@
+<head>
+    <script src="http://code.jquery.com/jquery-1.4.2.min.js">
+    </script>
+</head>
+
+<div id="message">
+    @TempData["Message"]
+</div>
 
 <div class="row">
     <div class="col col-md-8">
-        <p class="page-header">@Model.ViewTitle</p>
+        <p class="page-header">@ViewBag.Title</p>
     </div>
     <div class="col-6 col-md-4">
-        <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
+        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add btnAddCourse" })
     </div>
 </div>
 
-<ol class="breadcrumb">
-    <li class="active"><a href="#">Courses</a></li>
-    <li><a href="#">Modules</a></li>
-    <li><a href="#">Activities</a></li>
-</ol>
+@*<ol class="breadcrumb">
+        <li class="active"><a href="#">Courses</a></li>
+        <li><a href="#">Modules</a></li>
+        <li><a href="#">Activities</a></li>
+    </ol>*@
 
-@if (Model.Courses != null)
+@if (Model != null)
 {
-    foreach (var item in Model.Courses)
+    foreach (var item in Model)
     {
         <hr />
         <div class="row">
@@ -39,70 +44,21 @@
                 </p>
             </div>
             <div class="col-6 col-md-4">
-                <button type="button" class="btn btn-default btn-more-info" onclick="location.href='@Url.Action("Index", "Modules")';return false;">Course Modules</button>
+                @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = item.Id }, new { @class = "btn btn-default btn-edit" })
                 <br />
-                <button type="button" class="btn btn-default btn-edit" onclick="location.href='@Url.Action("Edit", "Courses", new { id = item.Id } )';return false;">Edit Course</button>
-                <br />
-                <button type="button" class="btn btn-default btn-delete" onclick="location.href='@Url.Action("Delete", "Courses", new { id = item.Id } )';return false;">Delete Course</button>
+                @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = item.Id }, new { @class = "btn btn-default btn-delete" })
             </div>
         </div>
     }
 }
 
+<script>
+    $(document).ready(function () {
+        fadeOutMessage();
+    });
 
-@if (Model.Courses != null)
-{
-    foreach (var item in Model.Courses)
-    {
-        <hr />
-        <div class="row">
-            <div class="col col-md-8">
-                <div class="course-name">
-                    @Html.ActionLink(item.Name, "Index", "Modules", new { id = item.Id }, null)
-                </div>
-
-                <span class="date"> @Html.DisplayFor(modelItem => item.StartDate)</span>
-                <span class="date">  -  </span>
-                <span class="date">@Html.DisplayFor(modelItem => item.EndDate)</span>
-
-                <p class="description">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </p>
-            </div>
-            <div class="col-6 col-md-4">
-                <button type="button" class="btn btn-default btn-edit" onclick="location.href='@Url.Action("Edit", "Courses")';return false;">Edit Course</button>
-                <br />
-                <button type="button" class="btn btn-default btn-delete" onclick="location.href='@Url.Action("Delete", "Courses")';return false;">Delete Course</button>
-            </div>
-        </div>
-    }
-}
-
-
-@if (Model.Courses != null)
-{
-    foreach (var item in Model.Courses)
-    {
-        <hr />
-        @*<div class="row">
-            <div class="col col-md-8">*@
-                <div class="course-name">
-                    @Html.ActionLink(item.Name, "Index", "Modules", new { id = item.Id }, null)
-                </div>
-
-                <span class="date"> @Html.DisplayFor(modelItem => item.StartDate)</span>
-                <span class="date">  -  </span>
-                <span class="date">@Html.DisplayFor(modelItem => item.EndDate)</span>
-
-                <p class="description">
-                    @Html.DisplayFor(modelItem => item.Description)
-                </p>
-            @*</div>*@
-            @*<div class="col-6 col-md-4">*@
-                <button type="button" class="btn btn-default btn-edit" onclick="location.href='@Url.Action("Edit", "Courses")';return false;">Edit Course</button>
-                <br />
-                <button type="button" class="btn btn-default btn-delete" onclick="location.href='@Url.Action("Delete", "Courses")';return false;">Delete Course</button>
-            @*</div>*@
-        @*</div>*@
-    }
-}
+    function fadeOutMessage() {
+        var x = document.getElementById('message');
+        $(x).fadeOut(5000);
+    };
+</script>
