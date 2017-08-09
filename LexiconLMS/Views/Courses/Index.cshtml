@@ -5,9 +5,9 @@
     </script>
 </head>
 
-<div id="message">
+@*<div id="message">
     @TempData["Message"]
-</div>
+</div>*@
 
 <div class="row">
     <div class="col col-md-8">
@@ -36,8 +36,9 @@
         <div class="row">
             <div class="col col-md-8">
                 <div class="course-name">
-                    @Html.ActionLink(item.Name, "Index", "Modules", new { id = item.Id }, null)
-                </div>
+                    @Html.ActionLink(item.Name, "Manage", "Courses", new { id = item.Id }, null)
+
+                 </div>
 
                 <span class="date"> @Html.DisplayFor(modelItem => item.StartDate)</span>
                 <span class="date">  -  </span>
@@ -56,13 +57,3 @@
     }
 }
 
-<script>
-    $(document).ready(function () {
-        fadeOutMessage();
-    });
-
-    function fadeOutMessage() {
-        var x = document.getElementById('message');
-        $(x).fadeOut(5000);
-    };
-</script>

@@ -28,7 +28,6 @@ namespace LexiconLMS.Controllers
         public ActionResult Index()
         {
             var courses = db.Courses.OrderByDescending(s => s.StartDate);
-
             ViewBag.Title = "Courses";
 
             return View("Index", courses.ToList());

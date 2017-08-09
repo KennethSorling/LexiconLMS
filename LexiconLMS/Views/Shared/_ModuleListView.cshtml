@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Module>
 
 <div class="row">
-    <div class="col col-md-8">        
-        <p class="description">Course Modules</p>
-    </div>
     <div class="col-6 col-md-4">        
         @Html.ActionLink("Add Module", "Create", "Modules", new { courseId = ViewBag.CourseId }, new { @class = "btn btn-default btn-add-module " })        
     </div>
 </div>
 
-<p class="description">Course Modules</p>
-
+<h3>Course Id: @ViewBag.CourseId</h3>
 
 <table class="table">
     <tr>

@@ -1,32 +1,112 @@
 ﻿@model LexiconLMS.Models.Course
-@{
-    ViewBag.Title = "Course Details";
-    ViewBag.CourseId = Model.Id;
-}
-<div class="row">
-    <div class="col col-md-8">
-        <div class="course-name">
-            <p class="page-header">@Model.Name</p>
+
+<body>
+    <div class="row">
+        <div class="col col-md-12">
+            <div class="course-name">
+                <p class="page-header">@Model.Name</p>
+            </div>
+            <span class="date">@Html.DisplayFor(modelItem => Model.StartDate)</span>
+            <span class="date">  -  </span>
+            <span class="date">@Html.DisplayFor(modelItem => Model.EndDate)</span>
         </div>
-        <span class="date"> @Model.StartDate</span>
-        <span class="date">  -  </span>
-        <span class="date">@Model.EndDate</span>        
-    </div>    
-</div>
-
-<div class="row">
-    <div class="col col-md-8">
-        <p class="description">
-            @Model.Description
-        </p>
     </div>
-    <div class="col-6 col-md-4">
-        @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit " })
-        <br />
-        @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete " })       
-    </div>
-</div>
 
-<P>@Html.Partial("_ModuleListView", Model.Modules)</P>
-<p>Number of Students: @Model.Students.Count()</p>
-<P>@Html.Partial("_StudentListView", Model.Students)</P>
+    <div class="row">
+        <div class="col col-md-8">
+            <p class="description">
+                @Model.Description
+            </p>
+        </div>
+        <div class="col-6 col-md-4">
+            @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit extra-left-margin" })
+            <br />
+            @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete extra-left-margin" })
+        </div>
+    </div>
+
+    <hr class="thick-divider-line" />
+    <div class="row">
+        <div class="col col-md-8">
+            <p class="course-name">Course Modules</p>
+        </div>
+        <div class="col-6 col-md-4">
+            @Html.ActionLink("Add Module", "Create", "Modules", new { courseid = Model.Id }, new { @class = "btn btn-default btn-add-module extra-left-margin" })
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>Module Name</th>
+            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Modules)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td style="width:210px;">
+
+
+                </td>
+
+                <td>
+                    @Html.ActionLink("Manage", "Manage", "Modules", new { id = item.Id }, new { @class = "btn btn-default btn-edit" })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <hr class="thick-divider-line" />
+    <div class="row">
+        <div class="col col-md-8">
+            <p class="course-name">Attending Students</p>
+        </div>
+        <div class="col-6 col-md-4">
+            @Html.ActionLink("Add Student", "Create", "Students", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add-student extra-left-margin" })
+        </div>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+        </tr>
+
+        @foreach (var item in Model.Students)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Students", new { id= item.Id }, new {@class="btn btn-default btn-edit" })
+                </td>
+            </tr>
+        }
+    </table>
+</body>

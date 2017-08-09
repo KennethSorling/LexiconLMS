@@ -23,7 +23,7 @@ namespace LexiconLMS.ViewModels
 
         [Required]
         [Display(Name="Start Date")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime StartDate { get; set; }
 
         [Display(Name="Start Time")]

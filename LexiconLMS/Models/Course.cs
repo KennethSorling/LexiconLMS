@@ -14,11 +14,13 @@ namespace LexiconLMS.Models
         public string Description { get; set; }
 
         [Display(Name = "Start Date")]
-        [DisplayFormat(DataFormatString = "{0: d MMM yyyy}")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
-        [DisplayFormat(DataFormatString = "{0: d MMM yyyy}")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime EndDate { get; set; }
 
         public virtual List<Module> Modules { get; set; }

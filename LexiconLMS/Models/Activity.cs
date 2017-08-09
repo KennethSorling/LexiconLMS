@@ -27,10 +27,13 @@ namespace LexiconLMS.Models
 
         [Required]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
+
         [Display(Name = "Date Approved")]
         public DateTime? DateApproved { get; set; }
 

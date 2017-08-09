@@ -7,7 +7,12 @@
     <link href="https://fonts.googleapis.com/css?family=Chonburi" rel="stylesheet">
     <title>@ViewBag.Title - LEXICON</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
 
 </head>
 <body>
@@ -36,10 +41,12 @@
             </div>
         </div>
     </div>
-    <div class="Message">
-        @TempData["Message"]
-    </div>
     <div class="container body-content">
+
+        <div id="message">
+            @TempData["Message"]
+        </div>
+
         @RenderBody()
         <hr />
         <footer>
@@ -47,8 +54,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

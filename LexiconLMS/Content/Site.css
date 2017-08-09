@@ -73,31 +73,15 @@ hr {
 }
 
 
-.btn-add {
-    color: #198521;
-    background-color: #198521;
-    border-color: #198521;
-    padding: 0 26px 0 10px;
-    margin: 50px 6px 0 0;
-    font-weight: 700;
-    text-align: center;
-    border: 1px solid transparent;
-    border-radius: 0;
-    height: 40px;
-    width: 160px;
-    color: #fff;
-    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
-    display: block;
-    vertical-align: text-bottom;
-}
 
 .btn-add {
     background-color: #198521;
     border-color: #198521;
-    padding: 9px 26px 0 10px;
+    padding: 10px 26px 0 10px;
     margin: 50px 6px 0 0;
     font-weight: 700;
     text-align: center;
+    text-decoration:none;
     border: 1px solid transparent;
     border-radius: 0;
     height: 40px;
@@ -113,10 +97,11 @@ hr {
     color: #198521;
     background-color: #198521;
     border-color: #198521;
-    padding: 0 26px 0 10px;
+    padding: 10px 26px 0 10px;
     margin: 10px 6px 0 0;
     font-weight: 700;
     text-align: center;
+    text-decoration:none;
     border: 1px solid transparent;
     border-radius: 0;
     height: 40px;
@@ -137,6 +122,7 @@ hr {
     margin: 0 6px 0 0;
     font-weight: 700;
     text-align: center;
+    text-decoration:none;
     border: 1px solid transparent;
     border-radius: 0;
     height: 40px;
@@ -164,6 +150,7 @@ hr {
   color: #fff;
   background-color: #50bc58;
   border-color: #50bc58;
+  text-decoration:none;
 }
 
 .btn-more-info {
@@ -190,6 +177,7 @@ hr {
   color: #fff;
   background-color: #824aa8;
   border-color: #824aa8;
+  text-decoration:none;
 }
 
 .btn-edit {
@@ -207,6 +195,7 @@ hr {
     color: #fff;
     font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
     display: block;
+    text-decoration:none;
 }
 
 .btn-edit:hover,
@@ -217,10 +206,10 @@ hr {
   color: #fff;
   background-color: #fbef06;
   border-color: #fbef06;
+  text-decoration:none;
 }
 
 .btn-delete {
-    color: #d60000;
     background-color: #d60000;
     border-color: #d60000;
     padding: 9px 26px 0 10px;
@@ -234,6 +223,7 @@ hr {
     color: #fff;
     font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
     display: block;
+    text-decoration:none;
 }
 
 .btn-delete:hover,
@@ -244,6 +234,7 @@ hr {
   color: #fff;
   background-color: #ee4848;
   border-color: #ee4848;
+  text-decoration:none;
 }
 
 .btn-delete-confirm {
@@ -260,6 +251,7 @@ hr {
     color: #fff;
     font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
     display: block;
+    text-decoration: none;
 }
 
     .btn-delete-confirm:hover,
@@ -270,6 +262,7 @@ hr {
         color: #fff;
         background-color: #ee4848;
         border-color: #ee4848;
+        text-decoration:none;
     }
 
 .btn-with-cancel {
@@ -286,4 +279,16 @@ hr {
 .bold-info {
     font-weight: 700;
     font-size:14px;
+}
+
+#message {
+    background-color: lightgoldenrodyellow;
+}
+
+.thick-divider-line {
+border-top: 3px solid;
+}
+
+.extra-left-margin {
+margin-left: 45px;
 }

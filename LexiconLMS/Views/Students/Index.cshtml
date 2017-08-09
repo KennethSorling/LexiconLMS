@@ -4,10 +4,10 @@
     ViewBag.Title = "Students at Lexicon";
 }
 
-<h2>@ViewBag.Title</h2>
+<p class="page-header">@ViewBag.Title</p>
 
 <p>
-    @Html.ActionLink("Create New Student Account", "Create")
+    @Html.ActionLink("Add Student", "Create", null, new {@class="btn btn-default btn-add" })
 </p>
 <table class="table">
     <tr>
@@ -16,9 +16,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
@@ -35,14 +32,12 @@
             @Html.DisplayFor(modelItem => item.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CourseId)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new {@class="btn btn-default btn-edit" })
+            <br />
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new {@class="btn btn-default btn-delete" })
         </td>
     </tr>
 }

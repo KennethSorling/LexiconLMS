@@ -43,7 +43,9 @@ namespace LexiconLMS.Controllers
         {
             var course = db.Courses.Where(c => c.Id == courseId).FirstOrDefault();
             ViewBag.CourseName = course.Name;
-            return View();
+            var module = new Module { CourseId = course.Id };
+
+            return View(module);
         }
 
         // POST: Modules/Create

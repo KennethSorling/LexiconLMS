@@ -17,12 +17,16 @@ namespace LexiconLMS.ViewModels
         public string   Description { get; set; }
         public string   ViewTitle   { get; set; }
 
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yy-mm-dd}")]
         [Display(Name= "Start Date")]
         public DateTime StartDate   { get; set; }
 
         [Display(Name = "Start Time")]
         public DateTime StartTime { get; set; }
 
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yy-mm-dd}")]
         [Display(Name = "End Date")]
         public DateTime EndDate     { get; set; }
 
