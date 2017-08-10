@@ -39,6 +39,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Teachers
+        [Authorize(Roles = "Teacher")]
         public ActionResult Index()
         {
             var teacherRole = RoleManager.FindByName("Teacher");
@@ -48,33 +49,34 @@ namespace LexiconLMS.Controllers
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Email = u.Email,
-                    Id = u.Id
+                    Id = u.Id,
+                    PhoneNumber = u.PhoneNumber
                 }
             );
             return View(teachers);
         }
 
-        // GET: Teachers/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Teacher teacher = db.Users.Find(id) as Teacher;
-            if (teacher == null)
-            {
-                return HttpNotFound();
-            }
-            var vm = new EditTeacherAccountVM {
-                Id = teacher.Id,
-                FirstName =teacher.FirstName,
-                LastName =teacher.LastName,
-                Email = teacher.Email
-            };
+        //// GET: Teachers/Details/5
+        //public ActionResult Details(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Teacher teacher = db.Users.Find(id) as Teacher;
+        //    if (teacher == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    var vm = new EditTeacherAccountVM {
+        //        Id = teacher.Id,
+        //        FirstName =teacher.FirstName,
+        //        LastName =teacher.LastName,
+        //        Email = teacher.Email
+        //    };
 
-            return View(vm);
-        }
+        //    return View(vm);
+        //}
 
 
         //// POST: Teachers/Create
@@ -178,15 +180,13 @@ namespace LexiconLMS.Controllers
                     user.Email = accountInfo.Email;
                     user.FirstName = accountInfo.FirstName;
                     user.LastName = accountInfo.LastName;
+                    user.PhoneNumber = accountInfo.PhoneNumber;
                 }
                 UserManager.Update(user);
                 //return RedirectToAction("Details", new { id = accountInfo.Id });
                 return RedirectToAction("Index");
             }
-            else
-            {
-                throw new System.Exception("Modelstate Invalid");
-            }
+            return View(accountInfo);
         }
 
 
@@ -207,6 +207,7 @@ namespace LexiconLMS.Controllers
         //}
 
         // GET: Teachers/Delete/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -224,12 +225,14 @@ namespace LexiconLMS.Controllers
                 Id=teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
-                Email = teacher.Email
+                Email = teacher.Email,
+                PhoneNumber = teacher.PhoneNumber
             };
             return View(vm);
         }
 
         // POST: Teachers/Delete/5
+        [Authorize(Roles = "Teacher")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

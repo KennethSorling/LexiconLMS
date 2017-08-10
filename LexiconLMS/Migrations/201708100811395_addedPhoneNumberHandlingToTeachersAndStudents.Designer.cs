@@ -7,13 +7,13 @@ namespace LexiconLMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Reinitialize : IMigrationMetadata
+    public sealed partial class addedPhoneNumberHandlingToTeachersAndStudents : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Reinitialize));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedPhoneNumberHandlingToTeachersAndStudents));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708080851571_Reinitialize"; }
+            get { return "201708100811395_addedPhoneNumberHandlingToTeachersAndStudents"; }
         }
         
         string IMigrationMetadata.Source

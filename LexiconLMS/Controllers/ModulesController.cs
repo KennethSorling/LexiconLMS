@@ -1,5 +1,4 @@
 ﻿using LexiconLMS.Models;
-using LexiconLMS.ViewModels;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -13,39 +12,42 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Modules
-        public ActionResult Index(int? id)
-        {
-            var modules = db.Modules.
-                             Where(c => c.CourseId == id).OrderByDescending(s => s.StartDate).ToList();
-            //var courses = db.Courses.Where(c => c.Id == id).OrderByDescending(s => s.StartDate).ToList();
-            return View(modules);
-        }
+        //// GET: Modules
+        //public ActionResult Index(int? id)
+        //{
+        //    var modules = db.Modules.
+        //                     Where(c => c.CourseId == id).OrderByDescending(s => s.StartDate).ToList();
+        //    //var courses = db.Courses.Where(c => c.Id == id).OrderByDescending(s => s.StartDate).ToList();
+        //    return View(modules);
+        //}
 
         // GET: Modules/Details/5
         //
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Module module = db.Modules.Find(id);
-            if (module == null)
-            {
-                return HttpNotFound();
-            }
-            return View(module);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Module module = db.Modules.Find(id);
+        //    if (module == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(module);
+        //}
 
         // GET: Modules/Create
         public ActionResult Create(int courseId)
         {
             var course = db.Courses.Where(c => c.Id == courseId).FirstOrDefault();
-            ViewBag.CourseName = course.Name;
-            var module = new Module { CourseId = course.Id };
-
-            return View(module);
+            if (course != null)
+            {
+                ViewBag.CourseName = course.Name;
+                var module = new Module { CourseId = course.Id };
+                return View(module);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // POST: Modules/Create

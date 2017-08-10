@@ -182,6 +182,14 @@
     <Compile Include="Migrations\201708080913121_Reinitialize.Designer.cs">
       <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs" />
+    <Compile Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.Designer.cs">
+      <DependentUpon>201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.cs" />
+    <Compile Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.Designer.cs">
+      <DependentUpon>201708100821521_dontKnowWhyIHaveToDoThis.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -202,7 +210,6 @@
     <Compile Include="ViewModels\DashboardVM.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
-    <Compile Include="ViewModels\ManageVM.cs" />
     <Compile Include="ViewModels\ModulesVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
     <Compile Include="ViewModels\TeacherListVM.cs" />
@@ -328,35 +335,28 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
     <Content Include="Views\Courses\Delete.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Modules\Create.cshtml" />
     <Content Include="Views\Modules\Delete.cshtml" />
-    <Content Include="Views\Modules\Details.cshtml" />
     <Content Include="Views\Modules\Edit.cshtml" />
     <Content Include="Views\Modules\Index.cshtml" />
     <Content Include="Views\Activities\Create.cshtml" />
     <Content Include="Views\Activities\Delete.cshtml" />
-    <Content Include="Views\Activities\Details.cshtml" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
-    <Content Include="Views\Teachers\AccountCreated.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Students\Delete.cshtml" />
-    <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Shared\_ModuleListView.cshtml" />
     <Content Include="Views\Courses\Manage.cshtml" />
-    <Content Include="Views\Shared\_StudentListView.cshtml" />
     <Content Include="Views\Modules\Manage.cshtml" />
     <Content Include="Views\Shared\_ActivityList.cshtml" />
+    <Content Include="Views\Activities\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -373,6 +373,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708080913121_Reinitialize.resx">
       <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.resx">
+      <DependentUpon>201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.resx">
+      <DependentUpon>201708100821521_dontKnowWhyIHaveToDoThis.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

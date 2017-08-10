@@ -19,6 +19,9 @@ namespace LexiconLMS.ViewModels
         public string Email { get; set; }
         public int CourseId { get; set; }
 
+        [Display(Name="Phone Number")]
+        public string PhoneNumber { get; set; }
+
         [Display(Name = "Course")]
         public string CourseName { get; set; }
     }

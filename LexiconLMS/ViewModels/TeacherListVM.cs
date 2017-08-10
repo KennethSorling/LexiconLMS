@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LexiconLMS.ViewModels
 {
-	public class TeacherListVM
+    public class TeacherListVM
 	{
         public string Id { get; set; }
 
@@ -21,8 +17,11 @@ namespace LexiconLMS.ViewModels
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
-        public int CourseId { get; set; }
 
+        [Display(Name="Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        public int CourseId { get; set; }
         [Display(Name = "Course")]
         public string CourseName { get; set; }
 
