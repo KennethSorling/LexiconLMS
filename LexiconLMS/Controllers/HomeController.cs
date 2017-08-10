@@ -11,10 +11,10 @@ namespace LexiconLMS.Controllers
             {
                 return RedirectToAction("Index", "Courses");
             }
-            else if(User.IsInRole("Student"))
+            else if (User.IsInRole("Student"))
             {
-                //For now, leave him right here.
-                return View("Index");
+                //Direct the student to te dashboard
+                return RedirectToAction("ShowDashboard", "DashboardVMs");
             }
             return View();
         }
