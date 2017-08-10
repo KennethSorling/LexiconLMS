@@ -126,6 +126,8 @@ namespace LexiconLMS.Controllers
                     result = UserManager.AddToRole(student.Id, "Student");
                 }
                 db.SaveChanges();
+                TempData["Message"] = "Student Account created.";
+                return RedirectToAction("Manage", "Courses", new { id = student.CourseId });
             }
             return RedirectToAction("Index");
         }

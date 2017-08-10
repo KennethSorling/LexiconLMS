@@ -98,7 +98,7 @@ hr {
     background-color: #198521;
     border-color: #198521;
     padding: 10px 26px 0 10px;
-    margin: 10px 6px 0 0;
+    margin: 10px 6px 20px 0;
     font-weight: 700;
     text-align: center;
     text-decoration:none;
@@ -290,5 +290,5 @@ border-top: 3px solid;
 }
 
 .extra-left-margin {
-margin-left: 45px;
+margin-left: 102px;
 }

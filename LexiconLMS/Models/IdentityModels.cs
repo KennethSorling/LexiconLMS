@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace LexiconLMS.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        [Display(Name = "Course")]
         public int? CourseId { get; set; }
         public virtual List<Document> Documents { get; set; }
     }

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace LexiconLMS.ViewModels
 {
@@ -14,12 +12,12 @@ namespace LexiconLMS.ViewModels
         public string Description { get; set; }
 
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0: yy-mm-dd}")]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0: yy-mm-dd}")]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
         public virtual List<Module> Modules { get; set; }

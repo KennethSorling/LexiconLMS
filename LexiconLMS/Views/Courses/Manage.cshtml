@@ -13,12 +13,12 @@
     </div>
 
     <div class="row">
-        <div class="col col-md-8">
+        <div class="col col-md-7">
             <p class="description">
                 @Model.Description
             </p>
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-5">
             @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit extra-left-margin" })
             <br />
             @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete extra-left-margin" })
@@ -27,10 +27,10 @@
 
     <hr class="thick-divider-line" />
     <div class="row">
-        <div class="col col-md-8">
+        <div class="col col-md-7">
             <p class="course-name">Course Modules</p>
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-5">
             @Html.ActionLink("Add Module", "Create", "Modules", new { courseid = Model.Id }, new { @class = "btn btn-default btn-add-module extra-left-margin" })
         </div>
     </div>
@@ -58,7 +58,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
-                <td style="width:210px;">
+                <td style="width:120px;">
 
 
                 </td>
@@ -72,10 +72,10 @@
 
     <hr class="thick-divider-line" />
     <div class="row">
-        <div class="col col-md-8">
+        <div class="col col-md-7">
             <p class="course-name">Attending Students</p>
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-md-5">
             @Html.ActionLink("Add Student", "Create", "Students", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add-student extra-left-margin" })
         </div>
     </div>

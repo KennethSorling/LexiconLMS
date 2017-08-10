@@ -124,7 +124,8 @@ namespace LexiconLMS.Controllers
                 }
                 UserManager.AddToRole(user.Id, "Teacher");
                 details.Id = user.Id;
-                return View("AccountCreated", details);
+                TempData["Message"] = "Teacher Account created.";
+                return RedirectToAction("Index");
             }
             else
             {
