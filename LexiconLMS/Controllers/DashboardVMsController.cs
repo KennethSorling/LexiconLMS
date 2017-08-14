@@ -79,105 +79,105 @@ namespace LexiconLMS.Controllers
 
 
         // GET: DashboardVMs
-        public ActionResult Index()
-        {
-            return View(db.DashboardVMs.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    return View(db.DashboardVMs.ToList());
+        //}
 
-        // GET: DashboardVMs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-            if (dashboardVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dashboardVM);
-        }
+        //// GET: DashboardVMs/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
+        //    if (dashboardVM == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(dashboardVM);
+        //}
 
-        // GET: DashboardVMs/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: DashboardVMs/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: DashboardVMs/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PageHeader,CourseName,StudentName,TodaysDate,ModuleName")] DashboardVM dashboardVM)
-        {
-            if (ModelState.IsValid)
-            {
-                db.DashboardVMs.Add(dashboardVM);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: DashboardVMs/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,PageHeader,CourseName,StudentName,TodaysDate,ModuleName")] DashboardVM dashboardVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.DashboardVMs.Add(dashboardVM);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(dashboardVM);
-        }
+        //    return View(dashboardVM);
+        //}
 
-        // GET: DashboardVMs/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-            if (dashboardVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dashboardVM);
-        }
+        //// GET: DashboardVMs/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
+        //    if (dashboardVM == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(dashboardVM);
+        //}
 
-        // POST: DashboardVMs/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PageHeader,CourseName,StudentName,TodaysDate,ModuleName")] DashboardVM dashboardVM)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(dashboardVM).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(dashboardVM);
-        }
+        //// POST: DashboardVMs/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,PageHeader,CourseName,StudentName,TodaysDate,ModuleName")] DashboardVM dashboardVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(dashboardVM).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(dashboardVM);
+        //}
 
-        // GET: DashboardVMs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-            if (dashboardVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dashboardVM);
-        }
+        //// GET: DashboardVMs/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
+        //    if (dashboardVM == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(dashboardVM);
+        //}
 
-        // POST: DashboardVMs/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-            db.DashboardVMs.Remove(dashboardVM);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: DashboardVMs/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
+        //    db.DashboardVMs.Remove(dashboardVM);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CorrectDataAnnotationActivityModel : DbMigration
+    public partial class doesThisWork : DbMigration
     {
         public override void Up()
         {

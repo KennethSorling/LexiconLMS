@@ -7,13 +7,13 @@ namespace LexiconLMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateForUnknownError : IMigrationMetadata
+    public sealed partial class doesThisWork : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateForUnknownError));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(doesThisWork));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708101332276_UpdateForUnknownError"; }
+            get { return "201708141204132_doesThisWork"; }
         }
         
         string IMigrationMetadata.Source
