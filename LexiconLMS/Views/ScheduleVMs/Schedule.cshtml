@@ -1,0 +1,147 @@
+﻿@model LexiconLMS.ViewModels.ScheduleVM
+
+@{
+    ViewBag.Title = "Index";
+    int i = 0;
+}
+
+<p class="page-header">Schedule</p>
+<p class="course-name">Course: @Model.CourseName</p>
+<p>Latest update: @Model.UpdatedDate.ToString("yyyy-MM-dd" + "' at '" + "HH:mm")</p>
+
+<br />
+<br />
+
+<div class="thick-divider-line-schedule"></div>
+<p></p>
+<br />
+
+@if (!Model.ModuleExists)
+{
+    <p>No modules defined for this course</p>
+}
+else
+{
+    <table class="table schedule-table">
+        <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Module</th>
+            <th>Morning</th>
+            <th>Afternoon</th>
+        </tr>
+        @foreach (var item in Model.ScheduleRowList)
+        {
+            if (item.ScheduleRowWeekDay == "Saturday" || item.ScheduleRowWeekDay == "Sunday")
+            {
+                <tr class="schedule-weekend-day schedule-small-font">
+                    <td class="smallcol">
+                        @Html.DisplayFor(modelItem => item.ScheduleRowDate)
+                    </td>
+                    <td class="smallcol">
+                        @Html.DisplayFor(modelItem => item.ScheduleRowWeekDay)
+                    </td>
+                    <td class="smallcol">
+                        @Html.DisplayFor(modelItem => item.ModuleName)
+                    </td>
+                    <td class="extralargecol">
+                        @*@if (item.AmActivity != null)
+                        {
+                            foreach (var activity in item.AmActivity)
+                            {
+                                if (i > 0)
+                                {
+                                    <br>
+                                }
+                                @Html.DisplayFor(modelItem => activity)
+                                i++;
+                            }
+                        }*@
+                        @if (item.AmActivity != null)
+                        {
+                            foreach (var activity in item.AmActivity)
+                            {
+                                if (i > 0)
+                                {
+                                    <br>
+                                }
+                                @*if (activity.Length < 20)
+                                {
+                                    @Html.DisplayFor(modelItem => activity)
+                                }
+                                else
+                                {*@
+                                    <details>
+                                        <summary>Read more...</summary>
+                                        <p>@Html.DisplayFor(modelItem => activity)</p>
+                                    </details>
+                                //}
+                                i++;
+                            }
+                        }
+                    </td>
+
+                    <td class="extralargecol">
+                        @if (item.PmActivity != null)
+                        {
+                            i = 0;
+                            foreach (var activity in item.PmActivity)
+                            {
+                                if (i > 0)
+                                {
+                                    <br>
+                                }
+                                @Html.DisplayFor(modelItem => activity)
+                                i++;
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="schedule-small-font">
+                    <td class="smallcol">
+                        @Html.DisplayFor(modelItem => item.ScheduleRowDate)
+                    </td>
+                    <td class="smallcol">
+                        @Html.DisplayFor(modelItem => item.ScheduleRowWeekDay)
+                    </td>
+                    <td class="smallcol">
+                        @Html.DisplayFor(modelItem => item.ModuleName)
+                    </td>
+                    <td class="extralargecol">
+                        @if (item.AmActivity != null)
+                        {
+                            i = 0;
+                            foreach (var activity in item.AmActivity)
+                            {
+                                if (i > 0)
+                                {
+                                    <br>
+                                }
+                                @Html.DisplayFor(modelItem => activity)
+                                i++;
+                            }
+                        }
+                    </td>
+                    <td class="extralargecol">
+                        @if (item.PmActivity != null)
+                        {
+                            i = 0;
+                            foreach (var activity in item.PmActivity)
+                            {
+                                if (i > 0)
+                                {
+                                    <br>
+                                }
+                                @Html.DisplayFor(modelItem => activity)
+                                i++;
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
