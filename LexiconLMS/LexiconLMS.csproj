@@ -173,6 +173,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModulesController.cs" />
+    <Compile Include="Controllers\ScheduleVMsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,6 +218,7 @@
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
     <Compile Include="ViewModels\ManageVM.cs" />
     <Compile Include="ViewModels\ModulesVM.cs" />
+    <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
     <Compile Include="ViewModels\TeacherListVM.cs" />
   </ItemGroup>
@@ -375,6 +377,7 @@
     <Content Include="Views\DashboardVMs\Details.cshtml" />
     <Content Include="Views\DashboardVMs\Edit.cshtml" />
     <Content Include="Views\DashboardVMs\Dashboard.cshtml" />
+    <Content Include="Views\ScheduleVMs\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
