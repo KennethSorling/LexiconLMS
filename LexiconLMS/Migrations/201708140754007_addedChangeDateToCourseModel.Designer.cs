@@ -7,13 +7,13 @@ namespace LexiconLMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addedChangeDateToCourseModel : IMigrationMetadata
+    public sealed partial class AddingSeedCode : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedChangeDateToCourseModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddingSeedCode));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708140754007_addedChangeDateToCourseModel"; }
+            get { return "201707191350299_AddingSeedCode"; }
         }
         
         string IMigrationMetadata.Source
