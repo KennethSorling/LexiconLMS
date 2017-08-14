@@ -1,15 +1,23 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Course>
 
+<head>
+    <script src="http://code.jquery.com/jquery-1.4.2.min.js">
+    </script>
+</head>
+
+@*<div id="message">
+        @TempData["Message"]
+    </div>*@
 
 <div class="row">
     <div class="col col-md-8">
-        <h1>@ViewBag.Title</h1>
+        <p class="page-header">@ViewBag.Title</p>
     </div>
     @*<div class="col-6 col-md-4">
-        <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
-    </div>*@
+            <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
+        </div>*@
     <div class="col-6 col-md-4">
-        @Html.ActionLink("Add Course", "Create", "Courses", new { @class="btn btn-default btn-add btnAddCourse"})
+        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add btnAddCourse" })
     </div>
 
 </div>
@@ -30,7 +38,7 @@
                 <div class="course-name">
                     @Html.ActionLink(item.Name, "Manage", "Courses", new { id = item.Id }, null)
 
-                 </div>
+                </div>
 
                 <span class="date"> @Html.DisplayFor(modelItem => item.StartDate)</span>
                 <span class="date">  -  </span>
@@ -48,4 +56,3 @@
         </div>
     }
 }
-

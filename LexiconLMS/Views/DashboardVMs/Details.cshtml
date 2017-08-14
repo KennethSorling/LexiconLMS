@@ -1,0 +1,58 @@
+﻿@model LexiconLMS.ViewModels.DashboardVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DashboardVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PageHeader)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PageHeader)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TodaysDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TodaysDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModuleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModuleName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

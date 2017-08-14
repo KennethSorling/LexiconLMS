@@ -182,17 +182,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708080913121_Reinitialize.cs" />
-    <Compile Include="Migrations\201708080913121_Reinitialize.Designer.cs">
-      <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
+    <Compile Include="Migrations\201708090646304_Initial.cs" />
+    <Compile Include="Migrations\201708090646304_Initial.Designer.cs">
+      <DependentUpon>201708090646304_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708111154590_removedViewModelsFromDbSet.cs" />
-    <Compile Include="Migrations\201708111154590_removedViewModelsFromDbSet.Designer.cs">
-      <DependentUpon>201708111154590_removedViewModelsFromDbSet.cs</DependentUpon>
+    <Compile Include="Migrations\201708101020528_dummy.cs" />
+    <Compile Include="Migrations\201708101020528_dummy.Designer.cs">
+      <DependentUpon>201708101020528_dummy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708140754007_addedChangeDateToCourseModel.cs" />
-    <Compile Include="Migrations\201708140754007_addedChangeDateToCourseModel.Designer.cs">
-      <DependentUpon>201708140754007_addedChangeDateToCourseModel.cs</DependentUpon>
+    <Compile Include="Migrations\201708101237540_CorrectDataAnnotationActivityModel.cs" />
+    <Compile Include="Migrations\201708101237540_CorrectDataAnnotationActivityModel.Designer.cs">
+      <DependentUpon>201708101237540_CorrectDataAnnotationActivityModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708101332276_UpdateForUnknownError.cs" />
+    <Compile Include="Migrations\201708101332276_UpdateForUnknownError.Designer.cs">
+      <DependentUpon>201708101332276_UpdateForUnknownError.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -212,6 +216,7 @@
     <Compile Include="ViewModels\CreateStudentAccountVM.cs" />
     <Compile Include="ViewModels\CreateTeacherAccountVM.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />
+    <Compile Include="Controllers\DashboardVMsController.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
     <Compile Include="ViewModels\ModulesVM.cs" />
@@ -367,6 +372,11 @@
     <Content Include="Views\Modules\Manage.cshtml" />
     <Content Include="Views\Shared\_ActivityList.cshtml" />
     <Content Include="Views\Activities\Manage.cshtml" />
+    <Content Include="Views\DashboardVMs\Create.cshtml" />
+    <Content Include="Views\DashboardVMs\Delete.cshtml" />
+    <Content Include="Views\DashboardVMs\Details.cshtml" />
+    <Content Include="Views\DashboardVMs\Edit.cshtml" />
+    <Content Include="Views\DashboardVMs\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -381,8 +391,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708080913121_Reinitialize.resx">
-      <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708090646304_Initial.resx">
+      <DependentUpon>201708090646304_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101020528_dummy.resx">
+      <DependentUpon>201708101020528_dummy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101237540_CorrectDataAnnotationActivityModel.resx">
+      <DependentUpon>201708101237540_CorrectDataAnnotationActivityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708101332276_UpdateForUnknownError.resx">
+      <DependentUpon>201708101332276_UpdateForUnknownError.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708111154590_removedViewModelsFromDbSet.resx">
       <DependentUpon>201708111154590_removedViewModelsFromDbSet.cs</DependentUpon>

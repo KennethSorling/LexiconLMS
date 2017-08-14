@@ -1,0 +1,75 @@
+﻿@model LexiconLMS.ViewModels.DashboardVM
+
+@{
+    ViewBag.Title = "Index";
+    int i = 0;
+}
+
+<p class="page-header">Dashboard</p>
+<p class="course-name">Course: @Model.CourseName</p>
+<p>Student: @Model.StudentName</p>
+<p>Today: @Model.TodaysDate.ToString(" ddd d MMM yyyy")</p>
+<br />
+<br />
+<hr class="thick-divider-line" />
+@if (Model.ModuleExists)
+{
+    <p class="course-name">Module: @Model.ModuleName</p>
+}
+else
+{
+    <p>No module defined for today</p>
+}
+
+
+@if (Model.ActivityExists)
+{
+
+    <p class="course-name">Today's Activities</p>
+    <table class="table">
+        <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Activity</th>
+            <th>Activity Type</th>
+            <th>External</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.ActivitiesList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Model.ActivityTypesList[i]
+                </td>
+                @if (item.External)
+                {
+                    <td>
+                        Yes
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+            i++;
+        }
+        }
+    </table>
+}
+else
+{
+    <p>No activity defined for today</p>
+}
