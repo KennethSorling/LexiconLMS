@@ -53,6 +53,8 @@ namespace LexiconLMS.Models
 
         public System.Data.Entity.DbSet<LexiconLMS.Models.Student> ApplicationUsers { get; set; }
 
+        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.DashboardVM> DashboardVMs { get; set; }
+
         //public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateTeacherAccountVM> CreateTeacherAccountVMs { get; set; }
     }
 }

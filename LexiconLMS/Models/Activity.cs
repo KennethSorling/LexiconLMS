@@ -12,7 +12,7 @@ namespace LexiconLMS.Models
         public int ModuleId { get; set; }
 
         [Required]
-        [Display(Name="Type")]
+        [Display(Name = "Type")]
         public int ActivityTypeId { get; set; }
 
         [Required]
@@ -22,6 +22,7 @@ namespace LexiconLMS.Models
 
         [Required]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
@@ -30,9 +31,6 @@ namespace LexiconLMS.Models
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
-
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
 
         [Display(Name = "Date Approved")]
         public DateTime? DateApproved { get; set; }
