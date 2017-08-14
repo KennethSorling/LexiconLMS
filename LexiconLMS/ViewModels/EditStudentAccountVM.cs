@@ -23,11 +23,15 @@ namespace LexiconLMS.ViewModels
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
+        [Display (Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
         public IEnumerable<SelectListItem> Courses { get; set; }
 
         [Required]
         public int CourseId { get; set; }
 
+        public bool ReturnToIndex { get; set; }
     }
 
 }

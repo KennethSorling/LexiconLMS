@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7539694/7076952/css/fonts.css" />
     <link href="https://fonts.googleapis.com/css?family=Chonburi" rel="stylesheet">
     <title>@ViewBag.Title - LEXICON</title>
     @Styles.Render("~/Content/css")
@@ -24,9 +25,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="@Url.Action("Index","Courses")">
-                    <img src="~/Content/Images/lexiconlogo.png" />
-                </a>
+                @if (User.IsInRole("Teacher"))
+                {
+                    <a href="@Url.Action("Index","Courses")">
+                        <img src="~/Content/Images/lexiconlogo.png" />
+                    </a>
+                }
+                @if (User.IsInRole("Student"))
+                {
+                    <!-- Define student-only link(s)   -->
+
+                }
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

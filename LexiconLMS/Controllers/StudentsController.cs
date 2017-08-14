@@ -39,6 +39,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Students
+        [Authorize(Roles = "Teacher")]
         public ActionResult Index()
         {
             var studentRole = RoleManager.FindByName("Student");
@@ -51,35 +52,36 @@ namespace LexiconLMS.Controllers
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     CourseId = u.CourseId.GetValueOrDefault(),
-                    Email = u.Email
-                    
+                    CourseName = db.Courses.Find(u.CourseId).Name,
+                    Email = u.Email,
+                    PhoneNumber = u.PhoneNumber
                 });
             return View(students);
         }
 
-        // GET: Students/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Users.Find(id) as Student;
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            var vm = new EditStudentAccountVM
-            {
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                Email = student.Email,
-                Id = student.Id,
-                CourseId = student.CourseId.GetValueOrDefault(),
-                Courses = db.Courses.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList()
-            };
-            return View(vm);
-        }
+        //// GET: Students/Details/5
+        //public ActionResult Details(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Student student = db.Users.Find(id) as Student;
+        //    if (student == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    var vm = new EditStudentAccountVM
+        //    {
+        //        FirstName = student.FirstName,
+        //        LastName = student.LastName,
+        //        Email = student.Email,
+        //        Id = student.Id,
+        //        CourseId = student.CourseId.GetValueOrDefault(),
+        //        Courses = db.Courses.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList()
+        //    };
+        //    return View(vm);
+        //}
 
         // GET: Students/Create
         [HttpGet]
@@ -98,6 +100,11 @@ namespace LexiconLMS.Controllers
             {
                 vm.CourseId = courseId.GetValueOrDefault();
             }
+            else
+            {
+                /* This was invoked from the Students list, so we should return there.*/
+                vm.ReturnToIndex = true;
+            }
             return View(vm);
         }
 
@@ -106,6 +113,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Create(CreateStudentAccountVM studentInfo)
         {
             if (ModelState.IsValid)
@@ -117,6 +125,7 @@ namespace LexiconLMS.Controllers
                     Email = studentInfo.Email,
                     UserName = studentInfo.Email,
                     CourseId = studentInfo.CourseId,
+                    PhoneNumber = studentInfo.PhoneNumber
                 };
                 
                 // Student inherits from ApplicationUser,  so the UserManager should accept it.
@@ -127,13 +136,19 @@ namespace LexiconLMS.Controllers
                 }
                 db.SaveChanges();
                 TempData["Message"] = "Student Account created.";
+                if (studentInfo.ReturnToIndex == true)
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Manage", "Courses", new { id = student.CourseId });
             }
-            return RedirectToAction("Index");
+            studentInfo.Courses = db.Courses.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
+            return View(studentInfo);
         }
 
         // GET: Students/Edit/5
-        public ActionResult Edit(string id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult Edit(string id, bool? returnToIndex = false)
         {
             if (id == null)
             {
@@ -145,10 +160,12 @@ namespace LexiconLMS.Controllers
                 return HttpNotFound();
             }
             var vm = new EditStudentAccountVM {
+                ReturnToIndex = returnToIndex.GetValueOrDefault(),
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 Email = student.Email,
+                PhoneNumber = student.PhoneNumber,
                 CourseId = student.CourseId.GetValueOrDefault(),
                 Courses = db.Courses.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList()
             };
@@ -161,6 +178,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(EditStudentAccountVM vm)
         {
             if (ModelState.IsValid)
@@ -171,17 +189,26 @@ namespace LexiconLMS.Controllers
                 student.LastName = vm.LastName;
                 student.Email = vm.Email;
                 student.CourseId = vm.CourseId;
+                student.PhoneNumber = vm.PhoneNumber;
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["Message"] = "Account Updated";
-                return RedirectToAction("Index");
+                if (vm.ReturnToIndex == true)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Manage", "Courses", new { id = vm.CourseId });
+                }
             }
             vm.Courses = db.Courses.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList();
             return View(vm);
         }
 
         // GET: Students/Delete/5
-        public ActionResult Delete(string id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult Delete(string id, bool returnToIndex = true)
         {
             if (id == null)
             {
@@ -194,6 +221,7 @@ namespace LexiconLMS.Controllers
             }
             var vm = new EditStudentAccountVM
             {
+                ReturnToIndex = returnToIndex,
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
@@ -207,13 +235,27 @@ namespace LexiconLMS.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        [Authorize(Roles = "Teacher")]
+        public ActionResult DeleteConfirmed(string id, bool returnToIndex = true)
         {
             ApplicationUser student = db.Users.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+
+            int courseId = student.CourseId.GetValueOrDefault();
             db.Users.Remove(student);
             db.SaveChanges();
             TempData["Message"] = "Account deleted.";
-            return RedirectToAction("Index");
+            if (returnToIndex)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Manage", "Courses", new { id = courseId });
+            }
         }
 
         protected override void Dispose(bool disposing)

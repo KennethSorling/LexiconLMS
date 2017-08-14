@@ -20,5 +20,9 @@ namespace LexiconLMS.ViewModels
         [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+        
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
     }
+
 }

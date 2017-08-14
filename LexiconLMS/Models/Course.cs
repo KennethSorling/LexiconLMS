@@ -23,8 +23,12 @@ namespace LexiconLMS.Models
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime EndDate { get; set; }
 
-        public virtual List<Module> Modules { get; set; }
+        [Display(Name = "Date Updated")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
+        public DateTime DateChanged { get; set; }
 
+        public virtual List<Module> Modules { get; set; }
         public virtual List<Document> Documents { get; set; }
         public virtual List<Student> Students { get; set; }
     }

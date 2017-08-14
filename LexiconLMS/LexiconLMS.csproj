@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Foolproof.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -179,21 +183,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708090646304_Initial.cs" />
-    <Compile Include="Migrations\201708090646304_Initial.Designer.cs">
-      <DependentUpon>201708090646304_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101020528_dummy.cs" />
-    <Compile Include="Migrations\201708101020528_dummy.Designer.cs">
-      <DependentUpon>201708101020528_dummy.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101237540_CorrectDataAnnotationActivityModel.cs" />
-    <Compile Include="Migrations\201708101237540_CorrectDataAnnotationActivityModel.Designer.cs">
-      <DependentUpon>201708101237540_CorrectDataAnnotationActivityModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708101332276_UpdateForUnknownError.cs" />
-    <Compile Include="Migrations\201708101332276_UpdateForUnknownError.Designer.cs">
-      <DependentUpon>201708101332276_UpdateForUnknownError.cs</DependentUpon>
+    <Compile Include="Migrations\201708141204132_doesThisWork.cs" />
+    <Compile Include="Migrations\201708141204132_doesThisWork.Designer.cs">
+      <DependentUpon>201708141204132_doesThisWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -216,13 +208,18 @@
     <Compile Include="Controllers\DashboardVMsController.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
-    <Compile Include="ViewModels\ManageVM.cs" />
     <Compile Include="ViewModels\ModulesVM.cs" />
     <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
     <Compile Include="ViewModels\TeacherListVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -343,35 +340,28 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Courses\Create.cshtml" />
     <Content Include="Views\Courses\Delete.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
     <Content Include="Views\Courses\Edit.cshtml" />
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Modules\Create.cshtml" />
     <Content Include="Views\Modules\Delete.cshtml" />
-    <Content Include="Views\Modules\Details.cshtml" />
     <Content Include="Views\Modules\Edit.cshtml" />
     <Content Include="Views\Modules\Index.cshtml" />
     <Content Include="Views\Activities\Create.cshtml" />
     <Content Include="Views\Activities\Delete.cshtml" />
-    <Content Include="Views\Activities\Details.cshtml" />
     <Content Include="Views\Activities\Edit.cshtml" />
     <Content Include="Views\Activities\Index.cshtml" />
     <Content Include="Views\Teachers\Create.cshtml" />
-    <Content Include="Views\Teachers\AccountCreated.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Students\Delete.cshtml" />
-    <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
-    <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Teachers\Delete.cshtml" />
-    <Content Include="Views\Shared\_ModuleListView.cshtml" />
     <Content Include="Views\Courses\Manage.cshtml" />
-    <Content Include="Views\Shared\_StudentListView.cshtml" />
     <Content Include="Views\Modules\Manage.cshtml" />
     <Content Include="Views\Shared\_ActivityList.cshtml" />
+    <Content Include="Views\Activities\Manage.cshtml" />
     <Content Include="Views\DashboardVMs\Create.cshtml" />
     <Content Include="Views\DashboardVMs\Delete.cshtml" />
     <Content Include="Views\DashboardVMs\Details.cshtml" />
@@ -392,17 +382,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708090646304_Initial.resx">
-      <DependentUpon>201708090646304_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101020528_dummy.resx">
-      <DependentUpon>201708101020528_dummy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101237540_CorrectDataAnnotationActivityModel.resx">
-      <DependentUpon>201708101237540_CorrectDataAnnotationActivityModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708101332276_UpdateForUnknownError.resx">
-      <DependentUpon>201708101332276_UpdateForUnknownError.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708141204132_doesThisWork.resx">
+      <DependentUpon>201708141204132_doesThisWork.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

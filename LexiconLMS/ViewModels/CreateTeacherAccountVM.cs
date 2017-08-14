@@ -16,6 +16,8 @@ namespace LexiconLMS.ViewModels
         public string LastName { get; set; }
 
 
+        public string PhoneNumber { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "E-mail")]

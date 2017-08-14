@@ -11,5 +11,7 @@ namespace LexiconLMS.ViewModels
         [Required]
         [Display(Name = "Course")]
         public int CourseId { get; set; }
+
+        public bool ReturnToIndex { get; set;}
     }
 }
