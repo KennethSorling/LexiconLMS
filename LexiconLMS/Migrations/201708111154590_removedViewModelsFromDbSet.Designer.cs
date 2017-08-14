@@ -7,13 +7,13 @@ namespace LexiconLMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class dontKnowWhyIHaveToDoThis : IMigrationMetadata
+    public sealed partial class removedViewModelsFromDbSet : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dontKnowWhyIHaveToDoThis));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(removedViewModelsFromDbSet));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708100821521_dontKnowWhyIHaveToDoThis"; }
+            get { return "201708111154590_removedViewModelsFromDbSet"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,8 +1,7 @@
 namespace LexiconLMS.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class Reinitialize : DbMigration
     {
         public override void Up()
@@ -154,31 +153,7 @@ namespace LexiconLMS.Migrations
                 .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
                 .Index(t => t.CourseId);
             
-            CreateTable(
-                "dbo.CreateTeacherAccountVMs",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        FirstName = c.String(nullable: false),
-                        LastName = c.String(nullable: false),
-                        Email = c.String(nullable: false),
-                        Password = c.String(nullable: false, maxLength: 100),
-                        ConfirmPassword = c.String(),
-                        CourseId = c.Int(),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.EditTeacherAccountVMs",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        FirstName = c.String(nullable: false),
-                        LastName = c.String(nullable: false),
-                        Email = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
+
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -221,8 +196,6 @@ namespace LexiconLMS.Migrations
             DropIndex("dbo.Activities", new[] { "ActivityTypeId" });
             DropIndex("dbo.Activities", new[] { "ModuleId" });
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.EditTeacherAccountVMs");
-            DropTable("dbo.CreateTeacherAccountVMs");
             DropTable("dbo.Modules");
             DropTable("dbo.Courses");
             DropTable("dbo.AspNetUserRoles");

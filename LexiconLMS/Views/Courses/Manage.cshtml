@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col col-md-12">
             <div class="course-name">
-                <p class="page-header">@Model.Name</p>
+                <h1>@Model.Name</h1>
             </div>
             <span class="date">@Html.DisplayFor(modelItem => Model.StartDate)</span>
             <span class="date">  -  </span>
@@ -35,40 +35,44 @@
         </div>
     </div>
 
-    <table class="table">
-        <tr>
-            <th>Module Name</th>
-            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
-            <th>@Html.DisplayNameFor(model => model.EndDate)</th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.Modules)
-        {
+    @if (Model.Modules.Count() == 0)
+    {
+        <p>No modules have been defined for this course.</p>
+    }
+    else
+    {
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td style="width:120px;">
-
-
-                </td>
-
-                <td>
-                    @Html.ActionLink("Manage", "Manage", "Modules", new { id = item.Id }, new { @class = "btn btn-default btn-edit" })
-                </td>
+                <th>Module Name</th>
+                <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+                <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+                <th></th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in Model.Modules)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td style="width:120px;"></td>
+
+                    <td>
+                        @Html.ActionLink("Manage", "Manage", "Modules", new { id = item.Id }, new { @class = "btn btn-default btn-edit" })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
 
     <hr class="thick-divider-line" />
     <div class="row">
@@ -79,34 +83,39 @@
             @Html.ActionLink("Add Student", "Create", "Students", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add-student extra-left-margin" })
         </div>
     </div>
-
-    <table class="table">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-        </tr>
-
-        @foreach (var item in Model.Students)
-        {
+    @if (Model.Students.Count() == 0)
+    {
+        <p>There are no students signed up to this course.</p>
+    }
+    else
+    {
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Students", new { id= item.Id }, new {@class="btn btn-default btn-edit" })
-                </td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
             </tr>
-        }
-    </table>
+
+            @foreach (var item in Model.Students)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td></td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Students", new { id = item.Id, returnToIndex = false }, new { @class = "btn btn-default btn-edit" })
+                        @Html.ActionLink("Delete","Delete", "Students", new { id = item.Id, returnToIndex = false }, new {@class="btn btn-default btn-delete" })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
 </body>

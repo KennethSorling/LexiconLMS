@@ -3,16 +3,16 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class dontKnowWhyIHaveToDoThis : DbMigration
+    public partial class addedChangeDateToCourseModel : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.EditTeacherAccountVMs", "PhoneNumber", c => c.String());
+            AddColumn("dbo.Courses", "DateChanged", c => c.DateTime(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.EditTeacherAccountVMs", "PhoneNumber");
+            DropColumn("dbo.Courses", "DateChanged");
         }
     }
 }

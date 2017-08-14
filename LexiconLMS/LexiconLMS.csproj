@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FoolproofValidation, Version=0.9.5851.39121, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Foolproof.0.9.4518\lib\net45\FoolproofValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -182,13 +186,13 @@
     <Compile Include="Migrations\201708080913121_Reinitialize.Designer.cs">
       <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs" />
-    <Compile Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.Designer.cs">
-      <DependentUpon>201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs</DependentUpon>
+    <Compile Include="Migrations\201708111154590_removedViewModelsFromDbSet.cs" />
+    <Compile Include="Migrations\201708111154590_removedViewModelsFromDbSet.Designer.cs">
+      <DependentUpon>201708111154590_removedViewModelsFromDbSet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.cs" />
-    <Compile Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.Designer.cs">
-      <DependentUpon>201708100821521_dontKnowWhyIHaveToDoThis.cs</DependentUpon>
+    <Compile Include="Migrations\201708140754007_addedChangeDateToCourseModel.cs" />
+    <Compile Include="Migrations\201708140754007_addedChangeDateToCourseModel.Designer.cs">
+      <DependentUpon>201708140754007_addedChangeDateToCourseModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -215,6 +219,12 @@
     <Compile Include="ViewModels\TeacherListVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
+    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.js" />
+    <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -374,11 +384,11 @@
     <EmbeddedResource Include="Migrations\201708080913121_Reinitialize.resx">
       <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.resx">
-      <DependentUpon>201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708111154590_removedViewModelsFromDbSet.resx">
+      <DependentUpon>201708111154590_removedViewModelsFromDbSet.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.resx">
-      <DependentUpon>201708100821521_dontKnowWhyIHaveToDoThis.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708140754007_addedChangeDateToCourseModel.resx">
+      <DependentUpon>201708140754007_addedChangeDateToCourseModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -24,6 +24,7 @@ namespace LexiconLMS.ViewModels
         [Required]
         [Display(Name="Start Date")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString ="yyyy-MM-dd")]
         public DateTime StartDate { get; set; }
 
         [Display(Name="Start Time")]

@@ -1,4 +1,5 @@
 ﻿using LexiconLMS.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -19,17 +20,25 @@ namespace LexiconLMS.Controllers
         /// </summary>
         /// <param name="id">id of the course in question</param>
         /// <returns>A view of the course</returns>
-        public ActionResult Manage(int? id=1)
+        [Authorize(Roles="Teacher")]
+        public ActionResult Manage(int id)
         {
 
-            var course = db.Courses.Where(c => c.Id == id).FirstOrDefault();
+            var course = db.Courses.Find(id);
+            if (course == null)
+            {
+                return HttpNotFound();
+            }
+            /*
+             * This is because EF doesn't automatically populate the students member
+             */
             var students = db.ApplicationUsers.Where(s => s.CourseId == id).ToList();
             course.Students = students;
             ViewBag.Title = "Course Details";
             return View(course);
         }
 
-
+        [Authorize(Roles = "Teacher")]
         public ActionResult Index()
         {
             var courses = db.Courses.OrderByDescending(s => s.StartDate);
@@ -68,8 +77,15 @@ namespace LexiconLMS.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult Create([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Course course)
         {
+            var sibling = db.Courses.Where(c => c.Name == course.Name).FirstOrDefault();
+            if (sibling != null)
+            {
+                ModelState.AddModelError("", $"There is already a course named '{sibling.Name}'.");
+            }
+
             if (ModelState.IsValid)
             {
+                course.DateChanged = System.DateTime.Now;
                 db.Courses.Add(course);
                 db.SaveChanges();
 
@@ -105,8 +121,29 @@ namespace LexiconLMS.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,StartDate,EndDate")] Course course)
         {
+            DateTime earliest = course.StartDate;
+            DateTime latest = course.EndDate;
+
+            var modules = db.Modules.Where(m => m.CourseId == course.Id).ToList();
+            foreach (var sibling in modules)
+            {
+                if (sibling.StartDate < earliest) earliest = sibling.StartDate;
+                if (sibling.EndDate > latest) latest = sibling.EndDate;
+
+            }
+
+            if (course.StartDate > earliest)
+            {
+                ModelState.AddModelError("StartDate", $"Course cannot start later than its earliest module ({earliest.ToShortDateString()})");
+            }
+            if (course.EndDate < latest)
+            {
+                ModelState.AddModelError("EndDate", $"Course cannot end sooner than its last module does ({latest.ToShortDateString()})");
+            }
+
             if (ModelState.IsValid)
             {
+                course.DateChanged = System.DateTime.Now;
                 db.Entry(course).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -125,6 +162,7 @@ namespace LexiconLMS.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Course course = db.Courses.Find(id);
             if (course == null)
             {
