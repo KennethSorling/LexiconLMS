@@ -178,18 +178,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708080913121_Reinitialize.cs" />
-    <Compile Include="Migrations\201708080913121_Reinitialize.Designer.cs">
-      <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs" />
-    <Compile Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.Designer.cs">
-      <DependentUpon>201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.cs" />
-    <Compile Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.Designer.cs">
-      <DependentUpon>201708100821521_dontKnowWhyIHaveToDoThis.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -369,17 +357,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708080913121_Reinitialize.resx">
-      <DependentUpon>201708080913121_Reinitialize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.resx">
-      <DependentUpon>201708100811395_addedPhoneNumberHandlingToTeachersAndStudents.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708100821521_dontKnowWhyIHaveToDoThis.resx">
-      <DependentUpon>201708100821521_dontKnowWhyIHaveToDoThis.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

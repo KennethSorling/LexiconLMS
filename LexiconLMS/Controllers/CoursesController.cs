@@ -15,7 +15,7 @@ namespace LexiconLMS.Controllers
         // GET: Courses
 
         /// <summary>
-        /// Provides an manageabel overview of the details of a course
+        /// Provides an manageable overview of the details of a course
         /// </summary>
         /// <param name="id">id of the course in question</param>
         /// <returns>A view of the course</returns>

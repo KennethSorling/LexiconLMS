@@ -34,6 +34,7 @@ namespace LexiconLMS.Models
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<LexiconLMS.Models.Student> ApplicationUsers { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -45,15 +46,6 @@ namespace LexiconLMS.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateTeacherAccountVM> CreateTeacherAccountVMs { get; set; }
-
-        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.EditTeacherAccountVM> EditTeacherAccountVMs { get; set; }
-
-        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateStudentAccountVM> CreateStudentAccountVMs { get; set; }
-
-        public System.Data.Entity.DbSet<LexiconLMS.Models.Student> ApplicationUsers { get; set; }
-
-        public System.Data.Entity.DbSet<LexiconLMS.ViewModels.DashboardVM> DashboardVMs { get; set; }
 
         //public System.Data.Entity.DbSet<LexiconLMS.ViewModels.CreateTeacherAccountVM> CreateTeacherAccountVMs { get; set; }
     }
