@@ -39,6 +39,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Students
+        [Authorize(Roles = "Teacher")]
         public ActionResult Index()
         {
             var studentRole = RoleManager.FindByName("Student");
@@ -207,7 +208,7 @@ namespace LexiconLMS.Controllers
 
         // GET: Students/Delete/5
         [Authorize(Roles = "Teacher")]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id, bool returnToIndex = true)
         {
             if (id == null)
             {
@@ -220,6 +221,7 @@ namespace LexiconLMS.Controllers
             }
             var vm = new EditStudentAccountVM
             {
+                ReturnToIndex = returnToIndex,
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
@@ -234,13 +236,26 @@ namespace LexiconLMS.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Teacher")]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id, bool returnToIndex = true)
         {
             ApplicationUser student = db.Users.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+
+            int courseId = student.CourseId.GetValueOrDefault();
             db.Users.Remove(student);
             db.SaveChanges();
             TempData["Message"] = "Account deleted.";
-            return RedirectToAction("Index");
+            if (returnToIndex)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Manage", "Courses", new { id = courseId });
+            }
         }
 
         protected override void Dispose(bool disposing)

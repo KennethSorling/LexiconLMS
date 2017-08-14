@@ -4,7 +4,7 @@
     ViewBag.Title = "Delete Student Account";
 }
 
-<p class="page-title">@ViewBag.Title</p>
+<h1>@ViewBag.Title</h1>
 
 <h3>Are you sure you want to delete this Student Account?</h3>
 <div>
@@ -41,10 +41,11 @@
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
+        <input type="hidden" name ="returnToIndex" value="@Model.ReturnToIndex" />
         <div class="form-actions no-color">
-            <input type="submit" value="Delete Account" class="btn btn-default btn-delete" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete Account" class="btn btn-default btn-delete" />
+            <br />
+            @Html.ActionLink("Cancel", "Index")
         </div>
     }
 </div>
