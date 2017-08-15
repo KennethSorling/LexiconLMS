@@ -8,10 +8,14 @@
 <p class="page-header">Dashboard</p>
 <p class="course-name">Course: @Model.CourseName</p>
 <p>Student: @Model.StudentName</p>
-<p>Today: @Model.TodaysDate.ToString(" ddd d MMM yyyy")</p>
+<p>Today: @Model.TodaysDate.DayOfWeek, @Model.TodaysDate.ToString("yyyy-MM-dd")</p>
+
 <br />
 <br />
-<hr class="thick-divider-line" />
+<div class="thick-divider-line-schedule"></div>
+<p></p>
+<br />
+
 @if (Model.ModuleExists)
 {
     <p class="course-name">Module: @Model.ModuleName</p>
@@ -26,46 +30,50 @@ else
 {
 
     <p class="course-name">Today's Activities</p>
-    <table class="table">
+    <table class="table schedule-table">
         <tr>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>Activity</th>
             <th>Activity Type</th>
+            <th>Activity</th>
             <th>External</th>
             <th></th>
+            @*<th>Description</th>*@
         </tr>
         @foreach (var item in Model.ActivitiesList)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate.TimeOfDay)
+                <td class="smallcol">
+                    @item.StartDate.ToString("HH:mm")
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate.TimeOfDay)
+                <td class="smallcol">
+                    @item.EndDate.ToString("HH:mm")
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
+                <td class="smallmediumcol">
                     @Model.ActivityTypesList[i]
+                </td>
+                <td class="smallmediumcol">
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 @if (item.External)
                 {
-                    <td>
+                    <td class="smallcol">
                         Yes
                     </td>
                 }
                 else
                 {
-                    <td></td>
+                    <td class="smallcol"></td>
                 }
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                <td class="extralargecol">
+                       @*@Html.DisplayFor(modelItem => item.Description)*@
+                    <details>
+                        <summary>Read more...</summary>
+                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                    </details>
                 </td>
             </tr>
             i++;
-        }
         }
     </table>
 }

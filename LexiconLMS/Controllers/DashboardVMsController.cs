@@ -41,6 +41,7 @@ namespace LexiconLMS.Controllers
             dashboard.ModuleExists = true;
             dashboard.ActivityExists = true;
 
+            List<Activity> activities = new List<Activity>();
 
             var module = db.Modules.Where(c => c.CourseId == courseId)
                                             .Where(s => s.StartDate <= currentDate)
@@ -52,16 +53,38 @@ namespace LexiconLMS.Controllers
                 dashboard.ModuleName = module.Name;
 
                 var moduleId = module.Id;
-                dashboard.ActivitiesList = db.Activities.Where(m => m.ModuleId == moduleId).ToList();
-                if (dashboard.ActivitiesList.Count() > 0)
+
+                activities = db.Activities.Where(m => m.ModuleId == moduleId)
+                                                        .ToList();
+
+                List<Activity> dashboardActivities = new List<Activity>();
+
+                //Filter for activities valid for the current date only
+                if (activities != null)
                 {
-                    //Read activity type names into a List of strings
-                    List<string> typenames = new List<string>();
-                    foreach (var item in dashboard.ActivitiesList)
+                    foreach (var item in activities)
                     {
+                        if (DateTime.Compare(item.StartDate.Date, currentDate) == 0)
+                        {
+                            dashboardActivities.Add(item);
+                        }
+                    }
+                }
+
+                if (dashboardActivities.Count > 0)
+                {
+                    List<string> typenames = new List<string>();
+                    foreach (var item in dashboardActivities)
+                    {
+                        //The following is only needed if activities are allowed to span more than one day. Not yet implemented.
+                        //Check if the start date of the activity is less than the current date. If it is the set start time = 8:30.
+                        //Check if the end date of the activity is greater than the current date. If it is the set end time = 17:00.
+
+                        //Read activity type names into a List of strings
                         activityType = db.ActivityTypes.Find(item.ActivityTypeId).TypeName;
                         typenames.Add(activityType);
                     }
+                    dashboard.ActivitiesList = dashboardActivities;
                     dashboard.ActivityTypesList = typenames;
                 }
                 else
@@ -72,6 +95,7 @@ namespace LexiconLMS.Controllers
             else
             {
                 dashboard.ModuleExists = false;
+                dashboard.ActivityExists = false;
             }
 
             return View("Dashboard", dashboard);

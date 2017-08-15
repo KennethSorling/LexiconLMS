@@ -46,6 +46,11 @@
                         <li>@Html.ActionLink("Students", "Index", "Students")</li>
                         <li>@Html.ActionLink("Teachers", "Index", "Teachers")</li>
                     }
+                    @if (User.IsInRole("Student"))
+                    {
+                        <li>@Html.ActionLink("Dashboard", "ShowDashboard", "DashboardVMs")</li>
+                        <li>@Html.ActionLink("Schedule", "ShowSchedule", "ScheduleVMs")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -58,9 +63,9 @@
         </div>
 
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - LEXICON</p>
+        @*<hr />*@
+        <footer class="footer">
+            <p class="footer-text">&copy; @DateTime.Now.Year - Lexicon</p>
         </footer>
     </div>
 
