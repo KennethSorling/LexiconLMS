@@ -13,13 +13,13 @@ namespace LexiconLMS.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime StartDate { get; set; }
 
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Name = "End Date")]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime EndDate { get; set; }

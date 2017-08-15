@@ -22,19 +22,19 @@ namespace LexiconLMS.Models
         public string Description { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Date Approved")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateApproved { get; set; }
 
