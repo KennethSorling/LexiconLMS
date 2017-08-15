@@ -9,15 +9,17 @@ namespace LexiconLMS.Models
         public int Id { get; set; } //will be passed to the Activities module in the controller
         public int CourseId { get; set; }
         public string Name { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime StartDate { get; set; }
 
 
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [Display(Name = "End Date")]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime EndDate { get; set; }

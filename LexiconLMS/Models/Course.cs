@@ -14,17 +14,17 @@ namespace LexiconLMS.Models
         public string Description { get; set; }
 
         [Display(Name = "Start Date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Date Updated")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime DateChanged { get; set; }
 

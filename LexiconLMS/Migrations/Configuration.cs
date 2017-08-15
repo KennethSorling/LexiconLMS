@@ -40,6 +40,13 @@ namespace LexiconLMS.Migrations
 
             string loremipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
+            context.Courses.AddOrUpdate(c => c.Name, new Course
+            {
+                Name = "Java for dummies",
+                StartDate = System.DateTime.Now,
+                EndDate = System.DateTime.Now,
+                DateChanged = DateTime.Now, Description = "Booga"
+            });
 
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
@@ -51,11 +58,13 @@ namespace LexiconLMS.Migrations
 
                 StartDate = DateTime.Now,
 
-                EndDate = DateTime.Now.AddMonths(4)
+                EndDate = DateTime.Now.AddMonths(4),
+
+                DateChanged = DateTime.Now.AddMonths(4)
 
             });
 
-
+            context.SaveChanges();
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
 
@@ -66,11 +75,13 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
+            context.SaveChanges();
 
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
@@ -82,12 +93,13 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
-
+                DateChanged = DateTime.Now.AddMonths(4),
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
 
+            context.SaveChanges();
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
 
@@ -98,12 +110,14 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
 
+            context.SaveChanges();
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
 
@@ -112,6 +126,7 @@ namespace LexiconLMS.Migrations
                 Name = "Outlook",
 
                 Description = loremipsum,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 StartDate = DateTime.Now,
 
@@ -119,6 +134,7 @@ namespace LexiconLMS.Migrations
 
             });
 
+            context.SaveChanges();
 
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
@@ -130,11 +146,13 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
+            context.SaveChanges();
 
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
@@ -146,12 +164,14 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
 
+            context.SaveChanges();
 
 
 
@@ -164,12 +184,14 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
 
+            context.SaveChanges();
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
 
@@ -180,11 +202,13 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
+            context.SaveChanges();
 
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
@@ -196,12 +220,14 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
 
 
+            context.SaveChanges();
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
 
@@ -212,10 +238,13 @@ namespace LexiconLMS.Migrations
                 Description = loremipsum,
 
                 StartDate = DateTime.Now,
+                DateChanged = DateTime.Now.AddMonths(4),
 
                 EndDate = DateTime.Now.AddMonths(4)
 
             });
+
+            context.SaveChanges();
 
 
 
@@ -242,6 +271,8 @@ namespace LexiconLMS.Migrations
                 result = roleManager.Create(teacherRole);
 
             }
+
+            context.SaveChanges();
 
             if (roleManager.FindByName("Student") == null)
 
@@ -319,7 +350,6 @@ namespace LexiconLMS.Migrations
 
 
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course { Name = "Java for dummies", StartDate = System.DateTime.Today, EndDate = System.DateTime.Today, Description = "Booga" });
 
 
 

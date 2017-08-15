@@ -80,15 +80,20 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default btn-save" />
+                <input type="submit" value="Create" class="btn btn-default btn-save btn-with-cancel" />
+                @if (Model.ReturnToIndex)
+                {
+                    @Html.ActionLink("Back", "Index", new { },  new { @class = "cancel-link" })
+                }
+                else
+                {
+                    @Html.ActionLink("Back", "Manage", "Courses", new { id = Model.CourseId}, new {@class="cancel-link" })
+                }
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

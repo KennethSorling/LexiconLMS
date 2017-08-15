@@ -19,12 +19,14 @@ namespace LexiconLMS.ViewModels
         [Display(Name="Course")]
         public string CourseName { get; set; }
         public string Name { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required]
         [Display(Name="Start Date")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString ="yyyy-MM-dd")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [Display(Name="Start Time")]

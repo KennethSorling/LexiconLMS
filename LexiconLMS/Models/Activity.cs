@@ -18,21 +18,24 @@ namespace LexiconLMS.Models
         [Required]
         public string Name { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "Start Date")]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         [Display(Name = "End Date")]
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Date Approved")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateApproved { get; set; }
 
         public ActivityType Type { get; set; }

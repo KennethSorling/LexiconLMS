@@ -43,9 +43,8 @@
         @Html.AntiForgeryToken()
         <input type="hidden" name ="returnToIndex" value="@Model.ReturnToIndex" />
         <div class="form-actions no-color">
-            <input type="submit" value="Delete Account" class="btn btn-default btn-delete" />
-            <br />
-            @Html.ActionLink("Cancel", "Index")
+            <input type="submit" value="Delete Account" class="btn btn-default btn-delete btn-with-cancel" />
+            @Html.ActionLink("Cancel", "Index", "Students", new {@class="cancel-link" })
         </div>
     }
 </div>

@@ -60,7 +60,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default btn-delete" />
-            @Html.ActionLink("Cancel", "Manage", "Courses", new {id=Model.CourseId }, new { })
+            @Html.ActionLink("Cancel", "Manage", "Modules", new {id=Model.Id }, new {@class="cancel-link" })
         </div>
     }
 </div>
