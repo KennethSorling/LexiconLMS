@@ -9,6 +9,8 @@ namespace LexiconLMS.Models
         public int Id { get; set; } //will be passed to the Activities module in the controller
         public int CourseId { get; set; }
         public string Name { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [DataType(DataType.DateTime)]

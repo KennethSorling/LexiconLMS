@@ -141,6 +141,16 @@ namespace LexiconLMS.Controllers
                 ModelState.AddModelError("EndDate", $"Course cannot end sooner than its last module does ({latest.ToShortDateString()})");
             }
 
+            /*
+             * Try to ascertain if user is attempting  to rename the course, and in that case to what.
+             */
+
+            var conflict = db.Courses.Where(c => (c.Name.ToLower() == course.Name.ToLower()) && c.Id != course.Id).FirstOrDefault() ;
+            if (conflict != null)
+            {
+                ModelState.AddModelError("Name", "There is another course by this name already.");
+            }
+
             if (ModelState.IsValid)
             {
                 course.DateChanged = System.DateTime.Now;

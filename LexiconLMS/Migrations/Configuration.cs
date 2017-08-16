@@ -23,6 +23,13 @@ namespace LexiconLMS.Migrations
             string loremipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
             string loremipshort = "Lorem ipsum dolor sit amet";
+            context.Courses.AddOrUpdate(c => c.Name, new Course
+            {
+                Name = "Java for dummies",
+                StartDate = System.DateTime.Now,
+                EndDate = System.DateTime.Now,
+                DateChanged = DateTime.Now, Description = "Booga"
+            });
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
@@ -33,6 +40,8 @@ namespace LexiconLMS.Migrations
                 DateChanged = DateTime.Now
             });
 
+            context.SaveChanges();
+
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
                 Name = "Java Developer",
@@ -41,6 +50,9 @@ namespace LexiconLMS.Migrations
                 EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
+
+            context.SaveChanges();
+
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
@@ -51,6 +63,9 @@ namespace LexiconLMS.Migrations
                 DateChanged = DateTime.Now
             });
 
+
+            context.SaveChanges();
+
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
                 Name = "PowerPoint",
@@ -59,6 +74,9 @@ namespace LexiconLMS.Migrations
                 EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
+
+
+            context.SaveChanges();
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
@@ -69,6 +87,9 @@ namespace LexiconLMS.Migrations
                 DateChanged = DateTime.Now
             });
 
+            context.SaveChanges();
+
+
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
                 Name = "OneNote",
@@ -77,6 +98,9 @@ namespace LexiconLMS.Migrations
                 EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
+
+            context.SaveChanges();
+
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
@@ -87,6 +111,11 @@ namespace LexiconLMS.Migrations
                 DateChanged = DateTime.Now
             });
 
+
+            context.SaveChanges();
+
+
+
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
                 Name = "Web och App",
@@ -96,6 +125,9 @@ namespace LexiconLMS.Migrations
                 DateChanged = DateTime.Now
             });
 
+
+            context.SaveChanges();
+
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
                 Name = "SharePoint",
@@ -104,6 +136,9 @@ namespace LexiconLMS.Migrations
                 EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
+
+            context.SaveChanges();
+
 
             context.Courses.AddOrUpdate(c => c.Name, new Course
             {
@@ -239,6 +274,8 @@ namespace LexiconLMS.Migrations
                 teacherRole = new IdentityRole("Teacher");
                 result = roleManager.Create(teacherRole);
             }
+
+            context.SaveChanges();
 
             if (roleManager.FindByName("Student") == null)
             {

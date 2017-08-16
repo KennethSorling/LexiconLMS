@@ -18,6 +18,7 @@ namespace LexiconLMS.Models
         [Required]
         public string Name { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         [Required]
@@ -33,6 +34,8 @@ namespace LexiconLMS.Models
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Date Approved")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateApproved { get; set; }
 
         public ActivityType Type { get; set; }

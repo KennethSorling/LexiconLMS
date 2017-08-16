@@ -19,9 +19,8 @@
             </p>
         </div>
         <div class="col-6 col-md-5">
-            @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit extra-left-margin" })
-            <br />
-            @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete extra-left-margin" })
+            @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
+            @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
         </div>
     </div>
 
@@ -41,12 +40,12 @@
     }
     else
     {
-        <table class="table">
+        <table class="table" width="550">
             <tr>
                 <th>Module Name</th>
-                <th>@Html.DisplayNameFor(model => model.StartDate)</th>
-                <th>@Html.DisplayNameFor(model => model.EndDate)</th>
-                <th></th>
+                <th width="100">@Html.DisplayNameFor(model => model.StartDate)</th>
+                <th width="100">@Html.DisplayNameFor(model => model.EndDate)</th>
+                <th width="125"></th>
             </tr>
 
             @foreach (var item in Model.Modules)
@@ -64,8 +63,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EndDate)
                     </td>
-                    <td style="width:120px;"></td>
-
+                    <td></td>
                     <td>
                         @Html.ActionLink("Manage", "Manage", "Modules", new { id = item.Id }, new { @class = "btn btn-default btn-edit" })
                     </td>
@@ -80,7 +78,7 @@
             <p class="course-name">Attending Students</p>
         </div>
         <div class="col-6 col-md-5">
-            @Html.ActionLink("Add Student", "Create", "Students", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add-student extra-left-margin" })
+            @Html.ActionLink("Add Student", "Create", "Students", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add-student" })
         </div>
     </div>
     @if (Model.Students.Count() == 0)
@@ -89,7 +87,7 @@
     }
     else
     {
-        <table class="table">
+        <table class="table" width="550">
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>

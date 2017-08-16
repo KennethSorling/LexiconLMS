@@ -145,12 +145,25 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
             var module = db.Modules.Find(activity.ModuleId);
             var course = db.Courses.Find(module.CourseId);
             ViewBag.CourseName = course.Name;
             ViewBag.ModuleName = module.Name;
             ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "Id", "TypeName", activity.ActivityTypeId);
-            return View(activity);
+
+            var activityVM = new CreateEditActivityVM
+            {
+                Id = activity.Id,
+                Name = activity.Name,
+                Description = activity.Description,
+                StartDate = activity.StartDate,
+                StartTime = activity.StartDate,
+                EndTime = activity.EndDate,
+                ModuleId = activity.ModuleId,
+                External = activity.External
+            };
+            return View(activityVM);
         }
 
         // POST: Activities/Edit/5
@@ -159,14 +172,28 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Teacher")]
-        public ActionResult Edit([Bind(Include = "Id,ModuleId,ActivityTypeId,Name,Description,StartDate,EndDate,DateApproved,External")] Activity activity)
+        public ActionResult Edit([Bind(Include = "Id,ModuleId,ActivityTypeId,Name,Description,StartDate,StartTime,EndTime,DateApproved,External")] CreateEditActivityVM activityVM)
         {
             int moduleId = 0;
+            var activity = new Activity {
+                Id = activityVM.Id,
+                ModuleId = activityVM.ModuleId,
+                Name = activityVM.Name,
+                Description = activityVM.Description,
+                ActivityTypeId = activityVM.ActivityTypeId,
+                StartDate = activityVM.StartDate.Date.Add(activityVM.StartTime.TimeOfDay),
+                EndDate = activityVM.StartDate.Date.Add(activityVM.EndTime.TimeOfDay)
+            };
 
-            if (activity.StartDate > activity.EndDate)
+            if (activityVM.StartTime > activityVM.EndTime)
             {
-                ModelState.AddModelError("EndDate", "The End Date must be later than or equal to the Start Date.");
+                ModelState.AddModelError("EndTime", "End Time cannot be earlier than Start Time");
             }
+
+            //if (activity.StartDate > activity.EndDate)
+            //{
+            //    ModelState.AddModelError("EndDate", "The End Date must be later than or equal to the Start Date.");
+            //}
             moduleId = activity.ModuleId;
             var module = db.Modules.Find(moduleId);
             var course = db.Courses.Find(module.CourseId);
@@ -203,7 +230,7 @@ namespace LexiconLMS.Controllers
             ViewBag.CourseName = course.Name;
             ViewBag.ModuleName = module.Name;
             ViewBag.ActivityTypeId = new SelectList(db.ActivityTypes, "Id", "TypeName", activity.ActivityTypeId);
-            return View(activity);
+            return View(activityVM);
         }
 
         private bool Conflicts(Activity a, Activity b)

@@ -3,12 +3,17 @@
 @{
     ViewBag.Title = "Students at Lexicon";
 }
+<div class="row">
+    <div class="col-md-8">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div class="col-md-4">
+        <br />
+        @Html.ActionLink("Add Student", "Create", null, new {@class="btn btn-default btn-add" })
+    </div>
+</div>
 
-<h1>@ViewBag.Title</h1>
 
-<p>
-    @Html.ActionLink("Add Student", "Create", null, new {@class="btn btn-default btn-add" })
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -50,7 +55,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id, returnToIndex=true }, new {@class="btn btn-default btn-edit" })
-            <br />
             @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new {@class="btn btn-default btn-delete" })
         </td>
     </tr>

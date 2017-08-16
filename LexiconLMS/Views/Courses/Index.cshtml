@@ -1,25 +1,14 @@
 ﻿@model IEnumerable<LexiconLMS.Models.Course>
 
-<head>
-    <script src="http://code.jquery.com/jquery-1.4.2.min.js">
-    </script>
-</head>
-
-@*<div id="message">
-        @TempData["Message"]
-    </div>*@
 
 <div class="row">
-    <div class="col col-md-8">
-        <p class="page-header">@ViewBag.Title</p>
+    <div class="col-md-8">
+        <h1>@ViewBag.Title</h1>
     </div>
-    @*<div class="col-6 col-md-4">
-            <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
-        </div>*@
-    <div class="col-6 col-md-4">
-        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add btnAddCourse" })
+    <div class="col-md-4">
+        <br />
+        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add" })
     </div>
-
 </div>
 
 @*<ol class="breadcrumb">
@@ -50,7 +39,6 @@
             </div>
             <div class="col-6 col-md-4">
                 @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = item.Id }, new { @class = "btn btn-default btn-edit" })
-                <br />
                 @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = item.Id }, new { @class = "btn btn-default btn-delete" })
             </div>
         </div>

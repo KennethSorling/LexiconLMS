@@ -61,14 +61,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Update Account" class="btn btn-default btn-save" />
+                <input type="submit" value="Update Account" class="btn btn-default btn-save btn-with-cancel" />
+                @Html.ActionLink("Back", "Index", new { }, new {@class="cancel-link" })
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back", "Index")
 </div>
 
 @section Scripts {

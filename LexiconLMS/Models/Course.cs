@@ -24,7 +24,7 @@ namespace LexiconLMS.Models
         public DateTime EndDate { get; set; }
 
         [Display(Name = "Date Updated")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]
         public DateTime DateChanged { get; set; }
 
