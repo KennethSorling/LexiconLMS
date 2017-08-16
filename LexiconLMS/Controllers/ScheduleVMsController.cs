@@ -12,6 +12,7 @@ namespace LexiconLMS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ScheduleVMs
+        [Authorize]
         public ActionResult ShowSchedule(int? courseId)
         {
             if (courseId == null)
@@ -82,6 +83,14 @@ namespace LexiconLMS.Controllers
                     scheduleRow.ScheduleRowDate = course.StartDate.AddDays(i).ToShortDateString();
                     scheduleRow.ScheduleRowWeekDay = course.StartDate.AddDays(i).DayOfWeek.ToString();
 
+                    //Reset all hours, minutes and seconds to 0 in module DateTime properties. This will
+                    //enable a correct comparison when checking for a module for this date.
+                    foreach (var item in modules)
+                    {
+                        item.StartDate = item.StartDate.Date;
+                        item.EndDate = item.EndDate.Date;
+                    }
+
                     //Check if there is a module for this date
                     var module = modules.Where(s => s.StartDate <= course.StartDate.AddDays(i))
                                             .Where(e => e.EndDate >= course.StartDate.AddDays(i - 1))
@@ -104,8 +113,8 @@ namespace LexiconLMS.Controllers
                             //Read activity type names into a list
                             if (activitiesForThisDate.Count > 0)
                             {
-                                List<string> amActivities = new List<string>();
-                                List<string> pmActivities = new List<string>();
+                                List<AmObject> amActivities = new List<AmObject>();
+                                List<PmObject> pmActivities = new List<PmObject>();
 
                                 foreach (var item in activitiesForThisDate)
                                 {
@@ -117,18 +126,25 @@ namespace LexiconLMS.Controllers
                                     //Read activity type names into a List of strings
                                     activityType = db.ActivityTypes.Find(item.ActivityTypeId).TypeName;
 
+                                    var amObject = new AmObject();
+                                    var pmObject = new PmObject();
+
                                     //Check if the activity is in the morning
                                     if (item.StartDate.Hour < 12 && item.EndDate.Hour <= 12)
                                     {
                                         if (!item.External)
                                         {
-                                            amActivities.Add(item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + ", " + item.Description);
+                                            amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
+                                                                + ": " + activityType;
+                                            amObject.AmActivityDescription = item.Description;
+                                            amActivities.Add(amObject);
                                         }
                                         else
                                         {
-                                            amActivities.Add(item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + ", " + item.Description + " (EXT)");
+                                            amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
+                                                                + ": " + activityType + " (EXT)";
+                                            amObject.AmActivityDescription = item.Description;
+                                            amActivities.Add(amObject);
                                         }
                                     }
                                     //Check if the activity is in the afternoon
@@ -136,13 +152,17 @@ namespace LexiconLMS.Controllers
                                     {
                                         if (!item.External)
                                         {
-                                            pmActivities.Add(item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + ", " + item.Description);
+                                            pmObject.PmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
+                                                                + ": " + activityType;
+                                            pmObject.PmActivityDescription = item.Description;
+                                            pmActivities.Add(pmObject);
                                         }
                                         else
                                         {
-                                            pmActivities.Add(item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + ", " + item.Description + " (EXT)");
+                                            pmObject.PmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
+                                                                + ": " + activityType + "(EXT)";
+                                            pmObject.PmActivityDescription = item.Description;
+                                            pmActivities.Add(pmObject);
                                         }
                                     }
                                     //The activity starts before lunch and finishes after lunch. Split it in one morning activity and one
@@ -151,17 +171,29 @@ namespace LexiconLMS.Controllers
                                     {
                                         if (!item.External)
                                         {
-                                            amActivities.Add(item.StartDate.ToShortTimeString() + " - " + "12:00"
-                                                                + ": " + activityType + ", " + item.Description);
-                                            pmActivities.Add("13:00" + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + ", " + item.Description);
+                                            amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + "12:00"
+                                                               + ": " + activityType;
+                                            amObject.AmActivityDescription = item.Description;
+
+                                            pmObject.PmActivityTitle = "13:00" + " - " + item.EndDate.ToShortTimeString()
+                                                                + ": " + activityType;
+
+                                            pmObject.PmActivityDescription = item.Description;
+                                            amActivities.Add(amObject);
+                                            pmActivities.Add(pmObject);
+
                                         }
                                         else
                                         {
-                                            amActivities.Add(item.StartDate.ToShortTimeString() + " - " + "12:00"
-                                                                + ": " + activityType + ", " + item.Description + " (EXT)");
-                                            pmActivities.Add("13:00" + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + ", " + item.Description + " (EXT)");
+                                            amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + "12:00"
+                                                               + ": " + activityType + " (EXT)";
+                                            amObject.AmActivityDescription = item.Description;
+
+                                            pmObject.PmActivityTitle = "13:00" + " - " + item.EndDate.ToShortTimeString()
+                                                                + ": " + activityType + " (EXT)";
+                                            pmObject.PmActivityDescription = item.Description;
+                                            amActivities.Add(amObject);
+                                            pmActivities.Add(pmObject);
                                         }
                                     }
                                 }
@@ -188,7 +220,7 @@ namespace LexiconLMS.Controllers
                 schedule.ModuleExists = false;
             }
 
-            schedule.UpdatedDate = DateTime.Now; //course.UpdatedDate;
+            schedule.UpdatedDate = course.DateChanged;
             return View("Schedule", schedule);
         }
 

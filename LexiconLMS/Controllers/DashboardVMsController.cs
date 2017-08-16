@@ -3,9 +3,7 @@ using LexiconLMS.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 namespace LexiconLMS.Controllers
@@ -33,7 +31,7 @@ namespace LexiconLMS.Controllers
 
             var course = db.Courses.Find(courseId);
 
-            var currentDate = DateTime.Now.Date;
+            var currentDate = DateTime.Now;
 
             dashboard.CourseName = course.Name;
             dashboard.StudentName = currentUser.FirstName + " " + currentUser.LastName;
@@ -64,7 +62,7 @@ namespace LexiconLMS.Controllers
                 {
                     foreach (var item in activities)
                     {
-                        if (DateTime.Compare(item.StartDate.Date, currentDate) == 0)
+                        if (item.StartDate.ToString("yyyy-MM-dd") == currentDate.ToString("yyyy-MM-dd"))
                         {
                             dashboardActivities.Add(item);
                         }

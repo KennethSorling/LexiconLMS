@@ -326,6 +326,14 @@ margin-left: 102px;
     width: 35%;
 }
 
+.morningcol-schedule {
+    width: 32%;
+}
+
+.afternooncol-schedule {
+    width: 32%;
+}
+
 .footer {
    position: fixed;
    left: 0px;

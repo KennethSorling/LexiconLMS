@@ -33,7 +33,9 @@
                 }
                 @if (User.IsInRole("Student"))
                 {
-                    <!-- Define student-only link(s)   -->
+                    <a href="@Url.Action("ShowDashboard","DashboardVMs")">
+                        <img src="~/Content/Images/lexiconlogo.png" />
+                    </a>
 
                 }
 

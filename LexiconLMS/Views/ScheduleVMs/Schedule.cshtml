@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Index";
-    int i = 0;
 }
 
 <p class="page-header">Schedule</p>
@@ -41,60 +40,15 @@ else
                     <td class="smallcol">
                         @Html.DisplayFor(modelItem => item.ScheduleRowWeekDay)
                     </td>
-                    <td class="smallcol">
-                        @Html.DisplayFor(modelItem => item.ModuleName)
+                    <td class="smallmediumcol">
+
                     </td>
-                    <td class="extralargecol">
-                        @*@if (item.AmActivity != null)
-                        {
-                            foreach (var activity in item.AmActivity)
-                            {
-                                if (i > 0)
-                                {
-                                    <br>
-                                }
-                                @Html.DisplayFor(modelItem => activity)
-                                i++;
-                            }
-                        }*@
-                        @if (item.AmActivity != null)
-                        {
-                            foreach (var activity in item.AmActivity)
-                            {
-                                if (i > 0)
-                                {
-                                    <br>
-                                }
-                                @*if (activity.Length < 20)
-                                {
-                                    @Html.DisplayFor(modelItem => activity)
-                                }
-                                else
-                                {*@
-                                    <details>
-                                        <summary>Read more...</summary>
-                                        <p>@Html.DisplayFor(modelItem => activity)</p>
-                                    </details>
-                                //}
-                                i++;
-                            }
-                        }
+                    <td class="morningcol-schedule">
+
                     </td>
 
-                    <td class="extralargecol">
-                        @if (item.PmActivity != null)
-                        {
-                            i = 0;
-                            foreach (var activity in item.PmActivity)
-                            {
-                                if (i > 0)
-                                {
-                                    <br>
-                                }
-                                @Html.DisplayFor(modelItem => activity)
-                                i++;
-                            }
-                        }
+                    <td class="afternooncol-schedule">
+                       
                     </td>
                 </tr>
             }
@@ -107,36 +61,30 @@ else
                     <td class="smallcol">
                         @Html.DisplayFor(modelItem => item.ScheduleRowWeekDay)
                     </td>
-                    <td class="smallcol">
+                    <td class="smallmediumcol">
                         @Html.DisplayFor(modelItem => item.ModuleName)
                     </td>
-                    <td class="extralargecol">
+                    <td class="morningcol-schedule">
                         @if (item.AmActivity != null)
                         {
-                            i = 0;
                             foreach (var activity in item.AmActivity)
                             {
-                                if (i > 0)
-                                {
-                                    <br>
-                                }
-                                @Html.DisplayFor(modelItem => activity)
-                                i++;
+                                <details>
+                                    <summary>@Html.DisplayFor(modelItem => activity.AmActivityTitle)</summary>
+                                    @activity.AmActivityDescription
+                                </details>
                             }
                         }
                     </td>
-                    <td class="extralargecol">
+                    <td class="afternooncol-schedule">
                         @if (item.PmActivity != null)
                         {
-                            i = 0;
                             foreach (var activity in item.PmActivity)
                             {
-                                if (i > 0)
-                                {
-                                    <br>
-                                }
-                                @Html.DisplayFor(modelItem => activity)
-                                i++;
+                                <details>
+                                    <summary>@Html.DisplayFor(modelItem => activity.PmActivityTitle)</summary>
+                                    @activity.PmActivityDescription
+                                </details>
                             }
                         }
                     </td>

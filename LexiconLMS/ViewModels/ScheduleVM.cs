@@ -13,10 +13,6 @@ namespace LexiconLMS.ViewModels
 
         public bool ModuleExists { get; set; }
 
-        //public bool ModuleExists { get; set; }
-
-        //public bool ActivityExists { get; set; }
-
         public List<ScheduleRow> ScheduleRowList { get; set; }
     }
 
@@ -28,10 +24,23 @@ namespace LexiconLMS.ViewModels
 
         public string ModuleName { get; set; }
 
-        public List<string> AmActivity { get; set; }
+        public List<AmObject> AmActivity { get; set; }
 
-        public List<string> PmActivity { get; set; }
+        public List<PmObject> PmActivity { get; set; }
 
         public bool External { get; set; }
     }
+
+    public class AmObject
+    {
+        public string AmActivityTitle { get; set; }
+        public string AmActivityDescription { get; set; }
+    }
+
+    public class PmObject
+    {
+        public string PmActivityTitle { get; set; }
+        public string PmActivityDescription { get; set; }
+    }
+
 }
