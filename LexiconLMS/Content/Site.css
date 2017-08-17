@@ -197,6 +197,18 @@ hr {
     text-decoration:none;
 }
 
+.btn-upload {
+    background-color: #6e3694;
+    border-color: #6e3694;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 0;
+    color: #fff;
+    font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    text-decoration:none;
+}
+
 .btn-delete:hover,
 .btn-delete:focus,
 .btn-delete:active,
@@ -254,6 +266,32 @@ hr {
 
 .thick-divider-line {
 border-top: 3px solid;
+}
+
+}
+
+.thick-divider-line {
+    border-top: 3px solid;
+}
+
+.thick-divider-line-schedule {
+    border-top: 3px solid;
+    width: 860px;
+}
+
+.extra-left-margin {
+margin-left: 102px;
+}
+
+.schedule-weekend-day {
+    /*background-color: #923333;*/
+    /*background-color: #e65d5d;*/
+    /*background-color: #e2bdbd;*/
+    background-color: #e9d6d6;
+}
+
+.schedule-table {
+  max-width: 860px;
 }
 
 .schedule-small-font {

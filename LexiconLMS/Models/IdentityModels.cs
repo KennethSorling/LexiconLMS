@@ -35,6 +35,9 @@ namespace LexiconLMS.Models
         public DbSet<Module> Modules { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Student> ApplicationUsers { get; set; }
+        public DbSet<MimeType> MimeTypes { get; set; }
+        public DbSet<Purpose> Purposes { get; set; }
+        public DbSet<Status> Statuses { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

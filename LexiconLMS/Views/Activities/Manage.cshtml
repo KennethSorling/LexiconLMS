@@ -24,8 +24,20 @@
     <div class="col-md-4">
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
         @Html.ActionLink("Delete", "Delete", "Activities", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
+        @Html.ActionLink("Upload", "Upload", "Documents", new { activityId = Model.Id, moduleId = Model.ModuleId }, new { @class = "btn btn-default btn-upload" })
+
+
     </div>
 </div>
+<h2>Documents:</h2>
+@if (Model.Documents.Count() == 0)
+{
+    <p>There are no documents</p>
+}
+else
+{
+    <p>There are @Model.Documents.Count() documents.</p>
+}
 <p>
     <br />
     @Html.ActionLink("Back", "Manage", "Modules", new { id = Model.ModuleId }, new { })

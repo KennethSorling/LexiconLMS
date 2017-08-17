@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class dejaVu : DbMigration
     {
         public override void Up()
         {
@@ -32,26 +32,52 @@ namespace LexiconLMS.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        MimeTypeId = c.Int(nullable: false),
+                        StatusId = c.Int(nullable: false),
                         Filename = c.String(nullable: false),
+                        FileSize = c.Int(nullable: false),
                         Title = c.String(),
                         FileType = c.String(),
                         ModuleId = c.Int(),
                         CourseId = c.Int(),
-                        UserId = c.String(),
+                        ActivityId = c.Int(),
+                        ApplicationUserId = c.String(maxLength: 128),
                         DateUploaded = c.DateTime(nullable: false),
                         DeadLine = c.DateTime(),
-                        Activity_Id = c.Int(),
-                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Activities", t => t.Activity_Id)
+                .ForeignKey("dbo.MimeTypes", t => t.MimeTypeId, cascadeDelete: true)
+                .ForeignKey("dbo.Status", t => t.StatusId, cascadeDelete: true)
+                .ForeignKey("dbo.Activities", t => t.ActivityId)
                 .ForeignKey("dbo.Courses", t => t.CourseId)
                 .ForeignKey("dbo.Modules", t => t.ModuleId)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
+                .Index(t => t.MimeTypeId)
+                .Index(t => t.StatusId)
                 .Index(t => t.ModuleId)
                 .Index(t => t.CourseId)
-                .Index(t => t.Activity_Id)
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.ActivityId)
+                .Index(t => t.ApplicationUserId);
+            
+            CreateTable(
+                "dbo.MimeTypes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        DefaultExtension = c.String(),
+                        IconURL = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Status",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.ActivityTypes",
@@ -156,6 +182,15 @@ namespace LexiconLMS.Migrations
                 .Index(t => t.CourseId);
             
             CreateTable(
+                "dbo.Purposes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -171,7 +206,7 @@ namespace LexiconLMS.Migrations
         {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Documents", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Documents", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUsers", "Course_Id", "dbo.Courses");
@@ -180,7 +215,9 @@ namespace LexiconLMS.Migrations
             DropForeignKey("dbo.Activities", "ModuleId", "dbo.Modules");
             DropForeignKey("dbo.Documents", "CourseId", "dbo.Courses");
             DropForeignKey("dbo.Activities", "ActivityTypeId", "dbo.ActivityTypes");
-            DropForeignKey("dbo.Documents", "Activity_Id", "dbo.Activities");
+            DropForeignKey("dbo.Documents", "ActivityId", "dbo.Activities");
+            DropForeignKey("dbo.Documents", "StatusId", "dbo.Status");
+            DropForeignKey("dbo.Documents", "MimeTypeId", "dbo.MimeTypes");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Modules", new[] { "CourseId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
@@ -189,13 +226,16 @@ namespace LexiconLMS.Migrations
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", new[] { "Course_Id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Documents", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.Documents", new[] { "Activity_Id" });
+            DropIndex("dbo.Documents", new[] { "ApplicationUserId" });
+            DropIndex("dbo.Documents", new[] { "ActivityId" });
             DropIndex("dbo.Documents", new[] { "CourseId" });
             DropIndex("dbo.Documents", new[] { "ModuleId" });
+            DropIndex("dbo.Documents", new[] { "StatusId" });
+            DropIndex("dbo.Documents", new[] { "MimeTypeId" });
             DropIndex("dbo.Activities", new[] { "ActivityTypeId" });
             DropIndex("dbo.Activities", new[] { "ModuleId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Purposes");
             DropTable("dbo.Modules");
             DropTable("dbo.Courses");
             DropTable("dbo.AspNetUserRoles");
@@ -203,6 +243,8 @@ namespace LexiconLMS.Migrations
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.ActivityTypes");
+            DropTable("dbo.Status");
+            DropTable("dbo.MimeTypes");
             DropTable("dbo.Documents");
             DropTable("dbo.Activities");
         }

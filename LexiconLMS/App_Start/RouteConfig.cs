@@ -12,11 +12,17 @@ namespace LexiconLMS
             routes.MapRoute(
                     name:"Dashboard",
                     url: "dashboard",
-                    defaults: new { controller = "DashboardVMs", action = "ShowDashBoard" }
+                    defaults: new { controller = "DashboardVMs", action = "ShowDashboard" }
                 );
 
             routes.MapRoute(
-                    name:"Schedule",
+                name: "Schedule",
+                url: "schedule",
+                defaults: new { controller = "ScheduleVMs", action = "ShowSchedule", courseId = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
+                    name:"ScheduleWithParams",
                     url: "schedule/{courseId}",
                     defaults: new { controller="ScheduleVMs", action = "ShowSchedule", courseId = UrlParameter.Optional},
                     constraints: new {courseId =@"\d+" }
