@@ -1,0 +1,42 @@
+.container or .container-fluid
+  the latter will always take up the full width of the container
+  the former will center
+
+.row 'container for columns
+  12-columnn grid
+  .col-sm-4 (take up 4 of those 12 columnes
+  .col-sm-9 (take up the remaining 8)
+
+  .col-xs-4 (like the sm variant above, but for even smaller devices)
+bootstrap's visual breakpoints
+
+extra-smalldevices	phones		xs	<768px
+small  devices		tablets		sm	>=768px
+Medium devices		desktops	md	>992px
+Large devices		desktops	lg	>=1200px
+
+768 is the width of an iPad in portrait mode
+
+you can assign several classes to each element
+
+background image using css:
+div with a class like fill-screen
+backgroud-image:url(....);
+background-size:cover;
+background-position:center;
+
+setting the height of that div with javascript/jQuery
+add script block to bottom of page.
+
+$(function () {
+  $(window).on("load resize", function () {
+    $(".fill-screen").css("height", window.innerHeight);
+  }
+});
+
+defines a function for the jQuery ready event, which attaches event handers to onResize and onLoad
+
+if we want it to remain static, set
+  background-attachment:fixed;
+
+

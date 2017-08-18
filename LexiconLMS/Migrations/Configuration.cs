@@ -99,7 +99,7 @@ namespace LexiconLMS.Migrations
             context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "docx",Name = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
             context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "xlsx",Name = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
             context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "pptx",Name = "application/vnd.openxmlformats-officedocument.presentationml.presentation"});
-
+            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType {DefaultExtension = "", Name = "application/octet-stream" });
             context.SaveChanges();
 
 
@@ -108,146 +108,169 @@ namespace LexiconLMS.Migrations
 
             string loremipshort = "Lorem ipsum dolor sit amet";
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 1,
                 Name = ".Net Developer",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
-            context.Courses.AddOrUpdate(c => c.Name, new Course { Name = "Java for dummies", StartDate = System.DateTime.Now, EndDate = System.DateTime.Now, DateChanged = System.DateTime.Now, Description = "Booga" });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 2,
                 Name = "Java Developer",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 3,
                 Name = "Excel",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 4,
                 Name = "PowerPoint",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 5,
                 Name = "Outlook",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 6,
                 Name = "OneNote",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 7,
                 Name = "Access",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 8,
                 Name = "Web och App",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 9,
                 Name = "SharePoint",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 10,
                 Name = "Grafisk Produktion",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
-            context.Courses.AddOrUpdate(c => c.Name, new Course
+            context.Courses.AddOrUpdate(c => c.Id, new Course
             {
+                Id = 11,
                 Name = "Crystal Reports",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(4).Date,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
+                DateChanged = DateTime.Now
+            });
+
+            context.Courses.AddOrUpdate(c => c.Id, new Course
+            {
+                Id = 12,
+                Name = "JAVA for Dummies",
+                Description = loremipsum,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(4),
                 DateChanged = DateTime.Now
             });
 
             context.SaveChanges();
 
-            context.Modules.AddOrUpdate(m => m.Name, new Module
+            context.Modules.AddOrUpdate(m => m.Id, new Module
             {
+                Id = 1,
                 CourseId = 1,
                 Name = "C# Basics",
                 Description = loremipsum,
-                StartDate = DateTime.Now.Date,
-                EndDate = DateTime.Now.AddMonths(1).Date
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(1)
             });
 
-            context.Modules.AddOrUpdate(m => m.Name, new Module
+            context.Modules.AddOrUpdate(m => m.Id, new Module
             {
+                Id = 2,
                 CourseId = 1,
                 Name = "C# Advanced",
                 Description = loremipsum,
-                StartDate = DateTime.Now.AddMonths(1).AddDays(1).Date,
-                EndDate = DateTime.Now.AddMonths(2).Date
+                StartDate = DateTime.Now.AddMonths(1).AddDays(1),
+                EndDate = DateTime.Now.AddMonths(2)
             });
 
-            context.Modules.AddOrUpdate(m => m.Name, new Module
+            context.Modules.AddOrUpdate(m => m.Id, new Module
             {
+                Id = 3,
                 CourseId = 1,
                 Name = "MVC Basics",
                 Description = loremipsum,
-                StartDate = DateTime.Now.AddMonths(2).AddDays(1).Date,
-                EndDate = DateTime.Now.AddMonths(3).Date
+                StartDate = DateTime.Now.AddMonths(2).AddDays(1),
+                EndDate = DateTime.Now.AddMonths(3)
             });
 
-            context.Modules.AddOrUpdate(m => m.Name, new Module
+            context.Modules.AddOrUpdate(m => m.Id, new Module
             {
+                Id = 4,
                 CourseId = 1,
                 Name = "MVC Advanced",
                 Description = loremipsum,
-                StartDate = DateTime.Now.AddMonths(3).AddDays(1).Date,
-                EndDate = DateTime.Now.AddMonths(4).Date
+                StartDate = DateTime.Now.AddMonths(3).AddDays(1),
+                EndDate = DateTime.Now.AddMonths(4)
             });
 
             context.SaveChanges();
-
 
             TimeSpan courseSpan;
             courseSpan = DateTime.Now.AddMonths(4) - DateTime.Now;
@@ -255,12 +278,12 @@ namespace LexiconLMS.Migrations
 
             for (int i = 0; i < numberOfDays; i++)
             {
-                var thatDay = DateTime.Now.AddDays(i).Date;
-
+                var thatDay = DateTime.Now.AddDays(i);
                 if (i < 30)
                 {
-                    context.Activities.AddOrUpdate(m => m.Name, new Activity
+                    context.Activities.AddOrUpdate(a => a.Id, new Activity
                     {
+                        Id = i,
                         ModuleId = 1,
                         Name = "Introduction",
                         ActivityTypeId = 1,
@@ -270,11 +293,12 @@ namespace LexiconLMS.Migrations
                         External = false
                     });
                 }
-                else if (i < 60)
+                else if (i >= 30 && i < 60)
                 {
-                    context.Activities.AddOrUpdate(m => m.Name, new Activity
+                    context.Activities.AddOrUpdate(a => a.Id, new Activity
                     {
-                        ModuleId = 1,
+                        Id = i,
+                        ModuleId = 2,
                         Name = "Intermediate",
                         ActivityTypeId = 2,
                         Description = loremipshort,
@@ -283,11 +307,12 @@ namespace LexiconLMS.Migrations
                         External = false
                     });
                 }
-                else if (i < 90)
+                else if (i >= 60 && i < 90)
                 {
-                    context.Activities.AddOrUpdate(m => m.Name, new Activity
+                    context.Activities.AddOrUpdate(a => a.Id, new Activity
                     {
-                        ModuleId = 1,
+                        Id = i,
+                        ModuleId = 3,
                         Name = "Advanced",
                         ActivityTypeId = 3,
                         Description = loremipshort,
@@ -298,9 +323,10 @@ namespace LexiconLMS.Migrations
                 }
                 else
                 {
-                    context.Activities.AddOrUpdate(m => m.Name, new Activity
+                    context.Activities.AddOrUpdate(a => a.Id, new Activity
                     {
-                        ModuleId = 1,
+                        Id = i,
+                        ModuleId = 4,
                         Name = "Professional",
                         ActivityTypeId = 4,
                         Description = loremipshort,
@@ -314,80 +340,25 @@ namespace LexiconLMS.Migrations
             context.SaveChanges();
 
 
+            var students = new List<Student>
+            {
+                new Student{FirstName = "Student",LastName = "Studentsson",Email = "student.studentsson@lexicon.se",CourseId = 1,UserName = "student.studentsson@lexicon.se"},
+                new Student{FirstName = "Kwai Chang",LastName = "Caine",Email = "kwaichang.caine@lexicon.se",CourseId = 1,UserName = "kwaichang.caine@lexicon.se"},
+                new Student{FirstName = "Forrest",LastName = "Gump",Email = "forrest.gump@lexicon.se",CourseId = 1,UserName = "forrest.gump@lexicon.se"},
+                new Student{FirstName = "Biff",LastName = "Henderson",Email = "biff.henderson@lexicon.se",CourseId = 1,UserName = "biff.henderson@lexicon.se"},
+                new Student{FirstName = "Daniel",LastName = "LaRusso",Email = "daniel.larusso@lexicon.se",CourseId = 1,UserName = "daniel.larusso@lexicon.se"}
+            };
 
-
-                user = new Student
-                {
-                    FirstName = "Student",
-                    LastName = "Studentsson",
-                    Email = "student.studentsson@lexicon.se",
-                    CourseId = 1,
-                    UserName = "student.studentsson@lexicon.se"
-                };
+            foreach (var student in students)
+            {
+                user = student;
                 if (userManager.FindByEmail(user.Email) == null)
                 {
                     result = userManager.Create(user, "VerySecret123!");
                     result = userManager.AddToRole(user.Id, "Student");
                 }
-
-                user = new Student
-                {
-                    FirstName = "Daniel",
-                    LastName = "LaRusso",
-                    Email = "daniel.larusso@lexicon.se",
-                    CourseId = 1,
-                    UserName = "daniel.larusso@lexicon.se"
-                };
-            if (userManager.FindByEmail(user.Email) == null)
-            {
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
             }
-
-
-                user = new Student
-                {
-                    FirstName = "Kwai Chang",
-                    LastName = "Caine",
-                    Email = "kwaichang.caine@lexicon.se",
-                    CourseId = 1,
-                    UserName = "kwaichang.caine@lexicon.se"
-                };
-            if (userManager.FindByEmail(user.Email) == null)
-            {
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
-            user = new Student
-                {
-                    FirstName = "Forrest",
-                    LastName = "Gump",
-                    Email = "forrest.gump@lexicon.se",
-                    CourseId = 1,
-                    UserName = "forrest.gump@lexicon.se"
-                };
-            if (userManager.FindByEmail(user.Email) == null)
-            {
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
-            user = new Student
-                {
-                    FirstName = "Biff",
-                    LastName = "Henderson",
-                    Email = "biff.henderson@lexicon.se",
-                    CourseId = 1,
-                    UserName = "biff.henderson@lexicon.se"
-                };
-
-            if (userManager.FindByEmail(user.Email) == null)
-            {
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
+            
             context.SaveChanges();
 
             context.Documents.AddOrUpdate(d => d.Filename, new Document
@@ -438,8 +409,9 @@ namespace LexiconLMS.Migrations
                 MimeType = context.MimeTypes.Find(5),
                 Status = context.Statuses.Find(5),
                 Title = "My Pathetic Attempt",
+                PurposeId = 7,
                 Purpose = context.Purposes.Find(7),
-                ApplicationUserId = user.Id,
+                ApplicationUserId = students[1].Id,
                 DateUploaded = DateTime.Now
             });
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -21,6 +22,10 @@ namespace LexiconLMS.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        [Display(Name = "Last Logon")]
+        [DataType(DataType.DateTime)]
+        public DateTime LastLogon { get; set; }
 
         [Display(Name = "Course")]
         public int? CourseId { get; set; }

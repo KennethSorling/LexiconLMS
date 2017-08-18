@@ -37,6 +37,33 @@
 else
 {
     <p>There are @Model.Documents.Count() documents.</p>
+    <table class="table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    FileName
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Uploaded On
+                </th>
+                <th>
+                    By
+                </th>
+            </tr>
+            <thead>
+
+        </thead>
+        @foreach (var doc in Model.Documents)
+        {
+            <tr>
+                <td>@doc.Filename)</td><td>@doc.FileSize</td><td>@doc.DateUploaded.ToShortDateString()</td><td>@doc.Owner.Email</td>
+            </tr>
+        }
+        
+    </table>
 }
 <p>
     <br />

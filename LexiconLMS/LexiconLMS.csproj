@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201708171345449_dejaVu.Designer.cs">
       <DependentUpon>201708171345449_dejaVu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708180703172_messedWithTheDocumentEntity.cs" />
+    <Compile Include="Migrations\201708180703172_messedWithTheDocumentEntity.Designer.cs">
+      <DependentUpon>201708180703172_messedWithTheDocumentEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -446,6 +450,7 @@
     <Content Include="Views\Documents\Details.cshtml" />
     <Content Include="Views\Documents\Edit.cshtml" />
     <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\Documents\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -461,6 +466,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708171345449_dejaVu.resx">
       <DependentUpon>201708171345449_dejaVu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708180703172_messedWithTheDocumentEntity.resx">
+      <DependentUpon>201708180703172_messedWithTheDocumentEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
