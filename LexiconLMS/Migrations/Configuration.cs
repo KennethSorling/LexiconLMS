@@ -41,9 +41,9 @@ namespace LexiconLMS.Migrations
 
             var teachers = new List<Teacher>
             {
-                new Teacher{FirstName = "Oscar", LastName = "Jakobsson",Email = "oscar.jakobsson@lexicon.se",UserName = "oscar.jakobsson@lexicon.se"},
-                new Teacher{FirstName = "John",LastName = "Hellman",Email = "john.hellman@lexicon.se",UserName = "john.hellman@lexicon.se"},
-                new Teacher{FirstName = "Dmitris",LastName = "Björlingh",Email = "dmitris.bjorlingh@lexicon.se",UserName = "dmitris.bjorlingh@lexicon.se"}
+                new Teacher{FirstName = "Oscar", LastName = "Jakobsson",Email = "oscar.jakobsson@lexicon.se",UserName = "oscar.jakobsson@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Teacher{FirstName = "John",LastName = "Hellman",Email = "john.hellman@lexicon.se",UserName = "john.hellman@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Teacher{FirstName = "Dmitris",LastName = "Björlingh",Email = "dmitris.bjorlingh@lexicon.se",UserName = "dmitris.bjorlingh@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)}
             };
 
             foreach (var teacher in teachers)
@@ -61,48 +61,76 @@ namespace LexiconLMS.Migrations
                 userId = teacher.Id;
             }
 
+            var activityTypes = new List<ActivityType>
+            {
+                new ActivityType { Id = 1, TypeName = "E-Learning" },
+                new ActivityType { Id = 2, TypeName = "Lecture" },
+                new ActivityType { Id = 3, TypeName = "Code-Along" },
+                new ActivityType { Id = 4, TypeName = "Project" },
+                new ActivityType { Id = 5, TypeName = "Exercise" }
+            };
 
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "E-Learning" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Lecture" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Code-Along" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Project" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Exercise" });
+            foreach (var activityType in activityTypes)
+            {
+                context.ActivityTypes.AddOrUpdate(a => a.Id, activityType);
+            }
 
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "General" });
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "Course Description" });
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "Module Description" });
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "Activity Description" });
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "Assignment Description" });
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "Useful Links" });
-            context.Purposes.AddOrUpdate(p => p.Name, new Purpose { Name = "Student Hand-In" });
+            var purposes = new List<Purpose>
+            {
+                new Purpose { Id = 1, Name = "General" },
+                new Purpose { Id = 2, Name = "Course Description" },
+                new Purpose { Id = 3, Name = "Module Description" },
+                new Purpose { Id = 4, Name = "Activity Description" },
+                new Purpose { Id = 5, Name = "Assignment Description" },
+                new Purpose { Id = 6, Name = "Useful Links" },
+                new Purpose { Id = 7, Name = "Student Hand-In" }
+            };
+            foreach (var purpose in purposes)
+            {
+                context.Purposes.AddOrUpdate(p => p.Id, purpose);
+            }
 
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Issued" });
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Pending" });
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Submitted" });
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Reviewed" });
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Approved" });
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Failed" });
-            context.Statuses.AddOrUpdate(s => s.Name, new Status { Name = "Deleted" });
+            var statuses = new List<Status>
+            {
+                new Status { Id = 1, Name = "Issued" },
+                new Status { Id = 2, Name = "Pending" },
+                new Status { Id = 3, Name = "Submitted" },
+                new Status { Id = 4, Name = "Reviewed" },
+                new Status { Id = 5, Name = "Approved" },
+                new Status { Id = 6, Name = "Failed" },
+                new Status { Id = 7, Name = "Deleted" }
+            };
+            foreach (var status in statuses)
+            {
+                context.Statuses.AddOrUpdate(p => p.Id, status);
+            }
 
+            var mimeTypes = new List<MimeType>
+            {
+                new MimeType{ Id = 1, DefaultExtension = "txt",Name = "text/plain"},
+                new MimeType{ Id = 2, DefaultExtension = "png",Name = "image/png"},
+                new MimeType{ Id = 3, DefaultExtension = "jpg",Name = "image/jpeg"},
+                new MimeType{ Id = 4, DefaultExtension = "pdf",Name = "application/pdf"},
+                new MimeType{ Id = 5, DefaultExtension = "zip",Name = "application/zip"},
+                new MimeType{ Id = 6, DefaultExtension = "rar",Name = "application/x-rar-compressed"},
+                new MimeType{ Id = 7, DefaultExtension = "doc",Name = "application/ms-word"},
+                new MimeType{ Id = 8, DefaultExtension = "ppt",Name = "application/vnd.ms-powerpoint"},
+                new MimeType{ Id = 9, DefaultExtension = "xls",Name = "application/vnd.ms-excel"},
+                new MimeType{ Id = 10, DefaultExtension = "docx",Name = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+                new MimeType{ Id = 11, DefaultExtension = "xlsx",Name = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+                new MimeType{ Id = 12, DefaultExtension = "pptx",Name = "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
+                new MimeType{ Id = 13, DefaultExtension = "", Name = "application/octet-stream" },
+                new MimeType { Id = 14, DefaultExtension = "cs", Name="text/x-csharp" },
+                new MimeType { Id = 15, DefaultExtension = "html", Name="text/html" },
+                new MimeType { Id = 16, DefaultExtension = "htm", Name="text/html" },
+            };
 
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType {DefaultExtension = "txt",Name = "text/plain"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "png",Name = "image/png"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "jpg",Name = "image/jpeg"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "pdf",Name = "application/pdf"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "zip",Name = "application/zip"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "rar",Name = "application/x-rar-compressed"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "doc",Name = "application/ms-word"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "ppt",Name = "application/vnd.ms-powerpoint"});
+            foreach (var mimeType in mimeTypes)
+            {
+                context.MimeTypes.AddOrUpdate(m => m.Id, mimeType);
+            }
 
-
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "xls",Name = "application/vnd.ms-excel"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "docx",Name = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "xlsx",Name = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType{DefaultExtension = "pptx",Name = "application/vnd.openxmlformats-officedocument.presentationml.presentation"});
-            context.MimeTypes.AddOrUpdate(m => m.DefaultExtension, new MimeType {DefaultExtension = "", Name = "application/octet-stream" });
             context.SaveChanges();
-
-
 
             string loremipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
@@ -342,11 +370,11 @@ namespace LexiconLMS.Migrations
 
             var students = new List<Student>
             {
-                new Student{FirstName = "Student",LastName = "Studentsson",Email = "student.studentsson@lexicon.se",CourseId = 1,UserName = "student.studentsson@lexicon.se"},
-                new Student{FirstName = "Kwai Chang",LastName = "Caine",Email = "kwaichang.caine@lexicon.se",CourseId = 1,UserName = "kwaichang.caine@lexicon.se"},
-                new Student{FirstName = "Forrest",LastName = "Gump",Email = "forrest.gump@lexicon.se",CourseId = 1,UserName = "forrest.gump@lexicon.se"},
-                new Student{FirstName = "Biff",LastName = "Henderson",Email = "biff.henderson@lexicon.se",CourseId = 1,UserName = "biff.henderson@lexicon.se"},
-                new Student{FirstName = "Daniel",LastName = "LaRusso",Email = "daniel.larusso@lexicon.se",CourseId = 1,UserName = "daniel.larusso@lexicon.se"}
+                new Student{FirstName = "Student",LastName = "Studentsson",Email = "student.studentsson@lexicon.se",CourseId = 1,UserName = "student.studentsson@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Kwai Chang",LastName = "Caine",Email = "kwaichang.caine@lexicon.se",CourseId = 1,UserName = "kwaichang.caine@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Forrest",LastName = "Gump",Email = "forrest.gump@lexicon.se",CourseId = 1,UserName = "forrest.gump@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Biff",LastName = "Henderson",Email = "biff.henderson@lexicon.se",CourseId = 1,UserName = "biff.henderson@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Daniel",LastName = "LaRusso",Email = "daniel.larusso@lexicon.se",CourseId = 1,UserName = "daniel.larusso@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)}
             };
 
             foreach (var student in students)
@@ -368,13 +396,13 @@ namespace LexiconLMS.Migrations
                 FileSize = 107520,
                 FileType = "application/pdf",
                 CourseId = 1,
-                MimeType = new MimeType { Id = 4, Name = "application/pdf" },
-                MimeTypeId = 4,
+                MimeType = mimeTypes.Find(m => m.DefaultExtension == "pdf"),
+                MimeTypeId = mimeTypes.Find(m => m.DefaultExtension == "pdf").Id,
                 Status = new Status { Id = 1, Name = "Issued" },
                 Purpose = context.Purposes.Find(2),
                 StatusId = 1,
                 Title = "Course Description .Net",
-                ApplicationUserId = teachers[1].Id,
+                OwnerId = teachers[1].Id,
                 Owner = teachers[1],
                 DateUploaded = DateTime.Now
 
@@ -388,12 +416,12 @@ namespace LexiconLMS.Migrations
                 FileSize = 50520,
                 ActivityId = 1,
                 //MimeType = new MimeType { Id = 4, Name = "application/pdf" },
-                MimeType = context.MimeTypes.Find(4),
+                MimeType = context.MimeTypes.Find(1),
                 Status = context.Statuses.Find(1),
                 Purpose = context.Purposes.Find(5),
                 PurposeId = 5,
                 Title = "Assignment 1.1",
-                ApplicationUserId = teachers[1].Id,
+                OwnerId = teachers[1].Id,
                 DeadLine = DateTime.Now.AddDays(4).Date,
                 DateUploaded = DateTime.Now
 
@@ -411,7 +439,7 @@ namespace LexiconLMS.Migrations
                 Title = "My Pathetic Attempt",
                 PurposeId = 7,
                 Purpose = context.Purposes.Find(7),
-                ApplicationUserId = students[1].Id,
+                OwnerId = students[1].Id,
                 DateUploaded = DateTime.Now
             });
 

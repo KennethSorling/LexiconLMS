@@ -52,6 +52,12 @@ else
                 <th>
                     By
                 </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Options
+                </th>
             </tr>
             <thead>
 
@@ -59,7 +65,16 @@ else
         @foreach (var doc in Model.Documents)
         {
             <tr>
-                <td>@doc.Filename)</td><td>@doc.FileSize</td><td>@doc.DateUploaded.ToShortDateString()</td><td>@doc.Owner.Email</td>
+                <td class="doclink @doc.MimeType.DefaultExtension">
+                    <a target ="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                    @doc.Filename
+                    </a>
+                </td>
+                <td>@doc.FileSize</td>
+                <td>@doc.DateUploaded.ToShortDateString()</td>
+                <td>@doc.Owner.Email</td>
+                <td>@doc.Status.Name</td>
+                <td>@Html.ActionLink("Review", "Review", "Documents", new { documentId = doc.Id }, new {@class="btn btn-default btn-edit" })</td>
             </tr>
         }
         

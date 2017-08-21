@@ -10,6 +10,7 @@ namespace LexiconLMS.Models
         public string TeacherId { get; set; }
         [Display(Name ="Teacher")]
         public string TeacherName { get; set; }
+        public string StudentName { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

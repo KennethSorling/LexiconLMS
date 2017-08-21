@@ -32,8 +32,18 @@ namespace LexiconLMS.Controllers
             /*
              * This is because EF doesn't automatically populate the students member
              */
-            var students = db.ApplicationUsers.Where(s => s.CourseId == id).ToList();
-            course.Students = students;
+            var students = db.Users
+                .Where(s => s.CourseId == id).ToList()
+                .ConvertAll(s => new Student
+                {
+                    Id = s.Id,
+                    Email = s.Email,
+                    FirstName = s.FirstName,
+                    LastName = s.LastName,
+                    PhoneNumber = s.PhoneNumber
+                }
+                );
+            //course.Students = students;
             ViewBag.Title = "Course Details";
             return View(course);
         }

@@ -344,3 +344,24 @@ margin-left: 102px;
 summary {
     outline: none;
 }
+
+.doclink {
+    padding-left:20px;
+    background-repeat:no-repeat;
+    background-position-y:4px;
+}
+.txt {
+    background-image: url(Images/txt.png);
+}
+
+.doc {
+    background-image: url(Images/doc.png);
+}
+
+.docx {
+    background-image: url(Images/doc.png);
+}
+
+.zip {
+    background-image: url(Images/zip.png);
+}

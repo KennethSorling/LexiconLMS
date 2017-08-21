@@ -129,10 +129,7 @@ namespace LexiconLMS.Controllers
                 TempData["Message"] = "Teacher Account created.";
                 return RedirectToAction("Index");
             }
-            else
-            {
-                throw new System.Exception("Modelstate was not valid.");
-            }
+            return View(details);
         }
         [HttpGet]
         [Authorize(Roles = "Teacher")]

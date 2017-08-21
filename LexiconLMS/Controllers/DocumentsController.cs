@@ -15,6 +15,17 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult Review(int id)
+        {
+
+            return View();
+        }
+
+        public ActionResult Approve(int id)
+        {
+            return View();
+        }
+
         public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? purposeId, DateTime? deadLine, string returnTo)
         {
             var purposes = db.Purposes.ToList().ConvertAll(d => new SelectListItem
@@ -33,7 +44,24 @@ namespace LexiconLMS.Controllers
                 Purposes = purposes,
                 ReturnTo = returnTo
             };
-
+            if (activityId != null)
+            {
+                var activity = db.Activities.Find(activityId);
+                vm.ActivityName = activity.Name;
+                moduleId = activity.ModuleId;
+            }
+            if (moduleId != null)
+            {
+                var module = db.Modules.Find(moduleId);
+                vm.ModuleName = module.Name;
+                courseId = module.CourseId;
+            }
+            if (courseId != null)
+            {
+                var course = db.Courses.Find(courseId);
+                vm.CourseName = course.Name;
+            }
+            
             ViewBag.PurposeId = purposes;
             return View(vm);
         }
@@ -102,7 +130,7 @@ namespace LexiconLMS.Controllers
                         Filename = fileName,
                         FileSize = uploadFile.ContentLength,
                         FileType = uploadFile.ContentType,
-                        ApplicationUserId = me.Id,
+                        OwnerId = me.Id,
                         DateUploaded = DateTime.Now,
                         PurposeId = vm.PurposeId,
                         ActivityId = vm.ActivityId,
@@ -123,16 +151,21 @@ namespace LexiconLMS.Controllers
                     }
                     else if (User.IsInRole("Student"))
                     {
-                        // Hand-In?
-                        if (vm.PurposeId == 7)
-                        {
-                            //submitted
-                            doc.Status = db.Statuses.Find(3);
-                        }
-                        else
-                        {
-                            doc.Status = db.Statuses.FirstOrDefault();
-                        }
+                        /* Student can only upload hand-ins */
+                        doc.PurposeId = 7;
+                        doc.StatusId = 3;
+                        doc.Status = db.Statuses.Find(3);
+                        doc.Purpose = db.Purposes.Find(7);
+                        //// Hand-In?
+                        //if (vm.PurposeId == 7)
+                        //{
+                        //    //submitted
+                        //    doc.Status = db.Statuses.Find(3);
+                        //}
+                        //else
+                        //{
+                        //    doc.Status = db.Statuses.FirstOrDefault();
+                        //}
                     }
                     db.Documents.Add(doc);
                     db.SaveChanges();
@@ -269,6 +302,10 @@ namespace LexiconLMS.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Document document = db.Documents.Find(id);
+            /*
+             * Find the file in the file system, and delete that as well.
+             */
+
             db.Documents.Remove(document);
             db.SaveChanges();
             return RedirectToAction("Index");

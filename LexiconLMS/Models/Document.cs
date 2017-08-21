@@ -12,7 +12,7 @@ namespace LexiconLMS.Models
         public int? ModuleId { get; set; }
         public int? CourseId { get; set; }
         public int? ActivityId { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string OwnerId { get; set; }
 
         [Required]
         [Display(Name = "File Name")]
@@ -22,8 +22,7 @@ namespace LexiconLMS.Models
 
         [Display(Name ="File Type")]
         public string FileType { get; set; }
-
-
+        
         [Required]
         [Display(Name ="Date Uploaded")]
         public DateTime DateUploaded { get; set; }

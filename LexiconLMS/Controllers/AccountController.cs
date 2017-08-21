@@ -57,13 +57,19 @@ namespace LexiconLMS.Controllers
             }
         }
 
-        private void RememberLastLogon()
+        private void RememberLastLogon(string userId)
         {
-            var user = _context.ApplicationUsers.Find(User.Identity.GetUserId());
+            var user = MyDbContext.Users.Find(userId);
+            if (user == null) return;
+
             var lastLogon = user.LastLogon;
             if (lastLogon == null)
             {
                 lastLogon = System.DateTime.Now;
+            }
+            else
+            {
+                TempData["Message"] = $"You last visited: {lastLogon.ToShortDateString()}"; 
             }
             Session["LastLogon"] = lastLogon;
             user.LastLogon = System.DateTime.Now;
@@ -98,7 +104,8 @@ namespace LexiconLMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    RememberLastLogon();
+                    var user = MyDbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault() ;
+                    RememberLastLogon(user.Id);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -182,7 +189,7 @@ namespace LexiconLMS.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    RememberLastLogon();
+                    RememberLastLogon(user.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -353,7 +360,8 @@ namespace LexiconLMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    RememberLastLogon();
+                    var user = MyDbContext.Users.Where(u => u.Email == loginInfo.Email).FirstOrDefault();
+                    RememberLastLogon(user.Id);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -377,7 +385,7 @@ namespace LexiconLMS.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                RememberLastLogon();
+                RememberLastLogon(User.Identity.GetUserId());
                 return RedirectToAction("Index", "Manage");
             }
 
@@ -397,7 +405,7 @@ namespace LexiconLMS.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        RememberLastLogon();
+                        RememberLastLogon(user.Id);
                         return RedirectToLocal(returnUrl);
                     }
                 }
