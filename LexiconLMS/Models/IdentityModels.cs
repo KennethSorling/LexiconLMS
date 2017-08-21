@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -22,6 +23,10 @@ namespace LexiconLMS.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [Display(Name = "Last Logon")]
+        [DataType(DataType.DateTime)]
+        public DateTime LastLogon { get; set; }
+
         [Display(Name = "Course")]
         public int? CourseId { get; set; }
         public virtual List<Document> Documents { get; set; }
@@ -34,7 +39,11 @@ namespace LexiconLMS.Models
         public DbSet<Course> Courses { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<Activity> Activities { get; set; }
-        public DbSet<Student> ApplicationUsers { get; set; }
+        //public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<MimeType> MimeTypes { get; set; }
+        public DbSet<Purpose> Purposes { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<FeedBack> FeedBacks { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

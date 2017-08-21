@@ -10,17 +10,23 @@ namespace LexiconLMS
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-            name: "Dashboard",
-            url: "dashboard",
-            defaults: new { controller = "DashboardVMs", action = "ShowDashboard" }
-            );
+                    name:"Dashboard",
+                    url: "dashboard",
+                    defaults: new { controller = "DashboardVMs", action = "ShowDashboard" }
+                );
 
             routes.MapRoute(
-            name: "Schedule",
-            url: "schedule/{courseId}",
-            defaults: new { controller = "ScheduleVMs", action = "ShowSchedule", courseId = UrlParameter.Optional },
-            constraints: new { courseId = @"\d+" }
-            );
+                name: "Schedule",
+                url: "schedule",
+                defaults: new { controller = "ScheduleVMs", action = "ShowSchedule", courseId = UrlParameter.Optional }
+                );
+
+            routes.MapRoute(
+                    name:"ScheduleWithParams",
+                    url: "schedule/{courseId}",
+                    defaults: new { controller="ScheduleVMs", action = "ShowSchedule", courseId = UrlParameter.Optional},
+                    constraints: new {courseId =@"\d+" }
+                );
 
             routes.MapRoute(
             name: "Default",

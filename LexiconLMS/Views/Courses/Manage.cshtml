@@ -21,6 +21,9 @@
         <div class="col-6 col-md-5">
             @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
             @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
+            <br />
+            @Html.ActionLink("View Schedule", "ShowSchedule", "ScheduleVMs", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add" })
+            @Html.ActionLink("Upload", "Upload", "Documents", new { courseId = Model.Id }, new { @class = "btn btn-default btn-upload" })
         </div>
     </div>
 
@@ -110,10 +113,58 @@
                     <td></td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", "Students", new { id = item.Id, returnToIndex = false }, new { @class = "btn btn-default btn-edit" })
-                        @Html.ActionLink("Delete","Delete", "Students", new { id = item.Id, returnToIndex = false }, new {@class="btn btn-default btn-delete" })
+                        @Html.ActionLink("Delete", "Delete", "Students", new { id = item.Id, returnToIndex = false }, new { @class = "btn btn-default btn-delete" })
                     </td>
                 </tr>
             }
         </table>
+    }
+    <hr class="thick-divider-line" />
+    <h2>Documents:</h2>
+    @if (Model.Documents.Count == 0)
+    {
+        <p>There are no documents for this course.</p>
+    }
+    else
+    {
+        <table class="table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        FileName
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Uploaded On
+                    </th>
+                    <th>
+                        By
+                    </th>
+                    <th>
+                        State
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var doc in Model.Documents)
+            {
+                <tr>
+                    <td class="doclink @doc.MimeType.DefaultExtension">
+                        <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                            @doc.Filename
+                        </a>
+                    </td>
+                    <td>@doc.FileSize</td>
+                    <td>@doc.DateUploaded.ToShortDateString()</td>
+                    <td>@doc.Owner.Email</td>
+                    <td>@doc.Status.Name</td>
+                </tr>
+            }
+
+        </table>
+        <div style="height:100px;width:10px;">
+            booga
+        </div>
     }
 </body>

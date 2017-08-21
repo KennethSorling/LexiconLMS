@@ -33,10 +33,6 @@
                 }
                 @if (User.IsInRole("Student"))
                 {
-                    <a href="@Url.Action("ShowDashboard","DashboardVMs")">
-                        <img src="~/Content/Images/lexiconlogo.png" />
-                    </a>
-
                 }
 
             </div>
@@ -69,6 +65,7 @@
         @RenderBody()
         @*<hr />*@
         <footer class="footer">
+            <p>Last Logged On: @Session["LastLogon"]</p>
             <p class="footer-text">&copy; @DateTime.Now.Year - Lexicon</p>
         </footer>
     </div>

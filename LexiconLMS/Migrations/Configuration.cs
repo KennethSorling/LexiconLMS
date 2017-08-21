@@ -4,6 +4,7 @@ namespace LexiconLMS.Migrations
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity.Migrations;
 
     internal sealed class Configuration : DbMigrationsConfiguration<LexiconLMS.Models.ApplicationDbContext>
@@ -19,7 +20,121 @@ namespace LexiconLMS.Migrations
             context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Lecture" });
             context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Code-Along" });
             context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Project" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Exercise" });
+
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            ApplicationUser user;
+            IdentityRole teacherRole, studentRole;
+            IdentityResult result;
+            string userId;
+
+            if (roleManager.FindByName("Teacher") == null)
+            {
+                teacherRole = new IdentityRole("Teacher");
+                result = roleManager.Create(teacherRole);
+            }
+
+            if (roleManager.FindByName("Student") == null)
+            {
+                studentRole = new IdentityRole("Student");
+                result = roleManager.Create(studentRole);
+            }
+
+            var teachers = new List<Teacher>
+            {
+                new Teacher{FirstName = "Oscar", LastName = "Jakobsson",Email = "oscar.jakobsson@lexicon.se",UserName = "oscar.jakobsson@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Teacher{FirstName = "John",LastName = "Hellman",Email = "john.hellman@lexicon.se",UserName = "john.hellman@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Teacher{FirstName = "Dmitris",LastName = "Björlingh",Email = "dmitris.bjorlingh@lexicon.se",UserName = "dmitris.bjorlingh@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)}
+            };
+
+            foreach (var teacher in teachers)
+            {
+                user = userManager.FindByEmail(teacher.Email);
+                if (user == null)
+                {
+                    user = teacher;
+                    result = userManager.Create(user, "VerySecret123!");
+                }
+                if (user.Roles.Count == 0)
+                {
+                    result = userManager.AddToRole(user.Id, "Teacher");
+                }
+                userId = teacher.Id;
+            }
+
+            var activityTypes = new List<ActivityType>
+            {
+                new ActivityType { Id = 1, TypeName = "E-Learning" },
+                new ActivityType { Id = 2, TypeName = "Lecture" },
+                new ActivityType { Id = 3, TypeName = "Code-Along" },
+                new ActivityType { Id = 4, TypeName = "Project" },
+                new ActivityType { Id = 5, TypeName = "Exercise" }
+            };
+
+            foreach (var activityType in activityTypes)
+            {
+                context.ActivityTypes.AddOrUpdate(a => a.Id, activityType);
+            }
+
+            var purposes = new List<Purpose>
+            {
+                new Purpose { Id = 1, Name = "General" },
+                new Purpose { Id = 2, Name = "Course Description" },
+                new Purpose { Id = 3, Name = "Module Description" },
+                new Purpose { Id = 4, Name = "Activity Description" },
+                new Purpose { Id = 5, Name = "Assignment Description" },
+                new Purpose { Id = 6, Name = "Useful Links" },
+                new Purpose { Id = 7, Name = "Student Hand-In" }
+            };
+            foreach (var purpose in purposes)
+            {
+                context.Purposes.AddOrUpdate(p => p.Id, purpose);
+            }
+
+            var statuses = new List<Status>
+            {
+                new Status { Id = 1, Name = "Issued" },
+                new Status { Id = 2, Name = "Pending" },
+                new Status { Id = 3, Name = "Submitted" },
+                new Status { Id = 4, Name = "Reviewed" },
+                new Status { Id = 5, Name = "Approved" },
+                new Status { Id = 6, Name = "Failed" },
+                new Status { Id = 7, Name = "Deleted" }
+            };
+            foreach (var status in statuses)
+            {
+                context.Statuses.AddOrUpdate(p => p.Id, status);
+            }
+
+            var mimeTypes = new List<MimeType>
+            {
+                new MimeType{ Id = 1, DefaultExtension = "txt",Name = "text/plain"},
+                new MimeType{ Id = 2, DefaultExtension = "png",Name = "image/png"},
+                new MimeType{ Id = 3, DefaultExtension = "jpg",Name = "image/jpeg"},
+                new MimeType{ Id = 4, DefaultExtension = "pdf",Name = "application/pdf"},
+                new MimeType{ Id = 5, DefaultExtension = "zip",Name = "application/zip"},
+                new MimeType{ Id = 6, DefaultExtension = "rar",Name = "application/x-rar-compressed"},
+                new MimeType{ Id = 7, DefaultExtension = "doc",Name = "application/ms-word"},
+                new MimeType{ Id = 8, DefaultExtension = "ppt",Name = "application/vnd.ms-powerpoint"},
+                new MimeType{ Id = 9, DefaultExtension = "xls",Name = "application/vnd.ms-excel"},
+                new MimeType{ Id = 10, DefaultExtension = "docx",Name = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+                new MimeType{ Id = 11, DefaultExtension = "xlsx",Name = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+                new MimeType{ Id = 12, DefaultExtension = "pptx",Name = "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
+                new MimeType{ Id = 13, DefaultExtension = "", Name = "application/octet-stream" },
+                new MimeType { Id = 14, DefaultExtension = "cs", Name="text/x-csharp" },
+                new MimeType { Id = 15, DefaultExtension = "html", Name="text/html" },
+                new MimeType { Id = 16, DefaultExtension = "htm", Name="text/html" },
+            };
+
+            foreach (var mimeType in mimeTypes)
+            {
+                context.MimeTypes.AddOrUpdate(m => m.Id, mimeType);
+            }
+
+            context.SaveChanges();
 
             string loremipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
@@ -1540,139 +1655,84 @@ namespace LexiconLMS.Migrations
 
             context.SaveChanges();
 
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            var roleStore = new RoleStore<IdentityRole>(context);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            ApplicationUser user;
-            IdentityRole teacherRole, studentRole;
-            IdentityResult result;
-
-            if (roleManager.FindByName("Teacher") == null)
+            var students = new List<Student>
             {
-                teacherRole = new IdentityRole("Teacher");
-                result = roleManager.Create(teacherRole);
+                new Student{FirstName = "Student",LastName = "Studentsson",Email = "student.studentsson@lexicon.se",CourseId = 1,UserName = "student.studentsson@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Kwai Chang",LastName = "Caine",Email = "kwaichang.caine@lexicon.se",CourseId = 1,UserName = "kwaichang.caine@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Forrest",LastName = "Gump",Email = "forrest.gump@lexicon.se",CourseId = 1,UserName = "forrest.gump@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Biff",LastName = "Henderson",Email = "biff.henderson@lexicon.se",CourseId = 1,UserName = "biff.henderson@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)},
+                new Student{FirstName = "Daniel",LastName = "LaRusso",Email = "daniel.larusso@lexicon.se",CourseId = 1,UserName = "daniel.larusso@lexicon.se", LastLogon=DateTime.Now.AddDays(-2)}
+            };
+
+            foreach (var student in students)
+            {
+                user = student;
+                if (userManager.FindByEmail(user.Email) == null)
+                {
+                    result = userManager.Create(user, "VerySecret123!");
+                    result = userManager.AddToRole(user.Id, "Student");
+                }
             }
+            
+            context.SaveChanges();
+
+            context.Documents.AddOrUpdate(d => d.Filename, new Document
+            {
+
+                Filename = "Course Description .Net.pdf",
+                FileSize = 130452,
+                FileType = "application/pdf",
+                CourseId = 1,
+                MimeType = mimeTypes.Find(m => m.DefaultExtension == "pdf"),
+                MimeTypeId = mimeTypes.Find(m => m.DefaultExtension == "pdf").Id,
+                Status = new Status { Id = 1, Name = "Issued" },
+                Purpose = context.Purposes.Find(2),
+                StatusId = 1,
+                Title = "Course Description .Net",
+                OwnerId = teachers[1].Id,
+                Owner = teachers[1],
+                DateUploaded = DateTime.Now
+
+            });
 
             context.SaveChanges();
 
-            if (roleManager.FindByName("Student") == null)
+            context.Documents.AddOrUpdate(d => d.Filename, new Document
             {
-                studentRole = new IdentityRole("Student");
-                result = roleManager.Create(studentRole);
-            }
+                Filename = "Assignment 1.1.txt",
+                FileSize = 174,
+                ActivityId = 1,
+                //MimeType = new MimeType { Id = 4, Name = "application/pdf" },
+                MimeType = context.MimeTypes.Find(1),
+                Status = context.Statuses.Find(1),
+                Purpose = context.Purposes.Find(5),
+                PurposeId = 5,
+                Title = "Assignment 1.1",
+                OwnerId = teachers[1].Id,
+                DeadLine = DateTime.Now.AddDays(4).Date,
+                DateUploaded = DateTime.Now
 
-            if (userManager.FindByEmail("oscar.jakobsson@lexicon.se") == null)
-            {
-                user = new Teacher
-                {
-                    FirstName = "Oscar",
-                    LastName = "Jakobsson",
-                    Email = "oscar.jakobsson@lexicon.se",
-                    UserName = "oscar.jakobsson@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Teacher");
-            }
-
-            if (userManager.FindByEmail("john.hellman@lexicon.se") == null)
-            {
-                user = new Teacher
-                {
-                    FirstName = "John",
-                    LastName = "Hellman",
-                    Email = "john.hellman@lexicon.se",
-                    UserName = "john.hellman@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Teacher");
-            }
-
-            if (userManager.FindByEmail("dmitris.bjorlingh@lexicon.se") == null)
-            {
-                user = new Teacher
-                {
-                    FirstName = "Dmitris",
-                    LastName = "Björlingh",
-                    Email = "dmitris.bjorlingh@lexicon.se",
-                    UserName = "dmitris.bjorlingh@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Teacher");
-            }
-
-            if (userManager.FindByEmail("student.studentsson@lexicon.se") == null)
-            {
-                user = new Student
-                {
-                    FirstName = "Student",
-                    LastName = "Studentsson",
-                    Email = "student.studentsson@lexicon.se",
-                    CourseId = 1,
-                    UserName = "student.studentsson@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
-            if (userManager.FindByEmail("daniel.larusso@lexicon.se") == null)
-            {
-                user = new Student
-                {
-                    FirstName = "Daniel",
-                    LastName = "LaRusso",
-                    Email = "daniel.larusso@lexicon.se",
-                    CourseId = 1,
-                    UserName = "daniel.larusso@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
-            if (userManager.FindByEmail("kwaichang.caine@lexicon.se") == null)
-            {
-                user = new Student
-                {
-                    FirstName = "Kwai Chang",
-                    LastName = "Caine",
-                    Email = "kwaichang.caine@lexicon.se",
-                    CourseId = 2,
-                    UserName = "kwaichang.caine@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
-            if (userManager.FindByEmail("forrest.gump@lexicon.se") == null)
-            {
-                user = new Student
-                {
-                    FirstName = "Forrest",
-                    LastName = "Gump",
-                    Email = "forrest.gump@lexicon.se",
-                    CourseId = 2,
-                    UserName = "forrest.gump@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
-
-            if (userManager.FindByEmail("biff.henderson@lexicon.se") == null)
-            {
-                user = new Student
-                {
-                    FirstName = "Biff",
-                    LastName = "Henderson",
-                    Email = "biff.henderson@lexicon.se",
-                    CourseId = 3,
-                    UserName = "biff.henderson@lexicon.se"
-                };
-                result = userManager.Create(user, "VerySecret123!");
-                result = userManager.AddToRole(user.Id, "Student");
-            }
+            });
 
             context.SaveChanges();
+
+            context.Documents.AddOrUpdate(d => d.Filename, new Document
+            {
+                Filename = "My pathetic attempt.zip",
+                FileSize = 223,
+                ActivityId = 1,
+                MimeType = context.MimeTypes.Find(5),
+                Status = context.Statuses.Find(5),
+                Title = "My Pathetic Attempt",
+                PurposeId = 7,
+                Purpose = context.Purposes.Find(7),
+                OwnerId = students[1].Id,
+                DateUploaded = DateTime.Now
+            });
+
+            context.SaveChanges();
+
         }
     }
 }

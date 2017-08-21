@@ -166,6 +166,12 @@ namespace LexiconLMS.Controllers
                     ModelState.AddModelError("", $"The module's dates conflict with module '{sibling.Name}'");
                     break;
                 }
+                if (sibling.Name.ToLower().Equals(module.Name.ToLower()))
+                {
+                    ModelState.AddModelError("Name", $"There is already a Module named '{sibling.Name}' in this Course.");
+                    break;
+                }
+
             }
 
             if (ModelState.IsValid)

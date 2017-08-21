@@ -174,6 +174,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ModulesController.cs" />
@@ -183,9 +184,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708211300294_initial.cs" />
-    <Compile Include="Migrations\201708211300294_initial.Designer.cs">
-      <DependentUpon>201708211300294_initial.cs</DependentUpon>
+    <Compile Include="Interfaces\IReferrer.cs" />
+    <Compile Include="Migrations\201708211154118_StartingOver_20170821_1353.cs" />
+    <Compile Include="Migrations\201708211154118_StartingOver_20170821_1353.Designer.cs">
+      <DependentUpon>201708211154118_StartingOver_20170821_1353.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -193,12 +195,17 @@
     <Compile Include="Models\ActivityType.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\FeedBack.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MimeType.cs" />
     <Compile Include="Models\Module.cs" />
+    <Compile Include="Models\Purpose.cs" />
+    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ActivitiesForStudentVM.cs" />
     <Compile Include="ViewModels\CoursesVM.cs" />
@@ -214,6 +221,7 @@
     <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />
     <Compile Include="ViewModels\TeacherListVM.cs" />
+    <Compile Include="ViewModels\UploadVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
@@ -224,6 +232,72 @@
     <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\aac.png" />
+    <Content Include="Content\Images\ai.png" />
+    <Content Include="Content\Images\aiff.png" />
+    <Content Include="Content\Images\avi.png" />
+    <Content Include="Content\Images\bmp.png" />
+    <Content Include="Content\Images\c.png" />
+    <Content Include="Content\Images\cpp.png" />
+    <Content Include="Content\Images\css.png" />
+    <Content Include="Content\Images\csv.png" />
+    <Content Include="Content\Images\dat.png" />
+    <Content Include="Content\Images\dmg.png" />
+    <Content Include="Content\Images\doc.png" />
+    <Content Include="Content\Images\dotx.png" />
+    <Content Include="Content\Images\dwg.png" />
+    <Content Include="Content\Images\dxf.png" />
+    <Content Include="Content\Images\eps.png" />
+    <Content Include="Content\Images\exe.png" />
+    <Content Include="Content\Images\flv.png" />
+    <Content Include="Content\Images\gif.png" />
+    <Content Include="Content\Images\h.png" />
+    <Content Include="Content\Images\hpp.png" />
+    <Content Include="Content\Images\html.png" />
+    <Content Include="Content\Images\ics.png" />
+    <Content Include="Content\Images\iso.png" />
+    <Content Include="Content\Images\java.png" />
+    <Content Include="Content\Images\jpg.png" />
+    <Content Include="Content\Images\js.png" />
+    <Content Include="Content\Images\key.png" />
+    <Content Include="Content\Images\less.png" />
+    <Content Include="Content\Images\lexiconlogo.png" />
+    <Content Include="Content\Images\mid.png" />
+    <Content Include="Content\Images\mp3.png" />
+    <Content Include="Content\Images\mp4.png" />
+    <Content Include="Content\Images\mpg.png" />
+    <Content Include="Content\Images\odf.png" />
+    <Content Include="Content\Images\ods.png" />
+    <Content Include="Content\Images\odt.png" />
+    <Content Include="Content\Images\otp.png" />
+    <Content Include="Content\Images\ots.png" />
+    <Content Include="Content\Images\ott.png" />
+    <Content Include="Content\Images\pdf.png" />
+    <Content Include="Content\Images\php.png" />
+    <Content Include="Content\Images\png.png" />
+    <Content Include="Content\Images\ppt.png" />
+    <Content Include="Content\Images\psd.png" />
+    <Content Include="Content\Images\py.png" />
+    <Content Include="Content\Images\qt.png" />
+    <Content Include="Content\Images\rar.png" />
+    <Content Include="Content\Images\rb.png" />
+    <Content Include="Content\Images\rtf.png" />
+    <Content Include="Content\Images\sass.png" />
+    <Content Include="Content\Images\scss.png" />
+    <Content Include="Content\Images\smalllexiconlogo.png" />
+    <Content Include="Content\Images\sql.png" />
+    <Content Include="Content\Images\tga.png" />
+    <Content Include="Content\Images\tgz.png" />
+    <Content Include="Content\Images\tiff.png" />
+    <Content Include="Content\Images\txt.png" />
+    <Content Include="Content\Images\wav.png" />
+    <Content Include="Content\Images\xls.png" />
+    <Content Include="Content\Images\xlsx.png" />
+    <Content Include="Content\Images\xml.png" />
+    <Content Include="Content\Images\yml.png" />
+    <Content Include="Content\Images\zip.png" />
+    <Content Include="Content\Images\_blank.png" />
+    <Content Include="Content\Images\_page.png" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -307,6 +381,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="uploads\Assignment 1.1.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -371,12 +446,17 @@
     <Content Include="Views\DashboardVMs\Edit.cshtml" />
     <Content Include="Views\DashboardVMs\Dashboard.cshtml" />
     <Content Include="Views\ScheduleVMs\Schedule.cshtml" />
-    <Content Include="Views\DashboardVMs\CourseModulesForStudent.cshtml" />
-    <Content Include="Views\DashboardVMs\ActivitiesForStudent.cshtml" />
+    <Content Include="Views\Documents\Create.cshtml" />
+    <Content Include="Views\Documents\Delete.cshtml" />
+    <Content Include="Views\Documents\Details.cshtml" />
+    <Content Include="Views\Documents\Edit.cshtml" />
+    <Content Include="Views\Documents\Index.cshtml" />
+    <Content Include="Views\Documents\Upload.cshtml" />
+    <Content Include="uploads\My Pathetic attempt.zip" />
+    <Content Include="uploads\Course Description .Net.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -387,8 +467,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708211300294_initial.resx">
-      <DependentUpon>201708211300294_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708211154118_StartingOver_20170821_1353.resx">
+      <DependentUpon>201708211154118_StartingOver_20170821_1353.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -24,8 +24,62 @@
     <div class="col-md-4">
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
         @Html.ActionLink("Delete", "Delete", "Activities", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
+        @Html.ActionLink("Upload", "Upload", "Documents", new { activityId = Model.Id, moduleId = Model.ModuleId }, new { @class = "btn btn-default btn-upload" })
+
+
     </div>
 </div>
+<hr class="thick-divider-line"/>
+<h2>Documents:</h2>
+@if (Model.Documents.Count() == 0)
+{
+    <p>There are no documents</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    FileName
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Uploaded On
+                </th>
+                <th>
+                    By
+                </th>
+                <th>
+                    State
+                </th>
+                <th>
+                    Options
+                </th>
+            </tr>
+            <thead>
+
+        </thead>
+        @foreach (var doc in Model.Documents)
+        {
+            <tr>
+                <td class="doclink @doc.MimeType.DefaultExtension">
+                    <a target ="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                    @doc.Filename
+                    </a>
+                </td>
+                <td>@doc.FileSize</td>
+                <td>@doc.DateUploaded.ToShortDateString()</td>
+                <td>@doc.Owner.Email</td>
+                <td>@doc.Status.Name</td>
+                <td>@Html.ActionLink("Review", "Review", "Documents", new { id = doc.Id }, new {@class="btn btn-default btn-edit" })</td>
+            </tr>
+        }
+        
+    </table>
+}
 <p>
     <br />
     @Html.ActionLink("Back", "Manage", "Modules", new { id = Model.ModuleId }, new { })
