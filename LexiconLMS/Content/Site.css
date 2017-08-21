@@ -86,7 +86,7 @@ hr {
 
 .btn {
     margin: 5px 5px 5px 5px;
-    min-width:120px;
+    min-width:80px;
 }
 
 .btn-add {
@@ -348,8 +348,10 @@ summary {
 
 .doclink {
     padding-left:20px;
+    background-image: url(Images/_blank.png);
     background-repeat:no-repeat;
-    background-position-y:4px;
+    background-position-y:center;
+    min-width:200px;
 }
 .txt {
     background-image: url(Images/txt.png);

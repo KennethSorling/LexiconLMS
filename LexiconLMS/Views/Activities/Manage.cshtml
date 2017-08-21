@@ -74,7 +74,12 @@ else
                 <td>@doc.DateUploaded.ToShortDateString()</td>
                 <td>@doc.Owner.Email</td>
                 <td>@doc.Status.Name</td>
-                <td>@Html.ActionLink("Review", "Review", "Documents", new { id = doc.Id }, new {@class="btn btn-default btn-edit" })</td>
+                <td>
+                    @if (doc.PurposeId == 7)
+                    {
+                        @Html.ActionLink("Review", "Review", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-edit" })
+                    }
+                </td>
             </tr>
         }
         

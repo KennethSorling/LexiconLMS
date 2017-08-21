@@ -1,0 +1,126 @@
+﻿@model LexiconLMS.Models.Document
+
+@{
+    ViewBag.Title = "Review Hand-In";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div>
+    <h4>Document:</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Filename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Filename)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner.)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Purpose.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Purpose.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModuleId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModuleId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActivityId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActivityId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Filename)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Filename)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateUploaded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateUploaded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadLine)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Approved","Approve", "Documents", new { id = Model.Id }, new {@class="btn btn-default btn-add" })
+    @Html.ActionLink("Try Again", "Retry", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
+    @Html.ActionLink("Failed", "Fail", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
+    @Html.ActionLink("Give Feedback", "GiveFeedback", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-upload" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back", "Manage", "Activities", new { id = Model.ActivityId}, new {@class="cancel-link" })
+</p>
