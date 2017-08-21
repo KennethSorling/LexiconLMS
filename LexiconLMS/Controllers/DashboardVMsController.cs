@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LexiconLMS.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class DashboardVMsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -99,107 +100,66 @@ namespace LexiconLMS.Controllers
             return View("Dashboard", dashboard);
         }
 
+        public ActionResult ShowModules()
+        {
+            ApplicationUser currentUser = db.Users
+                .Where(u => u.UserName == User.Identity.Name)
+                .FirstOrDefault();
 
-        // GET: DashboardVMs
-        //public ActionResult Index()
-        //{
-        //    return View(db.DashboardVMs.ToList());
-        //}
+            ModulesForStudentVM modulesForStudent = new ModulesForStudentVM();
 
-        //// GET: DashboardVMs/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-        //    if (dashboardVM == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(dashboardVM);
-        //}
+            var courseId = currentUser.CourseId;
 
-        //// GET: DashboardVMs/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+            var course = db.Courses.Find(courseId);
 
-        //// POST: DashboardVMs/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,PageHeader,CourseName,StudentName,TodaysDate,ModuleName")] DashboardVM dashboardVM)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.DashboardVMs.Add(dashboardVM);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+            modulesForStudent.CourseName = course.Name;
 
-        //    return View(dashboardVM);
-        //}
+            modulesForStudent.Modules = db.Modules.Where(c => c.CourseId == courseId).ToList();
 
-        //// GET: DashboardVMs/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-        //    if (dashboardVM == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(dashboardVM);
-        //}
+            return View("CourseModulesForStudent", modulesForStudent);
+        }
 
-        //// POST: DashboardVMs/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,PageHeader,CourseName,StudentName,TodaysDate,ModuleName")] DashboardVM dashboardVM)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(dashboardVM).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(dashboardVM);
-        //}
+        public ActionResult ShowActivities(int id)
+        {
+            ApplicationUser currentUser = db.Users
+                .Where(u => u.UserName == User.Identity.Name)
+                .FirstOrDefault();
 
-        //// GET: DashboardVMs/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-        //    if (dashboardVM == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(dashboardVM);
-        //}
+            ActivitiesForStudentVM activitiesForStudent = new ActivitiesForStudentVM();
 
-        //// POST: DashboardVMs/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    DashboardVM dashboardVM = db.DashboardVMs.Find(id);
-        //    db.DashboardVMs.Remove(dashboardVM);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+            string activityType = " ";
+
+            var moduleId = id;
+
+            var module = db.Modules.Find(moduleId);
+
+            var course = db.Courses.Find(module.CourseId);
+
+            activitiesForStudent.CourseName = course.Name;
+            activitiesForStudent.ModuleName = module.Name;
+
+            activitiesForStudent.Activities = db.Activities.Where(m => m.ModuleId == moduleId).ToList();
+
+            if (activitiesForStudent.Activities.Count > 0)
+            {
+                List<string> typenames = new List<string>();
+                foreach (var item in activitiesForStudent.Activities)
+                {
+                    //The following is only needed if activities are allowed to span more than one day. Not yet implemented.
+                    //Check if the start date of the activity is less than the current date. If it is the set start time = 8:30.
+                    //Check if the end date of the activity is greater than the current date. If it is the set end time = 17:00.
+
+                    //Read activity type names into a List of strings
+                    activityType = db.ActivityTypes.Find(item.ActivityTypeId).TypeName;
+                    typenames.Add(activityType);
+                }
+                activitiesForStudent.ActivityTypes = typenames;
+            }
+
+            return View("ActivitiesForStudent", activitiesForStudent);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

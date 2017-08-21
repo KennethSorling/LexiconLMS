@@ -11,22 +11,24 @@
 
 <div class="row">
     <div class="col col-md-8">
-        <p class="page-header">@ViewBag.Title</p>
+        <h1>@ViewBag.Title</h1>
     </div>
-    @*<div class="col-6 col-md-4">
-            <button type="button" class="btn btn-default btn-add btnAddCourse" onclick="location.href='@Url.Action("Create", "Courses")';return false;">Add Course</button>
-        </div>*@
     <div class="col-6 col-md-4">
-        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add btnAddCourse" })
+        @Html.ActionLink("Add Course", "Create", "Courses", new { @class = "btn btn-default btn-add btnInLineWithH1" })
     </div>
 
 </div>
 
-@*<ol class="breadcrumb">
-        <li class="active"><a href="#">Courses</a></li>
-        <li><a href="#">Modules</a></li>
-        <li><a href="#">Activities</a></li>
-    </ol>*@
+<form method="GET" action="/Courses/Index" style="float:left">
+    @Html.TextBox("searchOn")
+    <input type="submit" value="Search" />
+</form>
+
+<form method="GET" action="/Courses/Index">
+    <input class="left-margin-for-reset-button" type="submit" value="Reset" />
+</form>
+
+<hr class="thick-divider-line" />
 
 @if (Model != null)
 {

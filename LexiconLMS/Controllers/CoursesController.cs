@@ -20,7 +20,7 @@ namespace LexiconLMS.Controllers
         /// </summary>
         /// <param name="id">id of the course in question</param>
         /// <returns>A view of the course</returns>
-        [Authorize(Roles="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Manage(int id)
         {
 
@@ -39,12 +39,19 @@ namespace LexiconLMS.Controllers
         }
 
         [Authorize(Roles = "Teacher")]
-        public ActionResult Index()
+        public ActionResult Index(string searchOn = "")
         {
-            var courses = db.Courses.OrderByDescending(s => s.StartDate);
+            var courses = db.Courses.OrderByDescending(s => s.StartDate).ToList();
+
+            if (!String.IsNullOrEmpty(searchOn))
+            {
+                courses = courses.Where(c => c.Name.ToLower().Contains(searchOn.ToLower())).ToList();
+                ViewBag.SearchOn = searchOn;
+            }
+
             ViewBag.Title = "Courses";
 
-            return View("Index", courses.ToList());
+            return View("Index", courses);
         }
 
         //// GET: Courses/Details/5

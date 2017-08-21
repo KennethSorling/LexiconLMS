@@ -3,6 +3,8 @@ using LexiconLMS.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -28,7 +30,7 @@ namespace LexiconLMS.Controllers
         {
             get
             {
-                
+
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
@@ -40,23 +42,106 @@ namespace LexiconLMS.Controllers
 
         // GET: Students
         [Authorize(Roles = "Teacher")]
-        public ActionResult Index()
+        public ActionResult Index(string sortOn, string searchOn = "")
         {
             var studentRole = RoleManager.FindByName("Student");
+
+
+            List<StudentListVM> studentListForVM = new List<StudentListVM>();
+
             var students = db.Users
                 .Where(u => u.Roles.FirstOrDefault().RoleId == studentRole.Id)
-                .ToList()
-                .ConvertAll(u => new StudentListVM
+                .ToList();
+
+            foreach (var student in students)
+            {
+                StudentListVM studentForVM = new StudentListVM();
+
+                studentForVM.Id = student.Id;
+                studentForVM.FirstName = student.FirstName;
+                studentForVM.LastName = student.LastName;
+                studentForVM.CourseId = student.CourseId.GetValueOrDefault();
+                studentForVM.CourseName = db.Courses.Find(studentForVM.CourseId).Name;
+                studentForVM.Email = student.Email;
+                studentForVM.PhoneNumber = student.PhoneNumber;
+
+                studentListForVM.Add(studentForVM);
+            }
+
+            if (sortOn != null && students != null)
+            {
+                switch (sortOn)
                 {
-                    Id = u.Id,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    CourseId = u.CourseId.GetValueOrDefault(),
-                    CourseName = db.Courses.Find(u.CourseId).Name,
-                    Email = u.Email,
-                    PhoneNumber = u.PhoneNumber
-                });
-            return View(students);
+                    case "firstname_asc":
+                        studentListForVM = studentListForVM.OrderByDescending(s => s.FirstName).ToList();
+                        ViewBag.SortOrderFirstName = "firstname_desc";
+                        break;
+                    case "firstname_desc":
+                        studentListForVM = studentListForVM.OrderBy(s => s.FirstName).ToList();
+                        ViewBag.SortOrderFirstName = "firstname_asc";
+                        break;
+                    case "lastname_asc":
+                        studentListForVM = studentListForVM.OrderByDescending(s => s.LastName).ToList();
+                        ViewBag.SortOrderLastName = "lastname_desc";
+                        break;
+                    case "lastname_desc":
+                        studentListForVM = studentListForVM.OrderBy(s => s.LastName).ToList();
+                        ViewBag.SortOrderLastName = "lastname_asc";
+                        break;
+                    case "email_asc":
+                        studentListForVM = studentListForVM.OrderByDescending(s => s.Email).ToList();
+                        ViewBag.SortOrderEmail = "email_desc";
+                        break;
+                    case "email_desc":
+                        studentListForVM = studentListForVM.OrderBy(s => s.Email).ToList();
+                        ViewBag.SortOrderEmail = "email_asc";
+                        break;
+                    case "phonenumber_asc":
+                        studentListForVM = studentListForVM.OrderByDescending(s => s.PhoneNumber).ToList();
+                        ViewBag.SortOrderPhoneNumber = "phonenumber_desc";
+                        break;
+                    case "phonenumber_desc":
+                        studentListForVM = studentListForVM.OrderBy(s => s.PhoneNumber).ToList();
+                        ViewBag.SortOrderPhoneNumber = "phonenumber_asc";
+                        break;
+                    case "coursename_asc":
+                        studentListForVM = studentListForVM.OrderByDescending(s => s.CourseName).ToList();
+                        ViewBag.SortOrderCourseName = "coursename_desc";
+                        break;
+                    case "coursename_desc":
+                        studentListForVM = studentListForVM.OrderBy(s => s.CourseName).ToList();
+                        ViewBag.SortOrderCourseName = "coursename_asc";
+                        break;
+                    default:
+                        ViewBag.SortOrderFirstName = "firstname_desc";
+                        ViewBag.SortOrderLastName = "lastname_desc";
+                        ViewBag.SortOrderEmail = "email_desc";
+                        ViewBag.SortOrderPhoneNumber = "phonenumber_desc";
+                        ViewBag.SortOrderCourseName = "coursename_desc";
+                        break;
+                }
+            }
+            else
+            {
+                ViewBag.SortOrderFirstName = "firstname_desc";
+                ViewBag.SortOrderLastName = "lastname_desc";
+                ViewBag.SortOrderEmail = "email_desc";
+                ViewBag.SortOrderPhoneNumber = "phonenumber_desc";
+                ViewBag.SortOrderCourseName = "coursename_desc";
+            }
+
+            if (!String.IsNullOrEmpty(searchOn))
+            {
+                studentListForVM = studentListForVM.Where(s => s.FirstName.ToLower().Contains(searchOn.ToLower()))
+                                                    .Concat(studentListForVM.Where(s => s.LastName.ToLower().Contains(searchOn.ToLower())))
+                                                    .Concat(studentListForVM.Where(s => s.Email.ToLower().Contains(searchOn.ToLower())))
+                                                    .Concat(studentListForVM.Where(s => s.CourseName.ToLower().Contains(searchOn.ToLower())))
+                                                    .Distinct()
+                                                    .ToList();
+                ViewBag.SearchOn = searchOn;
+            }
+
+            return View(studentListForVM);
         }
 
         //// GET: Students/Details/5
@@ -85,7 +170,7 @@ namespace LexiconLMS.Controllers
 
         // GET: Students/Create
         [HttpGet]
-        [Authorize(Roles ="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Create(int? courseId)
         {
             var vm = new CreateStudentAccountVM
@@ -127,7 +212,7 @@ namespace LexiconLMS.Controllers
                     CourseId = studentInfo.CourseId,
                     PhoneNumber = studentInfo.PhoneNumber
                 };
-                
+
                 // Student inherits from ApplicationUser,  so the UserManager should accept it.
                 var result = UserManager.Create(student as ApplicationUser, studentInfo.Password);
                 if (result.Succeeded)
@@ -159,7 +244,8 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
-            var vm = new EditStudentAccountVM {
+            var vm = new EditStudentAccountVM
+            {
                 ReturnToIndex = returnToIndex.GetValueOrDefault(),
                 Id = student.Id,
                 FirstName = student.FirstName,

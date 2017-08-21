@@ -3,6 +3,7 @@ using LexiconLMS.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,18 +11,19 @@ using System.Web.Mvc;
 
 namespace LexiconLMS.Controllers
 {
-    [Authorize(Roles ="Teacher")]
+    [Authorize(Roles = "Teacher")]
     public class TeachersController : Controller
     {
 
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserManager<ApplicationUser> _userManager;
         private RoleStore<IdentityRole> _roleStore;
-        private RoleManager<IdentityRole>_roleManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public UserManager<ApplicationUser> UserManager
         {
-            get {
+            get
+            {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
@@ -40,19 +42,85 @@ namespace LexiconLMS.Controllers
 
         // GET: Teachers
         [Authorize(Roles = "Teacher")]
-        public ActionResult Index()
+        public ActionResult Index(string sortOn, string searchOn = "")
         {
             var teacherRole = RoleManager.FindByName("Teacher");
-            var users = db.Users.Where(u => u.Roles.FirstOrDefault().RoleId == teacherRole.Id);
+            var users = db.Users
+                .Where(u => u.Roles.FirstOrDefault().RoleId == teacherRole.Id)
+                .ToList();
+
             var teachers = users.ToList().ConvertAll(u => new TeacherListVM
-                {
-                    FirstName = u.FirstName,
-                    LastName = u.LastName,
-                    Email = u.Email,
-                    Id = u.Id,
-                    PhoneNumber = u.PhoneNumber
-                }
+            {
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                Email = u.Email,
+                Id = u.Id,
+                PhoneNumber = u.PhoneNumber
+            }
             );
+
+            if (sortOn != null && teachers != null)
+            {
+                switch (sortOn)
+                {
+                    case "firstname_asc":
+                        teachers = teachers.OrderByDescending(s => s.FirstName).ToList();
+                        ViewBag.SortOrderFirstName = "firstname_desc";
+                        break;
+                    case "firstname_desc":
+                        teachers = teachers.OrderBy(s => s.FirstName).ToList();
+                        ViewBag.SortOrderFirstName = "firstname_asc";
+                        break;
+                    case "lastname_asc":
+                        teachers = teachers.OrderByDescending(s => s.LastName).ToList();
+                        ViewBag.SortOrderLastName = "lastname_desc";
+                        break;
+                    case "lastname_desc":
+                        teachers = teachers.OrderBy(s => s.LastName).ToList();
+                        ViewBag.SortOrderLastName = "lastname_asc";
+                        break;
+                    case "email_asc":
+                        teachers = teachers.OrderByDescending(s => s.Email).ToList();
+                        ViewBag.SortOrderEmail = "email_desc";
+                        break;
+                    case "email_desc":
+                        teachers = teachers.OrderBy(s => s.Email).ToList();
+                        ViewBag.SortOrderEmail = "email_asc";
+                        break;
+                    case "phonenumber_asc":
+                        teachers = teachers.OrderByDescending(s => s.PhoneNumber).ToList();
+                        ViewBag.SortOrderPhoneNumber = "phonenumber_desc";
+                        break;
+                    case "phonenumber_desc":
+                        teachers = teachers.OrderBy(s => s.PhoneNumber).ToList();
+                        ViewBag.SortOrderPhoneNumber = "phonenumber_asc";
+                        break;
+                    default:
+                        ViewBag.SortOrderFirstName = "firstname_desc";
+                        ViewBag.SortOrderLastName = "lastname_desc";
+                        ViewBag.SortOrderEmail = "email_desc";
+                        ViewBag.SortOrderPhoneNumber = "phonenumber_desc";
+                        break;
+                }
+            }
+            else
+            {
+                ViewBag.SortOrderFirstName = "firstname_desc";
+                ViewBag.SortOrderLastName = "lastname_desc";
+                ViewBag.SortOrderEmail = "email_desc";
+                ViewBag.SortOrderPhoneNumber = "phonenumber_desc";
+            }
+
+            if (!String.IsNullOrEmpty(searchOn))
+            {
+                teachers = teachers.Where(s => s.FirstName.ToLower().Contains(searchOn.ToLower()))
+                                                    .Concat(teachers.Where(s => s.LastName.ToLower().Contains(searchOn.ToLower())))
+                                                    .Concat(teachers.Where(s => s.Email.ToLower().Contains(searchOn.ToLower())))
+                                                    .Distinct()
+                                                    .ToList();
+                ViewBag.SearchOn = searchOn;
+            }
+
             return View(teachers);
         }
 
@@ -90,7 +158,7 @@ namespace LexiconLMS.Controllers
         //    {
         //        db.Users.Add(teacher);
         //        db.SaveChanges();
-                
+
         //        return RedirectToAction("Index");
         //    }
 
@@ -222,7 +290,7 @@ namespace LexiconLMS.Controllers
             }
             var vm = new EditTeacherAccountVM
             {
-                Id=teacher.Id,
+                Id = teacher.Id,
                 FirstName = teacher.FirstName,
                 LastName = teacher.LastName,
                 Email = teacher.Email,

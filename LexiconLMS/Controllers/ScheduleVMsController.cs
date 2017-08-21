@@ -80,8 +80,10 @@ namespace LexiconLMS.Controllers
                     ScheduleRow scheduleRow = new ScheduleRow();
 
                     //Assign values to the ScheduleRowDate and ScheduleRowWeekDay properties in the viewmodel
-                    scheduleRow.ScheduleRowDate = course.StartDate.AddDays(i).ToShortDateString();
-                    scheduleRow.ScheduleRowWeekDay = course.StartDate.AddDays(i).DayOfWeek.ToString();
+                    var dateInSchedule = course.StartDate.AddDays(i);
+
+                    scheduleRow.ScheduleRowDate = dateInSchedule.ToShortDateString();
+                    scheduleRow.ScheduleRowWeekDay = dateInSchedule.DayOfWeek.ToString();
 
                     //Reset all hours, minutes and seconds to 0 in module DateTime properties. This will
                     //enable a correct comparison when checking for a module for this date.
@@ -92,7 +94,7 @@ namespace LexiconLMS.Controllers
                     }
 
                     //Check if there is a module for this date
-                    var module = modules.Where(s => s.StartDate <= course.StartDate.AddDays(i))
+                    var module = modules.Where(s => s.StartDate <= dateInSchedule)
                                             .Where(e => e.EndDate >= course.StartDate.AddDays(i - 1))
                                             .FirstOrDefault();
 
@@ -101,7 +103,7 @@ namespace LexiconLMS.Controllers
                     if (module != null)
                     {
                         //Assign the module name to the viewmodel if it is weekday
-                        if (course.StartDate.AddDays(i).DayOfWeek.ToString() != "Saturday" && course.StartDate.AddDays(i).DayOfWeek.ToString() != "Sunday")
+                        if (dateInSchedule.DayOfWeek.ToString() != "Saturday" && dateInSchedule.DayOfWeek.ToString() != "Sunday")
                         {
                             scheduleRow.ModuleName = module.Name;
 
@@ -135,14 +137,14 @@ namespace LexiconLMS.Controllers
                                         if (!item.External)
                                         {
                                             amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType;
+                                                                + ": " + activityType + ", " + item.Name;
                                             amObject.AmActivityDescription = item.Description;
                                             amActivities.Add(amObject);
                                         }
                                         else
                                         {
                                             amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + " (EXT)";
+                                                                + ": " + activityType + ", " + item.Name + " (EXT)";
                                             amObject.AmActivityDescription = item.Description;
                                             amActivities.Add(amObject);
                                         }
@@ -153,14 +155,14 @@ namespace LexiconLMS.Controllers
                                         if (!item.External)
                                         {
                                             pmObject.PmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType;
+                                                                + ": " + activityType + ", " + item.Name;
                                             pmObject.PmActivityDescription = item.Description;
                                             pmActivities.Add(pmObject);
                                         }
                                         else
                                         {
                                             pmObject.PmActivityTitle = item.StartDate.ToShortTimeString() + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + "(EXT)";
+                                                                + ": " + activityType + ", " + item.Name + "(EXT)";
                                             pmObject.PmActivityDescription = item.Description;
                                             pmActivities.Add(pmObject);
                                         }
@@ -172,11 +174,11 @@ namespace LexiconLMS.Controllers
                                         if (!item.External)
                                         {
                                             amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + "12:00"
-                                                               + ": " + activityType;
+                                                               + ": " + activityType + ", " + item.Name;
                                             amObject.AmActivityDescription = item.Description;
 
                                             pmObject.PmActivityTitle = "13:00" + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType;
+                                                                + ": " + activityType + ", " + item.Name;
 
                                             pmObject.PmActivityDescription = item.Description;
                                             amActivities.Add(amObject);
@@ -186,11 +188,11 @@ namespace LexiconLMS.Controllers
                                         else
                                         {
                                             amObject.AmActivityTitle = item.StartDate.ToShortTimeString() + " - " + "12:00"
-                                                               + ": " + activityType + " (EXT)";
+                                                               + ": " + activityType + ", " + item.Name + " (EXT)";
                                             amObject.AmActivityDescription = item.Description;
 
                                             pmObject.PmActivityTitle = "13:00" + " - " + item.EndDate.ToShortTimeString()
-                                                                + ": " + activityType + " (EXT)";
+                                                                + ": " + activityType + ", " + item.Name + " (EXT)";
                                             pmObject.PmActivityDescription = item.Description;
                                             amActivities.Add(amObject);
                                             pmActivities.Add(pmObject);
