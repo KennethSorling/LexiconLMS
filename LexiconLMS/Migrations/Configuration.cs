@@ -392,8 +392,8 @@ namespace LexiconLMS.Migrations
             context.Documents.AddOrUpdate(d => d.Filename, new Document
             {
 
-                Filename = "Course Description .Net .pdf",
-                FileSize = 107520,
+                Filename = "Course Description .Net.pdf",
+                FileSize = 130452,
                 FileType = "application/pdf",
                 CourseId = 1,
                 MimeType = mimeTypes.Find(m => m.DefaultExtension == "pdf"),
@@ -413,7 +413,7 @@ namespace LexiconLMS.Migrations
             context.Documents.AddOrUpdate(d => d.Filename, new Document
             {
                 Filename = "Assignment 1.1.txt",
-                FileSize = 50520,
+                FileSize = 174,
                 ActivityId = 1,
                 //MimeType = new MimeType { Id = 4, Name = "application/pdf" },
                 MimeType = context.MimeTypes.Find(1),
@@ -432,7 +432,7 @@ namespace LexiconLMS.Migrations
             context.Documents.AddOrUpdate(d => d.Filename, new Document
             {
                 Filename = "My pathetic attempt.zip",
-                FileSize = 105200,
+                FileSize = 223,
                 ActivityId = 1,
                 MimeType = context.MimeTypes.Find(5),
                 Status = context.Statuses.Find(5),

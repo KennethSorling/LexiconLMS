@@ -379,6 +379,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="uploads\Assignment 1.1.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -449,6 +450,8 @@
     <Content Include="Views\Documents\Edit.cshtml" />
     <Content Include="Views\Documents\Index.cshtml" />
     <Content Include="Views\Documents\Upload.cshtml" />
+    <Content Include="uploads\My Pathetic attempt.zip" />
+    <Content Include="uploads\Course Description .Net.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

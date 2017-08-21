@@ -1,0 +1,6 @@
+This is the description document for assignemnt 1.1.
+Course:	.Net Developer
+Module:	C# Basics
+
+Write a console application which prints out the words "Hello, World!".
+
