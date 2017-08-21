@@ -24,7 +24,9 @@ namespace LexiconLMS.Controllers
         public ActionResult Manage(int id)
         {
 
-            var course = db.Courses.Find(id);
+            //var course = db.Courses.Find(id);
+            var course = db.Courses.Include("Documents").Where(c => c.Id == id).FirstOrDefault();
+
             if (course == null)
             {
                 return HttpNotFound();
@@ -41,8 +43,9 @@ namespace LexiconLMS.Controllers
                     FirstName = s.FirstName,
                     LastName = s.LastName,
                     PhoneNumber = s.PhoneNumber
-                }
-                );
+                });
+            course.Students = students;
+
             //course.Students = students;
             ViewBag.Title = "Course Details";
             return View(course);

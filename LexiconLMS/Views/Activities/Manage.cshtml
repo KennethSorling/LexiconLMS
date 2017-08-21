@@ -29,6 +29,7 @@
 
     </div>
 </div>
+<hr class="thick-divider-line"/>
 <h2>Documents:</h2>
 @if (Model.Documents.Count() == 0)
 {
@@ -36,8 +37,7 @@
 }
 else
 {
-    <p>There are @Model.Documents.Count() documents.</p>
-    <table class="table-bordered">
+    <table>
         <thead>
             <tr>
                 <th>
@@ -74,7 +74,7 @@ else
                 <td>@doc.DateUploaded.ToShortDateString()</td>
                 <td>@doc.Owner.Email</td>
                 <td>@doc.Status.Name</td>
-                <td>@Html.ActionLink("Review", "Review", "Documents", new { documentId = doc.Id }, new {@class="btn btn-default btn-edit" })</td>
+                <td>@Html.ActionLink("Review", "Review", "Documents", new { id = doc.Id }, new {@class="btn btn-default btn-edit" })</td>
             </tr>
         }
         

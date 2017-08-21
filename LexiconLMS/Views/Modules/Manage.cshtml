@@ -48,6 +48,50 @@
 
 @Html.Partial("_ActivityList", Model.Activities)
 <br />
+<hr class="thick-divider-line" />
+<h2>Documents</h2>
+@if (Model.Documents.Count == 0)
+{
+    <p>There are no documents for this Module.</p>
+}
+else
+{
+    <table class="table-condensed">
+        <thead>
+            <tr>
+                <th>
+                    FileName
+                </th>
+                <th>
+                    Size
+                </th>
+                <th>
+                    Uploaded On
+                </th>
+                <th>
+                    By
+                </th>
+                <th>
+                    State
+                </th>
+            </tr>
+        </thead>
+        @foreach (var doc in Model.Documents)
+        {
+            <tr>
+                <td class="doclink @doc.MimeType.DefaultExtension">
+                    <a target="_blank" href="@Href("~/uploads/" + doc.Filename)">
+                        @doc.Filename
+                    </a>
+                </td>
+                <td>@doc.FileSize</td>
+                <td>@doc.DateUploaded.ToShortDateString()</td>
+                <td>@doc.Owner.Email</td>
+                <td>@doc.Status.Name</td>
+            </tr>
+        }
+    </table>
+}
 
 @Html.ActionLink("Back", "Manage", "Courses", new { id = Model.CourseId }, new { })
 
