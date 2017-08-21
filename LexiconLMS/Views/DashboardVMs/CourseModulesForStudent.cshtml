@@ -1,0 +1,71 @@
+﻿@model LexiconLMS.ViewModels.ModulesForStudentVM
+
+@{
+    ViewBag.Title = "List of Course Modules";
+    //string activityString;
+}
+
+<p class="page-header">@ViewBag.Title</p>
+<br />
+<p class="bold-info">Course: @Model.CourseName</p>
+<div class="thick-divider-line"></div>
+<p></p>
+<br />
+
+@if (Model.Modules != null)
+{
+    <table class="table">
+        <tr>
+            <th class="smallmediumcol">
+                Module
+            </th>
+            <th class="smallcol">
+                Start Date
+            </th>
+            <th class="smallcol">
+                End Date
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Modules)
+        {
+            <tr>
+                <td>
+                    @*<a href="">@Html.DisplayFor(modelItem => item.Name)</a>*@
+                    @Html.ActionLink(item.Name, "ShowActivities", "DashboardVMs", new { id = item.Id }, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    <details>
+                        <summary>Read more...</summary>
+                        <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                        <p></p>
+                        @*@foreach (var activity in item.Activities)
+                        {
+                            activityString = activity.StartDate.ToString("hh:mm") + " " + activity.EndDate.ToString("hh:mm") + " " + activity.Name;
+                            <p>@activityString</p>
+                            <details>
+                                <summary>
+                                    <p>@Html.DisplayFor(modelItem => activity.Description)</p>
+                                </summary>
+                            </details>
+                        }*@
+                    </details>
+
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No modules defined for this course</p>
+}

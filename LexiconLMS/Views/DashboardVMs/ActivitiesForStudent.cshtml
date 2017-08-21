@@ -1,0 +1,71 @@
+﻿@model LexiconLMS.ViewModels.ActivitiesForStudentVM
+
+@{
+    ViewBag.Title = "List of Activities";
+    string activityTime = "";
+    int i = 0;
+}
+
+<body>
+    <p class="page-header">@ViewBag.Title</p>
+    <br />
+    <p class="bold-info">Course: @Model.CourseName</p>
+    <p class="bold-info">Module: @Model.ModuleName</p>
+    <div class="thick-divider-line"></div>
+    <br />
+
+    <div>
+        @if (Model.Activities != null)
+        {
+            <table class="table">
+                <tr>
+                    <th class="smallcol">
+                        Date
+                    </th>
+                    <th class="smallcol">
+                        Time
+                    </th>
+                    <th class="smallcol">
+                        Type
+                    </th>
+                    <th class="smallmediumcol">
+                        Name
+                    </th>
+                    <th class="mediumcol">
+                        Description
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+                @foreach (var item in Model.Activities)
+                {
+                    activityTime = item.StartDate.ToString("HH:mm") + " - " + item.EndDate.ToString("HH:mm");
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => activityTime)
+                        </td>
+                        <td>
+                            @Model.ActivityTypes[i]
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </table>
+        }
+        else
+        {
+            <p>No activities defined for this module</p>
+        }
+    </div>
+    <div class="link-below-table">@Html.ActionLink("Return to Module List", "ShowModules", "DashboardVMs")</div>
+</body>
