@@ -207,6 +207,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ActivitiesForStudentVM.cs" />
     <Compile Include="ViewModels\CoursesVM.cs" />
     <Compile Include="ViewModels\CreateEditActivityVM.cs" />
     <Compile Include="ViewModels\CreateStudentAccountVM.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="Controllers\DashboardVMsController.cs" />
     <Compile Include="ViewModels\EditStudentAccountVM.cs" />
     <Compile Include="ViewModels\EditTeacherAccountVM.cs" />
+    <Compile Include="ViewModels\ModulesForStudentVM.cs" />
     <Compile Include="ViewModels\ModulesVM.cs" />
     <Compile Include="ViewModels\ScheduleVM.cs" />
     <Compile Include="ViewModels\StudentListVM.cs" />

@@ -29,27 +29,37 @@ textarea {
 }
 
 .navbar img {
-    width: 120px;
-    height: auto;
+    width: 60%;
+    height: 60%;
     margin: 5px 5px 5px 5px;
+}
+
+.navbar-header {
+    max-width: 200px;
 }
 
 h1 {
     font-family: 'Chonburi', cursive;
     font-size: 50px;
+    line-height: 54px;
     font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 40px;
     color: #202020;
-    display:inline-block;
-
+    display: inline-block;
 }
 
 .page-header {
     font-size: 50px;
+    line-height: 54px;
+    padding: 0 15px 18px 0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-family: "caslonno224ef-blackregular", "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
     font-family: 'Chonburi', cursive;
     color: #202020;
     font-weight: bold;
     border: none;
-    margin-top:100px;
 }
 
 .date {
@@ -78,6 +88,10 @@ hr {
     margin-bottom: 20px;
     border: 0;
     border-top: 2px solid #eeeeee;
+}
+
+.btnInLineWithH1 {
+    margin-top: 60px;
 }
 
 .btn-left-margin {
