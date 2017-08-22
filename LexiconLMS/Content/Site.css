@@ -31,7 +31,7 @@ textarea {
 .navbar img {
     width: 60%;
     height: 60%;
-    margin: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 0;
 }
 
 .navbar-header {
@@ -67,6 +67,11 @@ h1 {
 }
 
 .course-name {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.mediumsized-bold-info {
     font-size: 26px;
     font-weight: 700;
 }
@@ -113,6 +118,7 @@ hr {
     border-radius: 0;
     color: #fff;
     font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    margin-top: 54px;
 }
 
 .btn-add-module, 
