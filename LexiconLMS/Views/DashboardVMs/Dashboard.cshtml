@@ -135,8 +135,8 @@ else
 
 <hr class="thick-divider-line" />
 
-        <h3>Hand-ins</h3>
-    
+<h3>Hand-ins</h3>
+
 @if (Model.HandIns != null)
 {
     if (Model.HandIns.Count > 0)
@@ -180,8 +180,21 @@ else
                     <td>@doc.DeadLine.ToString().Substring(0, 10)</td>
                     <td>@doc.Owner.Email</td>
                     <td>@doc.Status.Name</td>
-                    <th>@Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })</th>
+                    <th>
+                        @Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })
+                        @if (Model.FeedbackList != null)
+                        {
+                            if (Model.FeedbackList.Count > 0)
+                            {
+                                if (Model.FeedbackList[i].FeedbackExists)
+                                {
+                                    @Html.ActionLink("See Feedback", "Details", "Documents", new { id = Model.FeedbackList[i].FeedbackId }, new { @class = "btn btn-default btn-more-info" })
+                                }
+                            }
+                        }
+                    </th>
                 </tr>
+                i++;
             }
 
         </table>

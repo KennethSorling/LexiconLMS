@@ -29,5 +29,14 @@ namespace LexiconLMS.ViewModels
         public List<Document> AssignmentDescriptions { get; set; }
 
         public List<Document> OtherDocuments { get; set; }
+
+        public List<FeedbackObject> FeedbackList { get; set; }
+    }
+
+    public class FeedbackObject
+    {
+        public bool FeedbackExists { get; set; }
+
+        public int FeedbackId { get; set; }
     }
 }

@@ -103,6 +103,7 @@ namespace LexiconLMS.Controllers
             var otherDocuments = new List<Document>();
             var assignmentDescriptions = new List<Document>();
             var handIns = new List<Document>();
+            var feedbacksList = new List<FeedbackObject>();
 
             if (course.Documents != null)
             {
@@ -164,6 +165,19 @@ namespace LexiconLMS.Controllers
                                     if (document.PurposeId == 7 && document.Owner == currentUser)
                                     {
                                         handIns.Add(document);
+                                        //Look for any feedback to this document
+                                        var feedback = db.FeedBacks.Where(d => d.DocumentId == document.Id).FirstOrDefault();
+                                        FeedbackObject feedbackObject = new FeedbackObject();
+                                        if (feedback != null)
+                                        {
+                                            feedbackObject.FeedbackExists = true;
+                                            feedbackObject.FeedbackId = feedback.Id;
+                                        }
+                                        else
+                                        {
+                                            feedbackObject.FeedbackExists = false;
+                                        }
+                                        feedbacksList.Add(feedbackObject);
                                     }
                                 }
                             }
