@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-4">
         <br />
-        @Html.ActionLink("Add Student", "Create", null, new {@class="btn btn-default btn-add" })
+        @Html.ActionLink("Add Student", "Create", null, new {@class="btn btn-default btn-add", style="margin-top:50px" })
     </div>
 </div>
 
@@ -102,7 +102,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id, returnToIndex = true }, new { @class = "btn btn-default btn-edit" })
-                <br />
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default btn-delete" })
             </td>
         </tr>

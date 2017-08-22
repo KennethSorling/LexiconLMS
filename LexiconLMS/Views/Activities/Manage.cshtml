@@ -30,14 +30,21 @@
     </div>
 </div>
 <hr class="thick-divider-line"/>
-<h2>Documents:</h2>
+<div class="row">
+    <div class="col-md-9">
+        <p class="course-name">Documents:</p>
+    </div>
+    <div class="col-md-3">
+        @Html.ActionLink("Upload", "Upload", "Documents", new { activityId = Model.Id, moduleId = Model.ModuleId }, new { @class = "btn btn-default btn-upload" })
+    </div>
+</div>
 @if (Model.Documents.Count() == 0)
 {
     <p>There are no documents</p>
 }
 else
 {
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>
@@ -47,10 +54,13 @@ else
                     Size
                 </th>
                 <th>
-                    Uploaded On
+                    Uploaded
                 </th>
                 <th>
-                    By
+                    Due:
+                </th>
+                <th>
+                    Owner
                 </th>
                 <th>
                     State
@@ -72,9 +82,17 @@ else
                 </td>
                 <td>@doc.FileSize</td>
                 <td>@doc.DateUploaded.ToShortDateString()</td>
+                <td>
+                    @if (doc.DeadLine != null)
+                    {
+                        System.DateTime myDeadLine = doc.DeadLine.GetValueOrDefault();
+                        <span>@myDeadLine.ToShortDateString()</span>
+                    }
+                </td>
                 <td>@doc.Owner.Email</td>
                 <td>@doc.Status.Name</td>
                 <td>
+                    @Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })
                     @if (doc.PurposeId == 7)
                     {
                         @Html.ActionLink("Review", "Review", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-edit" })

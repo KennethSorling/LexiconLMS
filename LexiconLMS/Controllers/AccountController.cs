@@ -69,7 +69,7 @@ namespace LexiconLMS.Controllers
             }
             else
             {
-                TempData["Message"] = $"You last visited: {lastLogon.ToShortDateString()}"; 
+                //TempData["Message"] = $"You last visited: {lastLogon.ToShortDateString()}"; 
             }
             Session["LastLogon"] = lastLogon;
             user.LastLogon = System.DateTime.Now;
@@ -106,7 +106,8 @@ namespace LexiconLMS.Controllers
                 case SignInStatus.Success:
                     var user = MyDbContext.Users.Where(u => u.Email == model.Email).FirstOrDefault() ;
                     RememberLastLogon(user.Id);
-                    return RedirectToLocal(returnUrl);
+                    if (returnUrl != null) return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

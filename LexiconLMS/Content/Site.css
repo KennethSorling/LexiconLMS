@@ -166,7 +166,7 @@ hr {
   text-decoration:none;
 }
 
-
+.btn-upload:hover,
 .btn-more-info:hover,
 .btn-more-info:focus,
 .btn-more-info:active,
@@ -195,7 +195,7 @@ hr {
 .btn-edit.active,
 .open .dropdown-toggle.btn-default {
   color: #fff;
-  background-color: #f57920;
+  background-color: #f9ae64;
   text-decoration:none;
 }
 
@@ -361,12 +361,13 @@ summary {
 }
 
 .doclink {
-    padding-left:20px;
     background-image: url(Images/_blank.png);
     background-repeat:no-repeat;
-    background-position-y:center;
+    background-position-y:10px;
     min-width:200px;
+    text-indent:16px;
 }
+
 .txt {
     background-image: url(Images/txt.png);
 }
@@ -381,4 +382,8 @@ summary {
 
 .zip {
     background-image: url(Images/zip.png);
+}
+
+.png {
+    background-image: url(Images/png.png);
 }

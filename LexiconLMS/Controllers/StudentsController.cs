@@ -210,7 +210,8 @@ namespace LexiconLMS.Controllers
                     Email = studentInfo.Email,
                     UserName = studentInfo.Email,
                     CourseId = studentInfo.CourseId,
-                    PhoneNumber = studentInfo.PhoneNumber
+                    PhoneNumber = studentInfo.PhoneNumber,
+                    LastLogon = new DateTime(1970, 1, 1)
                 };
 
                 // Student inherits from ApplicationUser,  so the UserManager should accept it.

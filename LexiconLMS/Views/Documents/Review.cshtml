@@ -15,19 +15,30 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Filename)
+            <span class="doclink @Model.MimeType.DefaultExtension">
+                <a target="_blank" href="@Href("~/uploads/" + Model.Filename)">
+                    @Model.Filename
+                </a>
+            </span>
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Owner.)
+            @Html.DisplayNameFor(model => model.FileSize)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Owner.FirstName)
+            @Html.DisplayFor(model => model.FileSize)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Purpose.Name)
+            Upoaded By:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.FirstName) @Html.DisplayFor(model => model.Owner.LastName)
+        </dd>
+
+        <dt>
+            Purpose:
         </dt>
 
         <dd>
@@ -35,35 +46,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Status.Name)
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Status.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ModuleId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModuleId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseId)
-        </dt>
-
         <dd>
             @Html.DisplayFor(model => model.CourseId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ActivityId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ActivityId)
         </dd>
 
         <dt>
@@ -75,31 +66,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FileSize)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FileSize)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FileType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FileType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateUploaded)
+            Uploaded:
         </dt>
 
         <dd>
@@ -113,14 +80,12 @@
         <dd>
             @Html.DisplayFor(model => model.DeadLine)
         </dd>
-
     </dl>
 </div>
 <p>
     @Html.ActionLink("Approved","Approve", "Documents", new { id = Model.Id }, new {@class="btn btn-default btn-add" })
     @Html.ActionLink("Try Again", "Retry", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
     @Html.ActionLink("Failed", "Fail", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
-    @Html.ActionLink("Give Feedback", "GiveFeedback", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-upload" })
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Give Feedback", "GiveFeedback", "Documents", new { id = Model.Id }, new { @class = "btn btn-default btn-upload btn-with-cancel" })
     @Html.ActionLink("Back", "Manage", "Activities", new { id = Model.ActivityId}, new {@class="cancel-link" })
 </p>

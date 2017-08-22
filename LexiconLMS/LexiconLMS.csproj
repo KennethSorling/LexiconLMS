@@ -185,9 +185,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
-    <Compile Include="Migrations\201708211154118_StartingOver_20170821_1353.cs" />
-    <Compile Include="Migrations\201708211154118_StartingOver_20170821_1353.Designer.cs">
-      <DependentUpon>201708211154118_StartingOver_20170821_1353.cs</DependentUpon>
+    <Compile Include="Migrations\201708220745499_booYa.cs" />
+    <Compile Include="Migrations\201708220745499_booYa.Designer.cs">
+      <DependentUpon>201708220745499_booYa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -446,7 +446,6 @@
     <Content Include="Views\DashboardVMs\Edit.cshtml" />
     <Content Include="Views\DashboardVMs\Dashboard.cshtml" />
     <Content Include="Views\ScheduleVMs\Schedule.cshtml" />
-    <Content Include="Views\Documents\Create.cshtml" />
     <Content Include="Views\Documents\Delete.cshtml" />
     <Content Include="Views\Documents\Details.cshtml" />
     <Content Include="Views\Documents\Edit.cshtml" />
@@ -468,8 +467,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708211154118_StartingOver_20170821_1353.resx">
-      <DependentUpon>201708211154118_StartingOver_20170821_1353.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708220745499_booYa.resx">
+      <DependentUpon>201708220745499_booYa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -28,7 +28,7 @@
     <div class="col-md-4">
                 @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new {@class= "btn btn-default btn-edit" })
                 @Html.ActionLink("Delete", "Delete", new {id=Model.Id }, new {@class= "btn btn-default btn-delete" })
-                @Html.ActionLink("Upload", "Upload", "Documents", new { courseId = Model.CourseId, moduleId = Model.Id }, new { @class = "btn btn-default btn-upload" })
+                @Html.ActionLink("Upload", "Upload", "Documents", new { moduleId = Model.Id }, new { @class = "btn btn-default btn-upload" })
 
 
     </div>
@@ -37,10 +37,10 @@
 
 <hr class="thick-divider-line" />
 <div class="row">
-    <div class="col-md-8">
-        <h2>Activities</h2>
+    <div class="col-md-9">
+        <p class="course-name">Activities</p>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <br />
         @Html.ActionLink("Add Activity", "Create", "Activities", new { moduleId = ViewBag.ModuleId }, new { @Class = "btn btn-default btn-add" })
     </div>
@@ -49,14 +49,18 @@
 @Html.Partial("_ActivityList", Model.Activities)
 <br />
 <hr class="thick-divider-line" />
-<h2>Documents</h2>
+<div class="row">
+    <div class="col-md-7"><p class="course-name">Documents:</p></div>
+    <div class="col-md-5">@Html.ActionLink("Upload", "Upload", "Documents", new { moduleId = Model.Id }, new { @class = "btn btn-default btn-upload" })
+</div>
+</div>
 @if (Model.Documents.Count == 0)
 {
     <p>There are no documents for this Module.</p>
 }
 else
 {
-    <table class="table-condensed">
+    <table class="table-striped" width="800">
         <thead>
             <tr>
                 <th>
@@ -66,13 +70,16 @@ else
                     Size
                 </th>
                 <th>
-                    Uploaded On
+                    Uploaded
                 </th>
                 <th>
                     By
                 </th>
                 <th>
                     State
+                </th>
+                <th>
+                    Options
                 </th>
             </tr>
         </thead>
@@ -88,6 +95,7 @@ else
                 <td>@doc.DateUploaded.ToShortDateString()</td>
                 <td>@doc.Owner.Email</td>
                 <td>@doc.Status.Name</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })</td>
             </tr>
         }
     </table>

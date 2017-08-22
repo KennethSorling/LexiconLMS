@@ -185,7 +185,9 @@ namespace LexiconLMS.Controllers
                     UserName = details.Email,
                     FirstName = details.FirstName,
                     LastName = details.LastName,
-                    Email = details.Email
+                    Email = details.Email,
+                    LastLogon = new DateTime(1970,1,1)
+                    
                 };
                 var result = UserManager.Create(user, details.Password);
                 if (!result.Succeeded)

@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace LexiconLMS.Controllers
 {
+    [Authorize]
     public class DocumentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -27,34 +28,40 @@ namespace LexiconLMS.Controllers
                     doc.StatusId = status.Id;
                     db.Entry(doc).State = EntityState.Modified;
                     db.SaveChanges();
+                    TempData["Message"] = "Document status updated.";
                 }
             }
            return RedirectToAction("Review", "Documents", new { id = documentId });
         }
-
+        [Authorize(Roles ="Teacher")]
         public ActionResult Review(int id)
         {
             var doc = db.Documents.Find(id);
             return View(doc);
         }
 
+        [Authorize(Roles = "Teacher")]
         public ActionResult Approve(int id)
         {
             return SetStatus(id, 5);
         }
 
+        [Authorize(Roles = "Teacher")]
         public ActionResult Fail(int id)
         {
             return SetStatus(id, 6);
         }
 
+        [Authorize(Roles = "Teacher")]
         public ActionResult Retry(int id)
         {
             return SetStatus(id, 4);
         }
 
+        [Authorize(Roles = "Teacher, Student")]
         public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? purposeId, DateTime? deadLine, string returnTo)
         {
+            returnTo = returnTo ?? Request.ServerVariables["HTTP_REFERER"];
             var purposes = db.Purposes.ToList().ConvertAll(d => new SelectListItem
             {
                 Text = d.Name,
@@ -88,7 +95,7 @@ namespace LexiconLMS.Controllers
                 var course = db.Courses.Find(courseId);
                 vm.CourseName = course.Name;
             }
-            
+            ViewBag.ReturnUrl = Request.ServerVariables["HTTP_REFERER"];
             ViewBag.PurposeId = purposes;
             return View(vm);
         }
@@ -183,16 +190,13 @@ namespace LexiconLMS.Controllers
                         doc.StatusId = 3;   //submitted
                         doc.Status = db.Statuses.Find(3);
                         doc.Purpose = db.Purposes.Find(7);
-                        //// Hand-In?
-                        //if (vm.PurposeId == 7)
-                        //{
-                        //    //submitted
-                        //    doc.Status = db.Statuses.Find(3);
-                        //}
-                        //else
-                        //{
-                        //    doc.Status = db.Statuses.FirstOrDefault();
-                        //}
+
+                        /* Find any Exercise description asosciated with this view.*/
+                        var exercise = db.Documents.Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId)).FirstOrDefault();
+                        if (exercise != null)
+                        {
+                            doc.DeadLine = exercise.DeadLine;
+                        }
                     }
                     db.Documents.Add(doc);
                     db.SaveChanges();
@@ -246,36 +250,13 @@ namespace LexiconLMS.Controllers
             return View(document);
         }
 
-        // GET: Documents/Create
-        public ActionResult Create()
-        {
-            ViewBag.MimeTypeId = new SelectList(db.MimeTypes, "Id", "Name");
-            ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name");
-            return View();
-        }
-
-        // POST: Documents/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Documents.Add(document);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.MimeTypeId = new SelectList(db.MimeTypes, "Id", "Name", document.MimeTypeId);
-            ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", document.StatusId);
-            return View(document);
-        }
 
         // GET: Documents/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
+            var returnUrl = Request.ServerVariables["HTTP_REFERER"];
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -285,8 +266,17 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+            if (User.IsInRole("Student") && document.OwnerId != User.Identity.GetUserId())
+            {
+                TempData["Message"] = "You are not authorized to edit any documents but your own.";
+                return Redirect(returnUrl);
+            }
+
+            ViewBag.ReturnUrl = returnUrl;
             ViewBag.MimeTypeId = new SelectList(db.MimeTypes, "Id", "Name", document.MimeTypeId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", document.StatusId);
+            ViewBag.PurposeId = new SelectList(db.Purposes, "Id", "Name", document.PurposeId);
+
             return View(document);
         }
 
@@ -295,22 +285,27 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document)
+        public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document, string  returnUrl)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(document).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Redirect(returnUrl);
             }
+            ViewBag.PurposeId = new SelectList(db.Purposes, "Id", "Name", document.PurposeId);
             ViewBag.MimeTypeId = new SelectList(db.MimeTypes, "Id", "Name", document.MimeTypeId);
             ViewBag.StatusId = new SelectList(db.Statuses, "Id", "Name", document.StatusId);
+            ViewBag.ReturnUrl = returnUrl;
             return View(document);
         }
 
         // GET: Documents/Delete/5
+        [Authorize(Roles ="Teacher, Student")]
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -320,22 +315,59 @@ namespace LexiconLMS.Controllers
             {
                 return HttpNotFound();
             }
+
+            string returnUrl = Request.ServerVariables["HTTP_REFERER"];
+            /* Rule: Students can only delete documents they uploaded.*/
+            /* Teachers are allowed to delete any document for any reason. */
+
+            if (User.IsInRole("Student"))
+            {
+                if (document.OwnerId != User.Identity.GetUserId())
+                {
+                    TempData["Message"] = "You're only allowed to delete documents you created yourself.";
+                    return Redirect(returnUrl);
+                }
+            }
+
+            ViewBag.ReturnUrl = returnUrl;
             return View(document);
         }
 
         // POST: Documents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [Authorize]
+        public ActionResult DeleteConfirmed(int id, string returnUrl)
         {
             Document document = db.Documents.Find(id);
+
+            if (document == null)
+            {
+                return HttpNotFound();
+            }
             /*
              * Find the file in the file system, and delete that as well.
              */
+            var path = Path.Combine(Server.MapPath("~/uploads"), document.Filename);
 
-            db.Documents.Remove(document);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (System.IO.File.Exists(path))
+            {
+                try
+                {
+                    System.IO.File.Delete(path);
+                }
+                catch (IOException ex)
+                {
+                    TempData["Message"] = ex.Message;
+                }
+            }
+            if (!System.IO.File.Exists(path))
+            {
+                db.Documents.Remove(document);
+                db.SaveChanges();
+                TempData["Message"] = $"File '{document.Filename}' deleted.";
+            }
+            return Redirect(returnUrl);
         }
 
         protected override void Dispose(bool disposing)
