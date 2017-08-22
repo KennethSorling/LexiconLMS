@@ -83,8 +83,8 @@ namespace LexiconLMS.Controllers
                         activityType = db.ActivityTypes.Find(item.ActivityTypeId).TypeName;
                         typenames.Add(activityType);
                     }
-                    dashboard.ActivitiesList = dashboardActivities;
-                    dashboard.ActivityTypesList = typenames;
+                    dashboard.ActivitiesForTodayList = dashboardActivities;
+                    dashboard.ActivityTypesForTodayList = typenames;
                 }
                 else
                 {
@@ -95,6 +95,109 @@ namespace LexiconLMS.Controllers
             {
                 dashboard.ModuleExists = false;
                 dashboard.ActivityExists = false;
+            }
+
+            //The code below populates the viewmodel properties related to documents
+            //Check if the course has any documents
+
+            var otherDocuments = new List<Document>();
+            var assignmentDescriptions = new List<Document>();
+            var handIns = new List<Document>();
+
+            if (course.Documents != null)
+            {
+                otherDocuments = course.Documents;
+            }
+
+            //Find current or past modules with documents
+            var modulesUpToThisDate = db.Modules.Where(c => c.CourseId == courseId)
+                                            .Where(s => s.StartDate <= currentDate)
+                                            .ToList();
+
+            foreach (var item in modulesUpToThisDate)
+            {
+                if (item.Documents != null)
+                {
+                    foreach (var document in item.Documents)
+                    {
+                        otherDocuments.Add(document);
+
+                    }
+                }
+            }
+
+            //Find curent or past activities with documents
+            //First find all current and passed modules
+            var modules = db.Modules.Where(c => c.CourseId == courseId)
+                                            .Where(s => s.StartDate <= currentDate)
+                                            .ToList();
+
+            //Then, among the found modules, find all activities uo to this date with documents
+            if (modules != null)
+            {
+                foreach (var item in modules)
+                {
+                    if (item.Activities != null)
+                    {
+                        foreach (var activity in item.Activities)
+                        {
+                            if (activity.Documents != null)
+                            {
+                                foreach (var document in activity.Documents)
+                                {
+                                    //Activity Descriptions
+                                    if (document.PurposeId == 4)
+                                    {
+                                        otherDocuments.Add(document);
+                                    }
+                                    //Assignment Descriptions
+                                    if (document.PurposeId == 5)
+                                    {
+                                        assignmentDescriptions.Add(document);
+                                    }
+                                    //Assignment Descriptions
+                                    if (document.PurposeId == 6)
+                                    {
+                                        otherDocuments.Add(document);
+                                    }
+                                    //Hand-ins
+                                    if (document.PurposeId == 7 && document.Owner == currentUser)
+                                    {
+                                        handIns.Add(document);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            if (otherDocuments != null)
+            {
+                dashboard.OtherDocuments = otherDocuments;
+            }
+            else
+            {
+                dashboard.OtherDocuments = null;
+            }
+
+            if (assignmentDescriptions != null)
+            {
+                dashboard.AssignmentDescriptions = assignmentDescriptions;
+            }
+            else
+            {
+                dashboard.AssignmentDescriptions = null;
+            }
+
+            if (handIns != null)
+            {
+                dashboard.HandIns = handIns;
+            }
+            else
+            {
+                dashboard.HandIns = null;
             }
 
             return View("Dashboard", dashboard);

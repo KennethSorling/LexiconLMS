@@ -20,8 +20,14 @@ namespace LexiconLMS.ViewModels
 
         public bool ActivityExists { get; set; }
 
-        public List<Activity> ActivitiesList { get; set; }
+        public List<Activity> ActivitiesForTodayList { get; set; }
 
-        public List<string> ActivityTypesList { get; set; }
+        public List<string> ActivityTypesForTodayList { get; set; }
+
+        public List<Document> HandIns { get; set; }
+
+        public List<Document> AssignmentDescriptions { get; set; }
+
+        public List<Document> OtherDocuments { get; set; }
     }
 }

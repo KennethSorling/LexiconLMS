@@ -5,43 +5,36 @@
     int i = 0;
 }
 
-<p class="page-header">Dashboard</p>
-<p class="course-name">Course: @Model.CourseName</p>
+<h1>Dashboard</h1>
+
+<p class="bold-info">Course: @Model.CourseName</p>
+@if (Model.ModuleExists)
+{
+    <p class="bold-info">Module: @Model.ModuleName</p>
+}
 <p>Student: @Model.StudentName</p>
 <p>Today: @Model.TodaysDate.DayOfWeek, @Model.TodaysDate.ToString("yyyy-MM-dd")</p>
 
-<br />
-<br />
-<div class="thick-divider-line-schedule"></div>
-<p></p>
-<br />
-
-@if (Model.ModuleExists)
-{
-    <p class="course-name">Module: @Model.ModuleName</p>
-}
-else
-{
-    <p>No module defined for today</p>
-}
-
-
+<hr class="thick-divider-line" />
 @if (Model.ActivityExists)
 {
 
-    <p class="course-name">Today's Activities</p>
-    <table class="table schedule-table">
-        <tr>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Activity Type</th>
-            <th>Activity</th>
-            <th>External</th>
-            <th></th>
-            @*<th>Description</th>*@
-        </tr>
-        @foreach (var item in Model.ActivitiesList)
-        {
+    <h3>Today's Activities</h3>
+    <table class="table schedule-table table-striped">
+        <thead>
+
+            <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Activity Type</th>
+                <th>Activity</th>
+                <th>External</th>
+                <th></th>
+                @*<th>Description</th>*@
+            </tr>
+        </thead>
+        @foreach (var item in Model.ActivitiesForTodayList)
+                {
             <tr>
                 <td class="smallcol">
                     @item.StartDate.ToString("HH:mm")
@@ -50,13 +43,13 @@ else
                     @item.EndDate.ToString("HH:mm")
                 </td>
                 <td class="smallmediumcol">
-                    @Model.ActivityTypesList[i]
+                    @Model.ActivityTypesForTodayList[i]
                 </td>
                 <td class="smallmediumcol">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 @if (item.External)
-                {
+                    {
                     <td class="smallcol">
                         Yes
                     </td>
@@ -66,7 +59,7 @@ else
                     <td class="smallcol"></td>
                 }
                 <td class="extralargecol">
-                       @*@Html.DisplayFor(modelItem => item.Description)*@
+                    @*@Html.DisplayFor(modelItem => item.Description)*@
                     <details>
                         <summary>Read more...</summary>
                         <p>@Html.DisplayFor(modelItem => item.Description)</p>
@@ -80,4 +73,169 @@ else
 else
 {
     <p>No activity defined for today</p>
+}
+
+<hr class="thick-divider-line" />
+<h3>Assignment Descriptions</h3>
+@if (Model.AssignmentDescriptions != null)
+{
+    if (Model.AssignmentDescriptions.Count > 0)
+    {
+        <table class="table table-striped" width="650">
+            <thead>
+                <tr>
+                    <th>
+                        Filename
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Uploaded
+                    </th>
+                    <th>
+                        Due
+                    </th>
+                    <th>
+                        By
+                    </th>
+                    <th>
+                        State
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var doc in Model.AssignmentDescriptions)
+            {
+                <tr>
+                    <td class="doclink @doc.MimeType.DefaultExtension">
+                        <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                            @doc.Filename
+                        </a>
+                    </td>
+                    <td>@doc.FileSize</td>
+                    <td>@doc.DateUploaded.ToShortDateString()</td>
+                    <td>@doc.DeadLine.ToString().Substring(0, 10)</td>
+                    <td>@doc.Owner.Email</td>
+                    <td>@doc.Status.Name</td>
+                    <th>@Html.ActionLink("Upload Hand-in", "Upload", "Documents", new { activityId = doc.ActivityId, purposeId = 7 }, new { @class = "btn btn-default btn-upload" })</th>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <p>There are no Assignment Descriptions.</p>
+    }
+}
+<br />
+
+<hr class="thick-divider-line" />
+
+        <h3>Hand-ins</h3>
+    
+@if (Model.HandIns != null)
+{
+    if (Model.HandIns.Count > 0)
+    {
+        <table class="table table-striped" width="650">
+            <thead>
+                <tr>
+                    <th>
+                        Filename
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Uploaded
+                    </th>
+                    <th>
+                        Due
+                    </th>
+                    <th>
+                        By
+                    </th>
+                    <th>
+                        State
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var doc in Model.HandIns)
+            {
+                <tr>
+                    <td class="doclink @doc.MimeType.DefaultExtension">
+                        <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                            @doc.Filename
+                        </a>
+                    </td>
+                    <td>@doc.FileSize</td>
+                    <td>@doc.DateUploaded.ToShortDateString()</td>
+                    <td>@doc.DeadLine.ToString().Substring(0, 10)</td>
+                    <td>@doc.Owner.Email</td>
+                    <td>@doc.Status.Name</td>
+                    <th>@Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })</th>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <p>There are currently no uploaded Hand-ins</p>
+    }
+}
+<br />
+<hr class="thick-divider-line" />
+<h3>Other Documents</h3>
+@if (Model.OtherDocuments != null)
+{
+    if (Model.OtherDocuments.Count > 0)
+    {
+        <table class="table table-striped" width="650">
+            <thead>
+                <tr>
+                    <th>
+                        Filename
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Uploaded On
+                    </th>
+                    <th>
+                        By
+                    </th>
+                    <th>
+                        State
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var doc in Model.OtherDocuments)
+            {
+                <tr>
+                    <td class="doclink @doc.MimeType.DefaultExtension">
+                        <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                            @doc.Filename
+                        </a>
+                    </td>
+                    <td>@doc.FileSize</td>
+                    <td>@doc.DateUploaded.ToShortDateString()</td>
+                    <td>@doc.Owner.Email</td>
+                    <td>@doc.Status.Name</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>There are no other documents.</p>
+    }
 }

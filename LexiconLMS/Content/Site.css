@@ -31,7 +31,7 @@ textarea {
 .navbar img {
     width: 60%;
     height: 60%;
-    margin: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 0;
 }
 
 .navbar-header {
@@ -71,6 +71,11 @@ h1 {
     font-weight: 700;
 }
 
+.mediumsized-bold-info {
+    font-size: 26px;
+    font-weight: 700;
+}
+
 a {
     color: #202020;
 }
@@ -100,7 +105,7 @@ hr {
 
 .btn {
     margin: 5px 5px 5px 5px;
-    min-width:120px;
+    min-width: 80px;
 }
 
 .btn-add {
@@ -113,6 +118,7 @@ hr {
     border-radius: 0;
     color: #fff;
     font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
+    margin-top: 54px;
 }
 
 .btn-add-module, 
@@ -379,4 +385,11 @@ summary {
 
 .zip {
     background-image: url(Images/zip.png);
+}
+
+.todays-activities {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    font-size: 24px;
 }
