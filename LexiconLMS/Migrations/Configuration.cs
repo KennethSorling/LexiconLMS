@@ -16,10 +16,6 @@ namespace LexiconLMS.Migrations
 
         protected override void Seed(LexiconLMS.Models.ApplicationDbContext context)
         {
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "E-Learning" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Lecture" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Code-Along" });
-            context.ActivityTypes.AddOrUpdate(a => a.TypeName, new ActivityType { TypeName = "Project" });
 
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
@@ -1702,7 +1698,7 @@ namespace LexiconLMS.Migrations
             {
                 Filename = "Assignment 1.1.txt",
                 FileSize = 174,
-                ActivityId = 1,
+                ActivityId = 55,
                 //MimeType = new MimeType { Id = 4, Name = "application/pdf" },
                 MimeType = context.MimeTypes.Find(1),
                 Status = context.Statuses.Find(1),
@@ -1721,7 +1717,7 @@ namespace LexiconLMS.Migrations
             {
                 Filename = "My pathetic attempt.zip",
                 FileSize = 223,
-                ActivityId = 1,
+                ActivityId = 55,
                 MimeType = context.MimeTypes.Find(5),
                 Status = context.Statuses.Find(5),
                 Title = "My Pathetic Attempt",

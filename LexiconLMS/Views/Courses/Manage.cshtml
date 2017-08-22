@@ -120,14 +120,19 @@
         </table>
     }
     <hr class="thick-divider-line" />
-    <h2>Documents:</h2>
+    <div class="row">
+        <div class="col-md-7"><p class="course-name">Documents:</p></div>
+        <div class="col-md-5">@Html.ActionLink("Upload", "Upload", "Documents", new { courseId = Model.Id }, new { @class = "btn btn-default btn-upload" })
+</div>
+    </div>
+    
     @if (Model.Documents.Count == 0)
     {
         <p>There are no documents for this course.</p>
     }
     else
     {
-        <table class="table-condensed">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>
@@ -137,7 +142,7 @@
                         Size
                     </th>
                     <th>
-                        Uploaded On
+                        Uploaded
                     </th>
                     <th>
                         By
@@ -145,6 +150,7 @@
                     <th>
                         State
                     </th>
+                    <th>Options</th>
                 </tr>
             </thead>
             @foreach (var doc in Model.Documents)
@@ -159,12 +165,10 @@
                     <td>@doc.DateUploaded.ToShortDateString()</td>
                     <td>@doc.Owner.Email</td>
                     <td>@doc.Status.Name</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new {@class="btn btn-default btn-delete" })</td>
                 </tr>
             }
 
         </table>
-        <div style="height:100px;width:10px;">
-            booga
-        </div>
     }
 </body>
