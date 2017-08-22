@@ -454,6 +454,7 @@
     <Content Include="Views\Documents\Upload.cshtml" />
     <Content Include="uploads\My Pathetic attempt.zip" />
     <Content Include="uploads\Course Description .Net.pdf" />
+    <Content Include="Views\Documents\Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

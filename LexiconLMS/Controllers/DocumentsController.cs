@@ -15,15 +15,42 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private ActionResult SetStatus(int documentId, int statusId)
+        {
+            var doc = db.Documents.Find(documentId);
+            if (doc != null)
+            {
+                var status = db.Statuses.Find(statusId);
+                if (status != null)
+                {
+                    doc.Status = status;
+                    doc.StatusId = status.Id;
+                    db.Entry(doc).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+           return RedirectToAction("Review", "Documents", new { id = documentId });
+        }
+
         public ActionResult Review(int id)
         {
-
-            return View();
+            var doc = db.Documents.Find(id);
+            return View(doc);
         }
 
         public ActionResult Approve(int id)
         {
-            return View();
+            return SetStatus(id, 5);
+        }
+
+        public ActionResult Fail(int id)
+        {
+            return SetStatus(id, 6);
+        }
+
+        public ActionResult Retry(int id)
+        {
+            return SetStatus(id, 4);
         }
 
         public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? purposeId, DateTime? deadLine, string returnTo)
@@ -152,8 +179,8 @@ namespace LexiconLMS.Controllers
                     else if (User.IsInRole("Student"))
                     {
                         /* Student can only upload hand-ins */
-                        doc.PurposeId = 7;
-                        doc.StatusId = 3;
+                        doc.PurposeId = 7;  //student hand-in
+                        doc.StatusId = 3;   //submitted
                         doc.Status = db.Statuses.Find(3);
                         doc.Purpose = db.Purposes.Find(7);
                         //// Hand-In?
