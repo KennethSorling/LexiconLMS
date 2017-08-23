@@ -185,6 +185,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
+    <Compile Include="Migrations\201708222123229_rebuildDatabaseNow.cs" />
+    <Compile Include="Migrations\201708222123229_rebuildDatabaseNow.Designer.cs">
+      <DependentUpon>201708222123229_rebuildDatabaseNow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708230141007_alteredFeedBackAndDbContext.cs" />
+    <Compile Include="Migrations\201708230141007_alteredFeedBackAndDbContext.Designer.cs">
+      <DependentUpon>201708230141007_alteredFeedBackAndDbContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -450,6 +458,9 @@
     <Content Include="uploads\My Pathetic attempt.zip" />
     <Content Include="uploads\Course Description .Net.pdf" />
     <Content Include="Views\Documents\Review.cshtml" />
+    <Content Include="Views\Documents\GiveFeedback.cshtml" />
+    <Content Include="Views\DashboardVMs\ShowClassmates.cshtml" />
+    <Content Include="Views\Documents\ReadFeedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -461,6 +472,14 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708222123229_rebuildDatabaseNow.resx">
+      <DependentUpon>201708222123229_rebuildDatabaseNow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708230141007_alteredFeedBackAndDbContext.resx">
+      <DependentUpon>201708230141007_alteredFeedBackAndDbContext.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

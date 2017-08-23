@@ -1,5 +1,6 @@
 ﻿using LexiconLMS.Models;
 using LexiconLMS.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -276,6 +277,18 @@ namespace LexiconLMS.Controllers
             return View("ActivitiesForStudent", activitiesForStudent);
         }
 
+        [HttpGet]
+        [Authorize(Roles ="Student")]
+        public ActionResult ShowClassmates()
+        {
+            var me = db.Users.Find(User.Identity.GetUserId());
+            var courseId = me.CourseId;
+            var mates = db.Users
+                .Where(u => u.CourseId == courseId)
+                .OrderBy(u => u.LastName).ThenBy(u => u.FirstName)
+                .ToList();
+            return View(mates);
+        }
 
 
         protected override void Dispose(bool disposing)

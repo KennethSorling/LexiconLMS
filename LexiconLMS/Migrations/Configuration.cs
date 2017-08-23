@@ -1673,9 +1673,11 @@ namespace LexiconLMS.Migrations
             
             context.SaveChanges();
 
-            context.Documents.AddOrUpdate(d => d.Filename, new Document
-            {
+            var owner = userManager.FindByEmail("oscar.jakobsson@lexicon.se");
 
+            context.Documents.AddOrUpdate(d => d.Id, new Document
+            {
+                Id=1,
                 Filename = "Course Description .Net.pdf",
                 FileSize = 130452,
                 FileType = "application/pdf",
@@ -1686,16 +1688,19 @@ namespace LexiconLMS.Migrations
                 Purpose = context.Purposes.Find(2),
                 StatusId = 1,
                 Title = "Course Description .Net",
-                OwnerId = teachers[1].Id,
-                Owner = teachers[1],
+                OwnerId = owner.Id,
+                Owner = owner,
                 DateUploaded = DateTime.Now
 
             });
 
             context.SaveChanges();
 
-            context.Documents.AddOrUpdate(d => d.Filename, new Document
+            owner = userManager.FindByEmail("john.hellman@lexicon.se");
+
+            context.Documents.AddOrUpdate(d => d.Id, new Document
             {
+                Id=2,
                 Filename = "Assignment 1.1.txt",
                 FileSize = 174,
                 ActivityId = 55,
@@ -1705,7 +1710,8 @@ namespace LexiconLMS.Migrations
                 Purpose = context.Purposes.Find(5),
                 PurposeId = 5,
                 Title = "Assignment 1.1",
-                OwnerId = teachers[1].Id,
+                Owner = owner,
+                OwnerId = owner.Id,
                 DeadLine = DateTime.Now.AddDays(4).Date,
                 DateUploaded = DateTime.Now
 
@@ -1713,8 +1719,11 @@ namespace LexiconLMS.Migrations
 
             context.SaveChanges();
 
-            context.Documents.AddOrUpdate(d => d.Filename, new Document
+            owner = userManager.FindByEmail("student.studentsson@lexicon.se");
+
+            context.Documents.AddOrUpdate(d => d.Id, new Document
             {
+                Id = 3,
                 Filename = "My pathetic attempt.zip",
                 FileSize = 223,
                 ActivityId = 55,
@@ -1723,7 +1732,8 @@ namespace LexiconLMS.Migrations
                 Title = "My Pathetic Attempt",
                 PurposeId = 7,
                 Purpose = context.Purposes.Find(7),
-                OwnerId = students[1].Id,
+                Owner = owner,
+                OwnerId = owner.Id,
                 DateUploaded = DateTime.Now
             });
 

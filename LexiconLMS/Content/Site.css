@@ -118,7 +118,6 @@ hr {
     border-radius: 0;
     color: #fff;
     font-family: "Whitney SSm A", "Whitney SSm B", Arial, sans-serif;
-    margin-top: 54px;
 }
 
 .btn-add-module, 
@@ -378,6 +377,7 @@ summary {
     background-image: url(Images/txt.png);
 }
 
+.docx, 
 .doc {
     background-image: url(Images/doc.png);
 }
@@ -386,10 +386,33 @@ summary {
     background-image: url(Images/doc.png);
 }
 
+.jpg {
+    background-image: url(Images/jpg.png);
+}
+
+.htm,
+.html {
+    background-image:url(Images/html.png);
+}
+
+.rar,
 .zip {
     background-image: url(Images/zip.png);
 }
 
+.pdf {
+    background-image: url(Images/pdf.png);
+}
+
 .png {
     background-image: url(Images/png.png);
+}
+
+.xls,
+.xlsx {
+    background-image: url(Images/xls.png);
+}
+.ppt,
+ .pptx {
+    background-image: url(Images/ppt.png);
 }

@@ -15,8 +15,8 @@
         </dt>
 
         <dd>
-            <span class="doclink @Model.MimeType.DefaultExtension">
-                <a target="_blank" href="@Href("~/uploads/" + Model.Filename)">
+            <span>
+                <a target="_blank" href="@Href("~/uploads/" + Model.Filename)" class="doclink @Model.MimeType.DefaultExtension">
                     @Model.Filename
                 </a>
             </span>
@@ -55,14 +55,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.CourseId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Filename)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Filename)
         </dd>
 
         <dt>

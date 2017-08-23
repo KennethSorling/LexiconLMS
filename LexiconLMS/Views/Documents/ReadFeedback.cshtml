@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LexiconLMS.Models.FeedBack>
+
+@{
+    ViewBag.Title = "Feedback on your hand-in";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateReviewed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateReviewed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+    </tr>
+}
+</table>
+
+@Html.ActionLink("Back", "ShowDashboard", "DashBoardVMs", null, new { @class = "cancel-link" })
+
+

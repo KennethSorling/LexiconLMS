@@ -16,6 +16,78 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles ="Student")]
+        public ActionResult ReadFeedback(int documentId)
+        {
+            var feedBacks = db.FeedBacks
+                .Where(f => f.DocumentId == documentId)
+                .OrderBy(f => f.DateReviewed)
+                .ToList();
+            return View(feedBacks);
+        }
+
+        //GET:
+        [HttpGet]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult GiveFeedback(int id)
+        {
+            //
+
+            //ApplicationUser currentUser = db.Users.Where(u => u.Identity.Name)
+            //.first;
+
+
+            FeedBack feedback = new FeedBack();
+            var document = db.Documents.Where(d => d.Id == id).FirstOrDefault();
+            var activity = db.Activities.Find(document.ActivityId);
+            var module = db.Modules.Find(activity.ModuleId);
+            var course = db.Courses.Find(module.CourseId);
+            var teacher = db.Users.Find(User.Identity.GetUserId());
+            var student = db.Users.Find(document.OwnerId);
+
+            feedback.TeacherId = User.Identity.GetUserId();
+            feedback.TeacherName = teacher.FirstName + " " + teacher.LastName;
+            feedback.StudentName = student.FirstName + " " + student.LastName;
+            feedback.DateReviewed = DateTime.Now;
+            feedback.DocumentId = document.Id;
+            ViewBag.CourseName = course.Name;
+            ViewBag.ModuleName = module.Name;
+            ViewBag.ActivityName = activity.Name;
+
+
+
+
+
+            return View("GiveFeedback", feedback);
+        }
+
+        //POST:
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult GiveFeedback(FeedBack feedback)
+        {
+            var document = db.Documents.Find(feedback.DocumentId);
+            var activity = db.Activities.Find(document.ActivityId);
+            var module = db.Modules.Find(activity.ModuleId);
+            var course = db.Courses.Find(module.CourseId);
+
+            if (ModelState.IsValid)
+            {
+                feedback.DateReviewed = DateTime.Now;
+                db.FeedBacks.Add(feedback);
+                db.SaveChanges();
+                TempData["Message"] = "Feedback saved.";
+                return RedirectToAction("Review", "Documents", new { id = feedback.DocumentId });
+            }
+
+            ViewBag.CourseName = course.Name;
+            ViewBag.ModuleName = module.Name;
+            ViewBag.ActivityName = activity.Name;
+            return View("GiveFeedback", feedback);
+        }
+
+
         private ActionResult SetStatus(int documentId, int statusId)
         {
             var doc = db.Documents.Find(documentId);
@@ -61,7 +133,7 @@ namespace LexiconLMS.Controllers
         [Authorize(Roles = "Teacher, Student")]
         public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? purposeId, DateTime? deadLine, string returnTo)
         {
-            returnTo = returnTo ?? Request.ServerVariables["HTTP_REFERER"];
+            returnTo = Request.ServerVariables["HTTP_REFERER"];
             var purposes = db.Purposes.ToList().ConvertAll(d => new SelectListItem
             {
                 Text = d.Name,
@@ -74,16 +146,36 @@ namespace LexiconLMS.Controllers
                 CourseId = courseId,
                 ModuleId = moduleId,
                 ActivityId = activityId,
-                PurposeId = purposeId == null ? 1 : (int)purposeId,
+                PurposeId = purposeId ?? 1,
                 Purposes = purposes,
-                ReturnTo = returnTo
+                ReturnTo = returnTo,
+                DeadLine = deadLine
             };
+
             if (activityId != null)
             {
                 var activity = db.Activities.Find(activityId);
                 vm.ActivityName = activity.Name;
+                // Try to fill in deadline right awayy
+                if (User.IsInRole("Student"))
+                {
+                    if (activity.ActivityTypeId == 5) //exercise
+                    {
+                        //locate the assignemnt description for this exercise
+                        var doc = db.Documents
+                            .Where(d => d.ActivityId == activityId)
+                            .Where(d => d.PurposeId == 5)
+                            .FirstOrDefault();
+                        if (doc != null)
+                        {
+                            vm.DeadLine = doc.DeadLine;
+                            vm.PurposeId = 7; //student hand-in
+                        }
+                    }
+                }
                 moduleId = activity.ModuleId;
             }
+
             if (moduleId != null)
             {
                 var module = db.Modules.Find(moduleId);
@@ -95,7 +187,7 @@ namespace LexiconLMS.Controllers
                 var course = db.Courses.Find(courseId);
                 vm.CourseName = course.Name;
             }
-            ViewBag.ReturnUrl = Request.ServerVariables["HTTP_REFERER"];
+            ViewBag.ReturnUrl = returnTo;
             ViewBag.PurposeId = purposes;
             return View(vm);
         }
@@ -229,6 +321,7 @@ namespace LexiconLMS.Controllers
 
 
         // GET: Documents
+        [Authorize(Roles = "Teacher")]
         public ActionResult Index()
         {
             var documents = db.Documents.Include(d => d.MimeType).Include(d => d.Status);
@@ -236,6 +329,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Documents/Details/5
+        [Authorize(Roles = "Teacher")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -252,7 +346,7 @@ namespace LexiconLMS.Controllers
 
 
         // GET: Documents/Edit/5
-        [Authorize]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit(int? id)
         {
             var returnUrl = Request.ServerVariables["HTTP_REFERER"];
@@ -285,6 +379,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document, string  returnUrl)
         {
             if (ModelState.IsValid)

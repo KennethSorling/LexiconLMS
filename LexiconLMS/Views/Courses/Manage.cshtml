@@ -2,7 +2,7 @@
 
 <body>
     <div class="row">
-        <div class="col col-md-12">
+        <div class="col col-md-7">
             <div class="course-name">
                 <h1>@Model.Name</h1>
             </div>
@@ -13,12 +13,12 @@
     </div>
 
     <div class="row">
-        <div class="col col-md-7">
+        <div class="col-md-7">
             <p class="description">
                 @Model.Description
             </p>
         </div>
-        <div class="col-6 col-md-5">
+        <div class="col-md-5">
             @Html.ActionLink("Edit Course", "Edit", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-edit" })
             @Html.ActionLink("Delete Course", "Delete", "Courses", new { id = Model.Id }, new { @class = "btn btn-default btn-delete" })
             <br />
@@ -29,11 +29,11 @@
 
     <hr class="thick-divider-line" />
     <div class="row">
-        <div class="col col-md-7">
+        <div class="col-md-7">
             <p class="course-name">Course Modules</p>
         </div>
-        <div class="col-6 col-md-5">
-            @Html.ActionLink("Add Module", "Create", "Modules", new { courseid = Model.Id }, new { @class = "btn btn-default btn-add-module extra-left-margin" })
+        <div class="col-md-5">
+            @Html.ActionLink("Add Module", "Create", "Modules", new { courseid = Model.Id }, new { @class = "btn btn-default btn-add" })
         </div>
     </div>
 
@@ -77,10 +77,10 @@
 
     <hr class="thick-divider-line" />
     <div class="row">
-        <div class="col col-md-7">
+        <div class="col-md-7">
             <p class="course-name">Attending Students</p>
         </div>
-        <div class="col-6 col-md-5">
+        <div class="col-md-5">
             @Html.ActionLink("Add Student", "Create", "Students", new { courseId = Model.Id }, new { @class = "btn btn-default btn-add-student" })
         </div>
     </div>
@@ -123,7 +123,7 @@
     <div class="row">
         <div class="col-md-7"><p class="course-name">Documents:</p></div>
         <div class="col-md-5">@Html.ActionLink("Upload", "Upload", "Documents", new { courseId = Model.Id }, new { @class = "btn btn-default btn-upload" })
-</div>
+</div>  
     </div>
     
     @if (Model.Documents.Count == 0)

@@ -177,7 +177,13 @@ else
                     </td>
                     <td>@doc.FileSize</td>
                     <td>@doc.DateUploaded.ToShortDateString()</td>
-                    <td>@doc.DeadLine.ToString().Substring(0, 10)</td>
+
+                    <td>
+                        @if (doc.DeadLine != null)
+                        {
+                            <span>@doc.DeadLine.ToString().Substring(0, 10)</span>
+                        }
+                    </td>
                     <td>@doc.Owner.Email</td>
                     <td>@doc.Status.Name</td>
                     <th>
@@ -188,7 +194,7 @@ else
                             {
                                 if (Model.FeedbackList[i].FeedbackExists)
                                 {
-                                    @Html.ActionLink("See Feedback", "Details", "Documents", new { id = Model.FeedbackList[i].FeedbackId }, new { @class = "btn btn-default btn-more-info" })
+                                    @Html.ActionLink("See Feedback", "ReadFeedback", "Documents", new { documentId = Model.FeedbackList[i].FeedbackId }, new { @class = "btn btn-default btn-more-info" })
                                 }
                             }
                         }
