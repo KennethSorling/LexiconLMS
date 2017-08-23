@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rebuildDatabaseNow : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -204,7 +204,7 @@ namespace LexiconLMS.Migrations
                         TeacherName = c.String(),
                         StudentName = c.String(),
                         DateReviewed = c.DateTime(nullable: false),
-                        Comments = c.String(),
+                        Comments = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

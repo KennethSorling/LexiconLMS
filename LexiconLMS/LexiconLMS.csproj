@@ -185,13 +185,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
-    <Compile Include="Migrations\201708222123229_rebuildDatabaseNow.cs" />
-    <Compile Include="Migrations\201708222123229_rebuildDatabaseNow.Designer.cs">
-      <DependentUpon>201708222123229_rebuildDatabaseNow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708230141007_alteredFeedBackAndDbContext.cs" />
-    <Compile Include="Migrations\201708230141007_alteredFeedBackAndDbContext.Designer.cs">
-      <DependentUpon>201708230141007_alteredFeedBackAndDbContext.cs</DependentUpon>
+    <Compile Include="Migrations\201708230647165_initial.cs" />
+    <Compile Include="Migrations\201708230647165_initial.Designer.cs">
+      <DependentUpon>201708230647165_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -474,11 +470,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708222123229_rebuildDatabaseNow.resx">
-      <DependentUpon>201708222123229_rebuildDatabaseNow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708230141007_alteredFeedBackAndDbContext.resx">
-      <DependentUpon>201708230141007_alteredFeedBackAndDbContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708230647165_initial.resx">
+      <DependentUpon>201708230647165_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

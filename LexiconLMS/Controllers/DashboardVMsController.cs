@@ -214,6 +214,14 @@ namespace LexiconLMS.Controllers
             {
                 dashboard.HandIns = null;
             }
+            if (feedbacksList != null)
+            {
+                dashboard.FeedbackList = feedbacksList;
+            }
+            else
+            {
+                dashboard.FeedbackList = null;
+            }
 
             return View("Dashboard", dashboard);
         }
@@ -278,7 +286,7 @@ namespace LexiconLMS.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Student")]
+        [Authorize(Roles = "Student")]
         public ActionResult ShowClassmates()
         {
             var me = db.Users.Find(User.Identity.GetUserId());

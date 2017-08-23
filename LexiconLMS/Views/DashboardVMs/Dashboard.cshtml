@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Your Dashboard";
     int i = 0;
+    int j = 0;
 }
 
 <h1>Dashboard</h1>
@@ -167,6 +168,7 @@ else
                     </th>
                 </tr>
             </thead>
+           
             @foreach (var doc in Model.HandIns)
             {
                 <tr>
@@ -192,15 +194,15 @@ else
                         {
                             if (Model.FeedbackList.Count > 0)
                             {
-                                if (Model.FeedbackList[i].FeedbackExists)
+                                if (Model.FeedbackList[j].FeedbackExists)
                                 {
-                                    @Html.ActionLink("See Feedback", "ReadFeedback", "Documents", new { documentId = Model.FeedbackList[i].FeedbackId }, new { @class = "btn btn-default btn-more-info" })
+                                    @Html.ActionLink("See Feedback", "ReadFeedback", "Documents", new { documentId = doc.Id }, new { @class = "btn btn-default btn-upload" })
                                 }
                             }
                         }
                     </th>
                 </tr>
-                i++;
+                j++;
             }
 
         </table>
