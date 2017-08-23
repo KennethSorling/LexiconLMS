@@ -185,10 +185,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
-    <Compile Include="Migrations\201708230647165_initial.cs" />
-    <Compile Include="Migrations\201708230647165_initial.Designer.cs">
-      <DependentUpon>201708230647165_initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
