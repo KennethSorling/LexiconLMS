@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addAssIdToHandin : DbMigration
+    public partial class recreateFromScratch_KS_20170824 : DbMigration
     {
         public override void Up()
         {
@@ -71,6 +71,7 @@ namespace LexiconLMS.Migrations
                         Name = c.String(),
                         DefaultExtension = c.String(),
                         IconURL = c.String(),
+                        Description = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             

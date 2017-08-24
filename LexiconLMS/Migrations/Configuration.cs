@@ -1686,6 +1686,7 @@ namespace LexiconLMS.Migrations
             context.Documents.AddOrUpdate(d => d.Id, new Document
             {
                 Id=1,
+                AssignmentDocId = 0,
                 Filename = "Course Description .Net.pdf",
                 FileSize = 130452,
                 FileType = "application/pdf",
@@ -1707,16 +1708,16 @@ namespace LexiconLMS.Migrations
             context.Documents.AddOrUpdate(d => d.Id, new Document
             {
                 Id = 2,
-                Filename = "Assignment 1.1.txt",
+                Filename = "Assignment 3.1.txt",
                 FileSize = 174,
                 ActivityId = 55,
                 MimeTypeId = 13,
                 StatusId = 1,
                 PurposeId = 5,
-                Title = "Assignment 1.1",
+                Title = "Assignment 3.1",
                 OwnerId = owner.Id,
-                DeadLine = DateTime.Now.AddDays(4).Date,
-                DateUploaded = DateTime.Now
+                DeadLine = new DateTime(2017,8,24),
+                DateUploaded = new DateTime(2017,8,18)
 
             });
 
@@ -1727,6 +1728,7 @@ namespace LexiconLMS.Migrations
             context.Documents.AddOrUpdate(d => d.Id, new Document
             {
                 Id = 3,
+                AssignmentDocId = 2,
                 Filename = "My pathetic attempt.zip",
                 FileSize = 223,
                 ActivityId = 55,
@@ -1735,11 +1737,51 @@ namespace LexiconLMS.Migrations
                 Title = "My Pathetic Attempt",
                 PurposeId = 7,
                 OwnerId = owner.Id,
+                DeadLine = new DateTime(2017, 8, 24),
                 DateUploaded = DateTime.Now
             });
 
             context.SaveChanges();
 
+            owner = userManager.FindByEmail("dmitris.bjorlingh@lexicon.se");
+
+            context.Documents.AddOrUpdate(d => d.Id, new Document
+            {
+                Id = 4,
+                Filename = "Assignment 2.1.txt",
+                FileSize = 174,
+                ActivityId = 55,
+                MimeTypeId = 14,
+                StatusId = 1,
+                PurposeId = 5,
+                Title = "Assignment 2.1",
+                OwnerId = owner.Id,
+                DeadLine = new DateTime(2017, 8, 19),
+                DateUploaded = new DateTime(2017, 8, 13)
+
+            });
+
+            context.SaveChanges();
+
+            owner = userManager.FindByEmail("student.studentsson@lexicon.se");
+
+            context.Documents.AddOrUpdate(d => d.Id, new Document
+            {
+                Id = 4,
+                AssignmentDocId = 4,
+                Filename = "Hand-in 2.1.pdf",
+                FileSize = 223,
+                ActivityId = 55,
+                MimeTypeId = 9,
+                StatusId = 5,
+                Title = "Hand-in 2.1",
+                PurposeId = 7,
+                OwnerId = owner.Id,
+                DeadLine = new DateTime(2017, 8, 19),
+                DateUploaded = new DateTime(2017,8,19)
+            });
+
+            context.SaveChanges();
         }
     }
 }
