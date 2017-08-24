@@ -218,8 +218,8 @@ namespace LexiconLMS.Controllers
 
                 /* Avoid collision with already uploaded files*/
                 int fileIndex = 0;
-                string extension = path.Substring(path.LastIndexOf(".") + 1);
-                string basePath = path.Substring(0, path.LastIndexOf(".") - 1);
+                string extension = path.Substring(path.LastIndexOf(".") +1);
+                string basePath = path.Substring(0, path.LastIndexOf("."));
                 while (System.IO.File.Exists(path))
                 {
                     path = $"{basePath}({++fileIndex}).{extension}";
@@ -289,7 +289,8 @@ namespace LexiconLMS.Controllers
                         doc.Purpose = db.Purposes.Find(7);
 
                         /* Find any Exercise description asosciated with this view.*/
-                        var exercise = db.Documents.Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId)).FirstOrDefault();
+                        var exercise = db.Documents
+                            .Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId)).FirstOrDefault();
                         if (exercise != null)
                         {
                             doc.DeadLine = exercise.DeadLine;
