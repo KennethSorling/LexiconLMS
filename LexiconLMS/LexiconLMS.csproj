@@ -239,6 +239,7 @@
     <Content Include="Content\Images\bmp.png" />
     <Content Include="Content\Images\c.png" />
     <Content Include="Content\Images\cpp.png" />
+    <Content Include="Content\Images\cs.png" />
     <Content Include="Content\Images\css.png" />
     <Content Include="Content\Images\csv.png" />
     <Content Include="Content\Images\dat.png" />
@@ -286,6 +287,7 @@
     <Content Include="Content\Images\scss.png" />
     <Content Include="Content\Images\smalllexiconlogo.png" />
     <Content Include="Content\Images\sql.png" />
+    <Content Include="Content\Images\Student1.jpg" />
     <Content Include="Content\Images\tga.png" />
     <Content Include="Content\Images\tgz.png" />
     <Content Include="Content\Images\tiff.png" />
