@@ -185,6 +185,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
+    <Compile Include="Migrations\201708241511353_navigationActivityType.cs" />
+    <Compile Include="Migrations\201708241511353_navigationActivityType.Designer.cs">
+      <DependentUpon>201708241511353_navigationActivityType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -468,6 +472,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708240755242_addAssIdToHandin.resx">
       <DependentUpon>201708240755242_addAssIdToHandin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708241511353_navigationActivityType.resx">
+      <DependentUpon>201708241511353_navigationActivityType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

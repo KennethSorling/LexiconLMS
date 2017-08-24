@@ -38,7 +38,7 @@ namespace LexiconLMS.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateApproved { get; set; }
 
-        public ActivityType Type { get; set; }
+        public virtual ActivityType Type { get; set; }
 
         [Display(Name = "External Lecturer")]
         public Boolean External { get; set; }
