@@ -366,29 +366,31 @@ summary {
 }
 
 .doclink {
+    text-indent:16px;
     background-image: url(Images/_blank.png);
     background-repeat:no-repeat;
     background-position-y:10px;
     min-width:200px;
-    text-indent:16px;
+}
+
+.doc, 
+.docx {
+    background-image: url(Images/doc.png);
+}
+
+.ppt,
+ .pptx {
+    background-image: url(Images/ppt.png);
+}
+
+.jpg {
+    background-image: url(Images/jpg.png);
 }
 
 .txt {
     background-image: url(Images/txt.png);
 }
 
-.docx, 
-.doc {
-    background-image: url(Images/doc.png);
-}
-
-.docx {
-    background-image: url(Images/doc.png);
-}
-
-.jpg {
-    background-image: url(Images/jpg.png);
-}
 
 .htm,
 .html {
@@ -411,8 +413,4 @@ summary {
 .xls,
 .xlsx {
     background-image: url(Images/xls.png);
-}
-.ppt,
- .pptx {
-    background-image: url(Images/ppt.png);
 }
