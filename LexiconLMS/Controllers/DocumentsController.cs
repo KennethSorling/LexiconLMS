@@ -201,11 +201,10 @@ namespace LexiconLMS.Controllers
             if (uploadFile != null && uploadFile.ContentLength > 0)
             {
                 //Trim off possible path info from IE clients
-                string localFile = Path.GetFileName(uploadFile.FileName);
+                string fileName = Path.GetFileName(uploadFile.FileName);
                 
                 //obtain a local path to our uploads folder
                 var path = Server.MapPath("~/uploads");
-                string fileName;
 
                 //ensure it exists
                 if (!Directory.Exists(path))
@@ -213,16 +212,18 @@ namespace LexiconLMS.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                path = Path.Combine(Server.MapPath("~/uploads"), localFile);
+                path = Path.Combine(path, fileName);
 
-                /* Avoid collision with already uploaded files*/
+                // Avoid collision with already uploaded files
                 int fileIndex = 0;
                 string extension = path.Substring(path.LastIndexOf(".") +1);
                 string basePath = path.Substring(0, path.LastIndexOf("."));
+
                 while (System.IO.File.Exists(path))
                 {
                     path = $"{basePath}({++fileIndex}).{extension}";
                 }
+                
                 //  And, try to save. Watch for problems.
                 try
                 {
@@ -232,41 +233,45 @@ namespace LexiconLMS.Controllers
                 {
                     ModelState.AddModelError("", e.Message);
                 }
+
                 if (ModelState.IsValid)
                 {
                     //if we get here, we probably managed to save the thing.
                     //now, to create a record for it.
 
-                    //shave off the path. Since we may have renamed the file, we cannot rely
+                    //Since we may have renamed the file, we cannot rely
                     //on the submitted filename.
-                    fileName = path.Substring(path.LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1);
+                    if (fileIndex > 0)
+                    {
+                        fileName = Path.GetFileName(path);
+                    }
 
-
-                    var me = db.Users.Find(User.Identity.GetUserId());
 
                     // try to find the mime type for this file.
-                    var mimeType = db.MimeTypes.Where(mt => mt.Name == uploadFile.ContentType).FirstOrDefault();
+                    var mimeType = db.MimeTypes
+                        .Where(mt => mt.Name == uploadFile.ContentType)
+                        .FirstOrDefault();
+
                     if (mimeType == null)
                     {
                         //this gives us "applciation/octet-stream", which is a good default compromise
-                        mimeType = db.MimeTypes.Where(mt => mt.DefaultExtension == "").FirstOrDefault();
+                        mimeType = db.MimeTypes
+                            .Where(mt => mt.DefaultExtension == "")
+                            .FirstOrDefault();
                     }
 
                     var doc = new Document{
                         Filename = fileName,
                         FileSize = uploadFile.ContentLength,
                         FileType = uploadFile.ContentType,
-                        OwnerId = me.Id,
+                        MimeTypeId = mimeType.Id,
+                        OwnerId = User.Identity.GetUserId(),
                         DateUploaded = DateTime.Now,
                         PurposeId = vm.PurposeId,
                         ActivityId = vm.ActivityId,
                         ModuleId = vm.ModuleId,
                         CourseId = vm.CourseId,
                         DeadLine = vm.DeadLine,
-                        Owner = me,
-                        MimeType = mimeType,
-                        MimeTypeId = mimeType.Id,
-                        Purpose = db.Purposes.Find(vm.PurposeId),
                     };
 
                     if (User.IsInRole("Teacher"))
@@ -277,18 +282,20 @@ namespace LexiconLMS.Controllers
                     }
                     else if (User.IsInRole("Student"))
                     {
-                        /* Student can only upload hand-ins */
+                        /* Student can only upload hand-ins.
+                         * They are submissions by definition */
                         doc.PurposeId = 7;  //student hand-in
                         doc.StatusId = 3;   //submitted
                         doc.Status = db.Statuses.Find(3);
                         doc.Purpose = db.Purposes.Find(7);
 
                         /* Find any Exercise description asosciated with this view.*/
-                        var exercise = db.Documents
-                            .Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId)).FirstOrDefault();
-                        if (exercise != null)
+                        var assignment = db.Documents
+                            .Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId))
+                            .FirstOrDefault();
+                        if (assignment != null)
                         {
-                            doc.DeadLine = exercise.DeadLine;
+                            doc.DeadLine = assignment.DeadLine;
                         }
                     }
                     db.Documents.Add(doc);

@@ -95,7 +95,7 @@ namespace LexiconLMS.Migrations
                 new Status { Id = 1, Name = "Issued" },
                 new Status { Id = 2, Name = "Pending" },
                 new Status { Id = 3, Name = "Submitted" },
-                new Status { Id = 4, Name = "Reviewed" },
+                new Status { Id = 4, Name = "Try Again" },
                 new Status { Id = 5, Name = "Approved" },
                 new Status { Id = 6, Name = "Failed" },
                 new Status { Id = 7, Name = "Deleted" }
@@ -105,24 +105,32 @@ namespace LexiconLMS.Migrations
                 context.Statuses.AddOrUpdate(p => p.Id, status);
             }
 
+            var docMimeType = new MimeType
+            {
+                DefaultExtension = "doc",
+                Name = "application/ms-word",
+                Description = "Microsoft Word Document"
+            };
+
             var mimeTypes = new List<MimeType>
             {
-                new MimeType{ Id = 1, DefaultExtension = "txt",Name = "text/plain"},
-                new MimeType{ Id = 2, DefaultExtension = "png",Name = "image/png"},
-                new MimeType{ Id = 3, DefaultExtension = "jpg",Name = "image/jpeg"},
-                new MimeType{ Id = 4, DefaultExtension = "pdf",Name = "application/pdf"},
-                new MimeType{ Id = 5, DefaultExtension = "zip",Name = "application/zip"},
-                new MimeType{ Id = 6, DefaultExtension = "rar",Name = "application/x-rar-compressed"},
-                new MimeType{ Id = 7, DefaultExtension = "doc",Name = "application/ms-word"},
-                new MimeType{ Id = 8, DefaultExtension = "ppt",Name = "application/vnd.ms-powerpoint"},
-                new MimeType{ Id = 9, DefaultExtension = "xls",Name = "application/vnd.ms-excel"},
-                new MimeType{ Id = 10, DefaultExtension = "docx",Name = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
-                new MimeType{ Id = 11, DefaultExtension = "xlsx",Name = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
-                new MimeType{ Id = 12, DefaultExtension = "pptx",Name = "application/vnd.openxmlformats-officedocument.presentationml.presentation"},
-                new MimeType{ Id = 13, DefaultExtension = "", Name = "application/octet-stream" },
-                new MimeType { Id = 14, DefaultExtension = "cs", Name="text/x-csharp" },
-                new MimeType { Id = 15, DefaultExtension = "html", Name="text/html" },
-                new MimeType { Id = 16, DefaultExtension = "htm", Name="text/html" },
+                new MimeType{ Id = 1, DefaultExtension = "",    Name = "application/octet-stream", Description = "Unidentified binary format" },
+                new MimeType{ Id = 2, DefaultExtension = "cs",  Name="text/x-csharp", Description = "C# Code file" },
+                new MimeType{ Id = 3, DefaultExtension = "doc", Name = "application/ms-word",Description = "Microsoft Word Document"},
+                new MimeType{ Id = 4, DefaultExtension = "docx",Name = "application/vnd.openxmlformats-officedocument.wordprocessingml.document", Description = "Microsoft Word Document"},
+                new MimeType{ Id = 5, DefaultExtension = "htm", Name="text/html", Description = "Hypertext Markup Language Document" },
+                new MimeType{ Id = 6, DefaultExtension = "html", Name="text/html", Description = "Hypertext Markup Language Document" },
+                new MimeType{ Id = 7, DefaultExtension = "jpg", Name = "image/jpeg", Description = "JPEG Image" },
+                new MimeType{ Id = 8, DefaultExtension = "js", Name = "text/javascript", Description="JavaScript code file"},
+                new MimeType{ Id = 9, DefaultExtension = "pdf",Name = "application/pdf", Description  = "Adobe PDF document"},
+                new MimeType{ Id = 10, DefaultExtension = "png",Name = "image/png", Description = "PNG Image"},
+                new MimeType{ Id = 11, DefaultExtension = "ppt",Name = "application/vnd.ms-powerpoint", Description = "Microsot PowerPint Presentation" },
+                new MimeType{ Id = 12, DefaultExtension = "pptx",Name = "application/vnd.openxmlformats-officedocument.presentationml.presentation", Description = "Microsot PowerPint Presentation" },
+                new MimeType{ Id = 13, DefaultExtension = "rar",Name = "application/x-rar-compressed", Description = "RAR Compressed Archive"},
+                new MimeType{ Id = 14, DefaultExtension = "txt",Name = "text/plain", Description = "Text Document"},
+                new MimeType{ Id = 15, DefaultExtension = "xls",Name = "application/vnd.ms-excel", Description = "Microsoft Excel Spreadsheet Document"},
+                new MimeType{ Id = 16, DefaultExtension = "xlsx",Name = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Description = "Microsoft Excel Spreadsheet Document"},
+                new MimeType{ Id = 17, DefaultExtension = "zip",Name = "application/zip", Description = "ZIP Compressed Archive"}
             };
 
             foreach (var mimeType in mimeTypes)
@@ -1682,14 +1690,12 @@ namespace LexiconLMS.Migrations
                 FileSize = 130452,
                 FileType = "application/pdf",
                 CourseId = 1,
-                MimeType = mimeTypes.Find(m => m.DefaultExtension == "pdf"),
-                MimeTypeId = mimeTypes.Find(m => m.DefaultExtension == "pdf").Id,
+                MimeTypeId = 8,
                 Status = new Status { Id = 1, Name = "Issued" },
-                Purpose = context.Purposes.Find(2),
+                PurposeId = 2,
                 StatusId = 1,
                 Title = "Course Description .Net",
                 OwnerId = owner.Id,
-                Owner = owner,
                 DateUploaded = DateTime.Now
 
             });
@@ -1700,17 +1706,14 @@ namespace LexiconLMS.Migrations
 
             context.Documents.AddOrUpdate(d => d.Id, new Document
             {
-                Id=2,
+                Id = 2,
                 Filename = "Assignment 1.1.txt",
                 FileSize = 174,
                 ActivityId = 55,
-                //MimeType = new MimeType { Id = 4, Name = "application/pdf" },
-                MimeType = context.MimeTypes.Find(1),
-                Status = context.Statuses.Find(1),
-                Purpose = context.Purposes.Find(5),
+                MimeTypeId = 13,
+                StatusId = 1,
                 PurposeId = 5,
                 Title = "Assignment 1.1",
-                Owner = owner,
                 OwnerId = owner.Id,
                 DeadLine = DateTime.Now.AddDays(4).Date,
                 DateUploaded = DateTime.Now
@@ -1727,12 +1730,10 @@ namespace LexiconLMS.Migrations
                 Filename = "My pathetic attempt.zip",
                 FileSize = 223,
                 ActivityId = 55,
-                MimeType = context.MimeTypes.Find(5),
-                Status = context.Statuses.Find(5),
+                MimeTypeId = 16,
+                StatusId = 5,
                 Title = "My Pathetic Attempt",
                 PurposeId = 7,
-                Purpose = context.Purposes.Find(7),
-                Owner = owner,
                 OwnerId = owner.Id,
                 DateUploaded = DateTime.Now
             });
