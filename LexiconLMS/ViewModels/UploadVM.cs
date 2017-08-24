@@ -16,6 +16,7 @@ namespace LexiconLMS.ViewModels
         public string ModuleName { get; set; }
         public string ActivityName { get; set; }
         public string UserName { get; set; }
+        public int AssignmentDocId { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

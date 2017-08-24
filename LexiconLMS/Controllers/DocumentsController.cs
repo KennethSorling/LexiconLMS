@@ -16,7 +16,7 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize(Roles ="Student")]
+        [Authorize(Roles = "Student")]
         public ActionResult ReadFeedback(int documentId)
         {
             var feedBacks = db.FeedBacks
@@ -103,9 +103,9 @@ namespace LexiconLMS.Controllers
                     TempData["Message"] = "Document status updated.";
                 }
             }
-           return RedirectToAction("Review", "Documents", new { id = documentId });
+            return RedirectToAction("Review", "Documents", new { id = documentId });
         }
-        [Authorize(Roles ="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Review(int id)
         {
             var doc = db.Documents.Find(id);
@@ -131,7 +131,7 @@ namespace LexiconLMS.Controllers
         }
 
         [Authorize(Roles = "Teacher, Student")]
-        public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? purposeId, DateTime? deadLine, string returnTo)
+        public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? assignmentDocId, int? purposeId, DateTime? deadLine, string returnTo)
         {
             returnTo = Request.ServerVariables["HTTP_REFERER"];
             var purposes = db.Purposes.ToList().ConvertAll(d => new SelectListItem
@@ -149,7 +149,8 @@ namespace LexiconLMS.Controllers
                 PurposeId = purposeId ?? 1,
                 Purposes = purposes,
                 ReturnTo = returnTo,
-                DeadLine = deadLine
+                DeadLine = deadLine,
+                AssignmentDocId = assignmentDocId ?? 0
             };
 
             if (activityId != null)
@@ -195,17 +196,16 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Teacher, Student")]
-        public ActionResult Upload([Bind(Include ="CourseId,ModuleId,ActivityId,PurposeId,DeadLine,ReturnTo")]UploadVM vm, HttpPostedFileBase uploadFile)
+        public ActionResult Upload([Bind(Include = "CourseId,ModuleId,ActivityId,PurposeId,AssignmentDocId,DeadLine,ReturnTo")]UploadVM vm, HttpPostedFileBase uploadFile)
         {
             // Verify that the user selected a file
             if (uploadFile != null && uploadFile.ContentLength > 0)
             {
                 //Trim off possible path info from IE clients
-                string localFile = Path.GetFileName(uploadFile.FileName);
+                string fileName = Path.GetFileName(uploadFile.FileName);
                 
                 //obtain a local path to our uploads folder
                 var path = Server.MapPath("~/uploads");
-                string fileName;
 
                 //ensure it exists
                 if (!Directory.Exists(path))
@@ -213,60 +213,70 @@ namespace LexiconLMS.Controllers
                     Directory.CreateDirectory(path);
                 }
 
-                path = Path.Combine(Server.MapPath("~/uploads"), localFile);
+                path = Path.Combine(path, fileName);
 
-                /* Avoid collision with already uploaded files*/
+                // Avoid collision with already uploaded files
                 int fileIndex = 0;
                 string extension = path.Substring(path.LastIndexOf(".") +1);
-                string basePath = path.Substring(0, path.LastIndexOf(".") - 1);
+                string basePath = path.Substring(0, path.LastIndexOf("."));
+
                 while (System.IO.File.Exists(path))
                 {
                     path = $"{basePath}({++fileIndex}).{extension}";
                 }
+                
                 //  And, try to save. Watch for problems.
                 try
                 {
                     uploadFile.SaveAs(path);
                 }
-                catch (IOException  e)
+                catch (IOException e)
                 {
                     ModelState.AddModelError("", e.Message);
                 }
+
                 if (ModelState.IsValid)
                 {
                     //if we get here, we probably managed to save the thing.
                     //now, to create a record for it.
 
-                    //shave off the path. Since we may have renamed the file, we cannot rely
+                    //Since we may have renamed the file, we cannot rely
                     //on the submitted filename.
-                    fileName = path.Substring(path.LastIndexOf(System.IO.Path.DirectorySeparatorChar) + 1);
+                    if (fileIndex > 0)
+                    {
+                        fileName = Path.GetFileName(path);
+                    }
 
-
-                    var me = db.Users.Find(User.Identity.GetUserId());
 
                     // try to find the mime type for this file.
-                    var mimeType = db.MimeTypes.Where(mt => mt.Name == uploadFile.ContentType).FirstOrDefault();
+                    var mimeType = db.MimeTypes
+                        .Where(mt => mt.Name == uploadFile.ContentType)
+                        .FirstOrDefault();
+
                     if (mimeType == null)
                     {
                         //this gives us "applciation/octet-stream", which is a good default compromise
-                        mimeType = db.MimeTypes.Where(mt => mt.DefaultExtension == "").FirstOrDefault();
+                        mimeType = db.MimeTypes
+                            .Where(mt => mt.DefaultExtension == "")
+                            .FirstOrDefault();
                     }
 
-                    var doc = new Document{
+
+
+                    var doc = new Document
+                    {
                         Filename = fileName,
                         FileSize = uploadFile.ContentLength,
                         FileType = uploadFile.ContentType,
-                        OwnerId = me.Id,
+                        MimeTypeId = mimeType.Id,
+                        OwnerId = User.Identity.GetUserId(),
                         DateUploaded = DateTime.Now,
                         PurposeId = vm.PurposeId,
                         ActivityId = vm.ActivityId,
                         ModuleId = vm.ModuleId,
                         CourseId = vm.CourseId,
+                        AssignmentDocId = vm.AssignmentDocId,
                         DeadLine = vm.DeadLine,
-                        Owner = me,
-                        MimeType = mimeType,
-                        MimeTypeId = mimeType.Id,
-                        Purpose = db.Purposes.Find(vm.PurposeId),
                     };
 
                     if (User.IsInRole("Teacher"))
@@ -277,17 +287,20 @@ namespace LexiconLMS.Controllers
                     }
                     else if (User.IsInRole("Student"))
                     {
-                        /* Student can only upload hand-ins */
+                        /* Student can only upload hand-ins.
+                         * They are submissions by definition */
                         doc.PurposeId = 7;  //student hand-in
                         doc.StatusId = 3;   //submitted
                         doc.Status = db.Statuses.Find(3);
                         doc.Purpose = db.Purposes.Find(7);
 
                         /* Find any Exercise description asosciated with this view.*/
-                        var exercise = db.Documents.Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId)).FirstOrDefault();
-                        if (exercise != null)
+                        var assignment = db.Documents
+                            .Where(e => (e.PurposeId == 5) && (e.ActivityId == doc.ActivityId))
+                            .FirstOrDefault();
+                        if (assignment != null)
                         {
-                            doc.DeadLine = exercise.DeadLine;
+                            doc.DeadLine = assignment.DeadLine;
                         }
                     }
                     db.Documents.Add(doc);
@@ -311,7 +324,7 @@ namespace LexiconLMS.Controllers
             {
                 Text = d.Name,
                 Value = $"{d.Id}",
-                Selected = (vm.PurposeId  == d.Id)
+                Selected = (vm.PurposeId == d.Id)
             });
 
             ViewBag.PurposeId = purposes;
@@ -380,7 +393,7 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Teacher")]
-        public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document, string  returnUrl)
+        public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -396,7 +409,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Documents/Delete/5
-        [Authorize(Roles ="Teacher, Student")]
+        [Authorize(Roles = "Teacher, Student")]
         [HttpGet]
         public ActionResult Delete(int? id)
         {

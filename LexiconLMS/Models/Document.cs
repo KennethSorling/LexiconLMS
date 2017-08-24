@@ -14,17 +14,19 @@ namespace LexiconLMS.Models
         public int? ActivityId { get; set; }
         public string OwnerId { get; set; }
 
+        public int AssignmentDocId { get; set; }
+
         [Required]
         [Display(Name = "File Name")]
         public string Filename { get; set; }
         public int FileSize { get; set; }
         public string Title { get; set; }
 
-        [Display(Name ="File Type")]
+        [Display(Name = "File Type")]
         public string FileType { get; set; }
-        
+
         [Required]
-        [Display(Name ="Date Uploaded")]
+        [Display(Name = "Date Uploaded")]
         public DateTime DateUploaded { get; set; }
 
         [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd}")]

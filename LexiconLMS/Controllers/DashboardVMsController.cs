@@ -19,13 +19,15 @@ namespace LexiconLMS.Controllers
         /// that is relevant for the logged in student for the current date.
         /// </summary>
         /// <returns></returns>
-        public ActionResult ShowDashboard()
+        public ActionResult ShowDashboard(int? assignmentDocId)
         {
             ApplicationUser currentUser = db.Users
                 .Where(u => u.UserName == User.Identity.Name)
                 .FirstOrDefault();
 
             DashboardVM dashboard = new DashboardVM();
+
+            dashboard.FilterHandIns = false;
 
             string activityType = " ";
 
@@ -102,7 +104,7 @@ namespace LexiconLMS.Controllers
             //Check if the course has any documents
 
             var otherDocuments = new List<Document>();
-            var assignmentDescriptions = new List<Document>();
+            var assignmentDescriptionsAndRowEmphasis = new List<AssignmentAndRowEmphasis>();
             var handIns = new List<Document>();
             var feedbacksList = new List<FeedbackObject>();
 
@@ -155,7 +157,20 @@ namespace LexiconLMS.Controllers
                                     //Assignment Descriptions
                                     if (document.PurposeId == 5)
                                     {
-                                        assignmentDescriptions.Add(document);
+                                        var assignmentAndEmphasisObject = new AssignmentAndRowEmphasis();
+                                        assignmentAndEmphasisObject.AssignmentDescription = document;
+
+                                        //Add logic here to decide the type of emphasis, for now everything will be "danger"
+                                        if (DateTime.Now.Date.AddDays(2) >= document.DeadLine)
+                                        {
+                                            assignmentAndEmphasisObject.RowEmphasis = "warning";
+                                        }
+                                        else if (DateTime.Now.Date > document.DeadLine)
+                                        {
+                                            assignmentAndEmphasisObject.RowEmphasis = "danger";
+                                        }
+
+                                        assignmentDescriptionsAndRowEmphasis.Add(assignmentAndEmphasisObject);
                                     }
                                     //Assignment Descriptions
                                     if (document.PurposeId == 6)
@@ -165,7 +180,20 @@ namespace LexiconLMS.Controllers
                                     //Hand-ins
                                     if (document.PurposeId == 7 && document.Owner == currentUser)
                                     {
-                                        handIns.Add(document);
+                                        if (assignmentDocId != null && assignmentDocId != 0)
+                                        {
+                                            dashboard.FilterHandIns = true;
+                                            //Filtered on Assignment Description
+                                            if (document.AssignmentDocId == assignmentDocId)
+                                            {
+                                                handIns.Add(document);
+                                                dashboard.AssignmentDescriptionFilename = db.Documents.Where(d => d.Id == assignmentDocId).FirstOrDefault().Filename;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            handIns.Add(document);
+                                        }
                                         //Look for any feedback to this document
                                         var feedback = db.FeedBacks.Where(d => d.DocumentId == document.Id).FirstOrDefault();
                                         FeedbackObject feedbackObject = new FeedbackObject();
@@ -197,13 +225,13 @@ namespace LexiconLMS.Controllers
                 dashboard.OtherDocuments = null;
             }
 
-            if (assignmentDescriptions != null)
+            if (assignmentDescriptionsAndRowEmphasis != null)
             {
-                dashboard.AssignmentDescriptions = assignmentDescriptions;
+                dashboard.AssignmentDescriptionAndEmphasis = assignmentDescriptionsAndRowEmphasis;
             }
             else
             {
-                dashboard.AssignmentDescriptions = null;
+                dashboard.AssignmentDescriptionAndEmphasis = null;
             }
 
             if (handIns != null)
@@ -213,6 +241,14 @@ namespace LexiconLMS.Controllers
             else
             {
                 dashboard.HandIns = null;
+            }
+            if (feedbacksList != null)
+            {
+                dashboard.FeedbackList = feedbacksList;
+            }
+            else
+            {
+                dashboard.FeedbackList = null;
             }
 
             return View("Dashboard", dashboard);
@@ -278,7 +314,7 @@ namespace LexiconLMS.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles ="Student")]
+        [Authorize(Roles = "Student")]
         public ActionResult ShowClassmates()
         {
             var me = db.Users.Find(User.Identity.GetUserId());
