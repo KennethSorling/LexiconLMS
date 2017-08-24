@@ -185,9 +185,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
-    <Compile Include="Migrations\201708230647165_initial.cs" />
-    <Compile Include="Migrations\201708230647165_initial.Designer.cs">
-      <DependentUpon>201708230647165_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201708240755242_addAssIdToHandin.cs" />
+    <Compile Include="Migrations\201708240755242_addAssIdToHandin.Designer.cs">
+      <DependentUpon>201708240755242_addAssIdToHandin.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -470,8 +470,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708230647165_initial.resx">
-      <DependentUpon>201708230647165_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708240755242_addAssIdToHandin.resx">
+      <DependentUpon>201708240755242_addAssIdToHandin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

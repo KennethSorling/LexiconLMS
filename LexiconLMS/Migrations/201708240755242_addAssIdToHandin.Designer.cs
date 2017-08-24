@@ -7,13 +7,13 @@ namespace LexiconLMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class initial : IMigrationMetadata
+    public sealed partial class addAssIdToHandin : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addAssIdToHandin));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708230647165_initial"; }
+            get { return "201708240755242_addAssIdToHandin"; }
         }
         
         string IMigrationMetadata.Source

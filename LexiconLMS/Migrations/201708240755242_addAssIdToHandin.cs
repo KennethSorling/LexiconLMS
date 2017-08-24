@@ -3,7 +3,7 @@ namespace LexiconLMS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class addAssIdToHandin : DbMigration
     {
         public override void Up()
         {
@@ -39,6 +39,7 @@ namespace LexiconLMS.Migrations
                         CourseId = c.Int(),
                         ActivityId = c.Int(),
                         OwnerId = c.String(maxLength: 128),
+                        AssignmentDocId = c.Int(nullable: false),
                         Filename = c.String(nullable: false),
                         FileSize = c.Int(nullable: false),
                         Title = c.String(),

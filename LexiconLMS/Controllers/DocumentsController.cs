@@ -16,7 +16,7 @@ namespace LexiconLMS.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        [Authorize(Roles ="Student")]
+        [Authorize(Roles = "Student")]
         public ActionResult ReadFeedback(int documentId)
         {
             var feedBacks = db.FeedBacks
@@ -103,9 +103,9 @@ namespace LexiconLMS.Controllers
                     TempData["Message"] = "Document status updated.";
                 }
             }
-           return RedirectToAction("Review", "Documents", new { id = documentId });
+            return RedirectToAction("Review", "Documents", new { id = documentId });
         }
-        [Authorize(Roles ="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Review(int id)
         {
             var doc = db.Documents.Find(id);
@@ -131,7 +131,7 @@ namespace LexiconLMS.Controllers
         }
 
         [Authorize(Roles = "Teacher, Student")]
-        public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? purposeId, DateTime? deadLine, string returnTo)
+        public ActionResult Upload(int? courseId, int? moduleId, int? activityId, int? assignmentDocId, int? purposeId, DateTime? deadLine, string returnTo)
         {
             returnTo = Request.ServerVariables["HTTP_REFERER"];
             var purposes = db.Purposes.ToList().ConvertAll(d => new SelectListItem
@@ -149,7 +149,8 @@ namespace LexiconLMS.Controllers
                 PurposeId = purposeId ?? 1,
                 Purposes = purposes,
                 ReturnTo = returnTo,
-                DeadLine = deadLine
+                DeadLine = deadLine,
+                AssignmentDocId = assignmentDocId ?? 0
             };
 
             if (activityId != null)
@@ -195,14 +196,14 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Teacher, Student")]
-        public ActionResult Upload([Bind(Include ="CourseId,ModuleId,ActivityId,PurposeId,DeadLine,ReturnTo")]UploadVM vm, HttpPostedFileBase uploadFile)
+        public ActionResult Upload([Bind(Include = "CourseId,ModuleId,ActivityId,PurposeId,AssignmentDocId,DeadLine,ReturnTo")]UploadVM vm, HttpPostedFileBase uploadFile)
         {
             // Verify that the user selected a file
             if (uploadFile != null && uploadFile.ContentLength > 0)
             {
                 //Trim off possible path info from IE clients
                 string localFile = Path.GetFileName(uploadFile.FileName);
-                
+
                 //obtain a local path to our uploads folder
                 var path = Server.MapPath("~/uploads");
                 string fileName;
@@ -217,7 +218,7 @@ namespace LexiconLMS.Controllers
 
                 /* Avoid collision with already uploaded files*/
                 int fileIndex = 0;
-                string extension = path.Substring(path.LastIndexOf(".") +1);
+                string extension = path.Substring(path.LastIndexOf(".") + 1);
                 string basePath = path.Substring(0, path.LastIndexOf(".") - 1);
                 while (System.IO.File.Exists(path))
                 {
@@ -228,7 +229,7 @@ namespace LexiconLMS.Controllers
                 {
                     uploadFile.SaveAs(path);
                 }
-                catch (IOException  e)
+                catch (IOException e)
                 {
                     ModelState.AddModelError("", e.Message);
                 }
@@ -252,7 +253,10 @@ namespace LexiconLMS.Controllers
                         mimeType = db.MimeTypes.Where(mt => mt.DefaultExtension == "").FirstOrDefault();
                     }
 
-                    var doc = new Document{
+
+
+                    var doc = new Document
+                    {
                         Filename = fileName,
                         FileSize = uploadFile.ContentLength,
                         FileType = uploadFile.ContentType,
@@ -262,6 +266,7 @@ namespace LexiconLMS.Controllers
                         ActivityId = vm.ActivityId,
                         ModuleId = vm.ModuleId,
                         CourseId = vm.CourseId,
+                        AssignmentDocId = vm.AssignmentDocId,
                         DeadLine = vm.DeadLine,
                         Owner = me,
                         MimeType = mimeType,
@@ -311,7 +316,7 @@ namespace LexiconLMS.Controllers
             {
                 Text = d.Name,
                 Value = $"{d.Id}",
-                Selected = (vm.PurposeId  == d.Id)
+                Selected = (vm.PurposeId == d.Id)
             });
 
             ViewBag.PurposeId = purposes;
@@ -380,7 +385,7 @@ namespace LexiconLMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Teacher")]
-        public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document, string  returnUrl)
+        public ActionResult Edit([Bind(Include = "Id,MimeTypeId,StatusId,Filename,FileSize,Title,FileType,ModuleId,CourseId,ActivityId,ApplicationUserId,DateUploaded,DeadLine")] Document document, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -396,7 +401,7 @@ namespace LexiconLMS.Controllers
         }
 
         // GET: Documents/Delete/5
-        [Authorize(Roles ="Teacher, Student")]
+        [Authorize(Roles = "Teacher, Student")]
         [HttpGet]
         public ActionResult Delete(int? id)
         {

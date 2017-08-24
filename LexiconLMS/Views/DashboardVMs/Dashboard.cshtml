@@ -4,6 +4,7 @@
     ViewBag.Title = "Your Dashboard";
     int i = 0;
     int j = 0;
+    int k = 0;
 }
 
 <h1>Dashboard</h1>
@@ -35,7 +36,7 @@
             </tr>
         </thead>
         @foreach (var item in Model.ActivitiesForTodayList)
-                {
+        {
             <tr>
                 <td class="smallcol">
                     @item.StartDate.ToString("HH:mm")
@@ -50,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 @if (item.External)
-                    {
+                {
                     <td class="smallcol">
                         Yes
                     </td>
@@ -77,10 +78,10 @@ else
 }
 
 <hr class="thick-divider-line" />
-<h3>Assignment Descriptions</h3>
-@if (Model.AssignmentDescriptions != null)
+<h3>Assignments</h3>
+@if (Model.AssignmentDescriptionAndEmphasis != null)
 {
-    if (Model.AssignmentDescriptions.Count > 0)
+    if (Model.AssignmentDescriptionAndEmphasis.Count > 0)
     {
         <table class="table table-striped" width="650">
             <thead>
@@ -108,23 +109,66 @@ else
                     </th>
                 </tr>
             </thead>
-            @foreach (var doc in Model.AssignmentDescriptions)
+            @foreach (var item in Model.AssignmentDescriptionAndEmphasis)
             {
-                <tr>
-                    <td class="doclink @doc.MimeType.DefaultExtension">
-                        <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
-                            @doc.Filename
-                        </a>
-                    </td>
-                    <td>@doc.FileSize</td>
-                    <td>@doc.DateUploaded.ToShortDateString()</td>
-                    <td>@doc.DeadLine.ToString().Substring(0, 10)</td>
-                    <td>@doc.Owner.Email</td>
-                    <td>@doc.Status.Name</td>
-                    <th>@Html.ActionLink("Upload Hand-in", "Upload", "Documents", new { activityId = doc.ActivityId, purposeId = 7 }, new { @class = "btn btn-default btn-upload" })</th>
-                </tr>
+                if (item.RowEmphasis == "warning")
+                {
+                    <tr class="warning">
+                        <td class="doclink" @item.AssignmentDescription.MimeType.DefaultExtension>
+                            <a target="_blank" href="@Href("~/uploads/"+item.AssignmentDescription.Filename)">
+                                @item.AssignmentDescription.Filename
+                            </a>
+                        </td>
+                        <td>@item.AssignmentDescription.FileSize</td>
+                        <td>@item.AssignmentDescription.DateUploaded.ToShortDateString()</td>
+                        <td>@item.AssignmentDescription.DeadLine.ToString().Substring(0, 10)</td>
+                        <td>@item.AssignmentDescription.Owner.Email</td>
+                        <td>@item.AssignmentDescription.Status.Name</td>
+                        <td>
+                            @Html.ActionLink("Filter Hand-Ins", "ShowDashboard", "DashboardVMs", new { activityId = item.AssignmentDescription.ActivityId, assignmentDocId = item.AssignmentDescription.Id, }, new { @class = "btn btn-default btn-upload" })
+                            @Html.ActionLink("Upload Hand-in", "Upload", "Documents", new { activityId = item.AssignmentDescription.ActivityId, assignmentDocId = item.AssignmentDescription.Id, purposeId = 7 }, new { @class = "btn btn-default btn-upload" })
+                        </td>
+                    </tr>
+                }
+                else if (item.RowEmphasis == "danger")
+                {
+                    <tr class="danger">
+                        <td class="doclink" @item.AssignmentDescription.MimeType.DefaultExtension>
+                            <a target="_blank" href="@Href("~/uploads/"+item.AssignmentDescription.Filename)">
+                                @item.AssignmentDescription.Filename
+                            </a>
+                        </td>
+                        <td>@item.AssignmentDescription.FileSize</td>
+                        <td>@item.AssignmentDescription.DateUploaded.ToShortDateString()</td>
+                        <td>@item.AssignmentDescription.DeadLine.ToString().Substring(0, 10)</td>
+                        <td>@item.AssignmentDescription.Owner.Email</td>
+                        <td>@item.AssignmentDescription.Status.Name</td>
+                        <td>
+                            @Html.ActionLink("Filter Hand-Ins", "ShowDashboard", "DashboardVMs", new { activityId = item.AssignmentDescription.ActivityId, assignmentDocId = item.AssignmentDescription.Id, }, new { @class = "btn btn-default btn-upload" })
+                            @Html.ActionLink("Upload Hand-in", "Upload", "Documents", new { activityId = item.AssignmentDescription.ActivityId, assignmentDocId = item.AssignmentDescription.Id, purposeId = 7 }, new { @class = "btn btn-default btn-upload" })
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td class="doclink" @item.AssignmentDescription.MimeType.DefaultExtension>
+                            <a target="_blank" href="@Href("~/uploads/"+item.AssignmentDescription.Filename)">
+                                @item.AssignmentDescription.Filename
+                            </a>
+                        </td>
+                        <td>@item.AssignmentDescription.FileSize</td>
+                        <td>@item.AssignmentDescription.DateUploaded.ToShortDateString()</td>
+                        <td>@item.AssignmentDescription.DeadLine.ToString().Substring(0, 10)</td>
+                        <td>@item.AssignmentDescription.Owner.Email</td>
+                        <td>@item.AssignmentDescription.Status.Name</td>
+                        <td>
+                            @Html.ActionLink("Filter Hand-Ins", "ShowDashboard", "DashboardVMs", new { activityId = item.AssignmentDescription.ActivityId, assignmentDocId = item.AssignmentDescription.Id, }, new { @class = "btn btn-default btn-upload" })
+                            @Html.ActionLink("Upload Hand-in", "Upload", "Documents", new { activityId = item.AssignmentDescription.ActivityId, assignmentDocId = item.AssignmentDescription.Id, purposeId = 7 }, new { @class = "btn btn-default btn-upload" })
+                        </td>
+                    </tr>
+                }
             }
-
         </table>
     }
     else
@@ -136,80 +180,163 @@ else
 
 <hr class="thick-divider-line" />
 
-<h3>Hand-ins</h3>
 
-@if (Model.HandIns != null)
+@if (Model.FilterHandIns)
 {
-    if (Model.HandIns.Count > 0)
+    if (Model.HandIns != null)
     {
-        <table class="table table-striped" width="650">
-            <thead>
-                <tr>
-                    <th>
-                        Filename
-                    </th>
-                    <th>
-                        Size
-                    </th>
-                    <th>
-                        Uploaded
-                    </th>
-                    <th>
-                        Due
-                    </th>
-                    <th>
-                        By
-                    </th>
-                    <th>
-                        State
-                    </th>
-                    <th>
-                        Options
-                    </th>
-                </tr>
-            </thead>
-           
-            @foreach (var doc in Model.HandIns)
-            {
-                <tr>
-                    <td class="doclink @doc.MimeType.DefaultExtension">
-                        <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
-                            @doc.Filename
-                        </a>
-                    </td>
-                    <td>@doc.FileSize</td>
-                    <td>@doc.DateUploaded.ToShortDateString()</td>
+        if (Model.HandIns.Count > 0)
+        {
+            <h3>Hand-in(s) for the assignmnent @Model.AssignmentDescriptionFilename</h3>
+            @Html.ActionLink("Clear Hand-In Filter", "ShowDashboard", "DashboardVMs", new { assignmentDocId = 0, }, new { @class = "btn btn-default btn-upload" })
 
-                    <td>
-                        @if (doc.DeadLine != null)
-                        {
-                            <span>@doc.DeadLine.ToString().Substring(0, 10)</span>
-                        }
-                    </td>
-                    <td>@doc.Owner.Email</td>
-                    <td>@doc.Status.Name</td>
-                    <th>
-                        @Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })
-                        @if (Model.FeedbackList != null)
-                        {
-                            if (Model.FeedbackList.Count > 0)
+            <table class="table table-striped" width="650">
+                <thead>
+                    <tr>
+                        <th>
+                            Filename
+                        </th>
+                        <th>
+                            Size
+                        </th>
+                        <th>
+                            Uploaded
+                        </th>
+                        <th>
+                            Due
+                        </th>
+                        <th>
+                            State
+                        </th>
+                        <th>
+                            Options
+                        </th>
+                    </tr>
+                </thead>
+
+                @foreach (var doc in Model.HandIns)
+                {
+                    <tr>
+                        <td class="doclink @doc.MimeType.DefaultExtension">
+                            <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                                @doc.Filename
+                            </a>
+                        </td>
+                        <td>@doc.FileSize</td>
+                        <td>@doc.DateUploaded.ToShortDateString()</td>
+
+                        <td>
+                            @if (doc.DeadLine != null)
                             {
-                                if (Model.FeedbackList[j].FeedbackExists)
+                                <span>@doc.DeadLine.ToString().Substring(0, 10)</span>
+                            }
+                        </td>
+                        <td>@doc.Owner.Email</td>
+                        <td>@doc.Status.Name</td>
+                        <th>
+                            @Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })
+                            @if (Model.FeedbackList != null)
+                            {
+                                if (Model.FeedbackList.Count > 0)
                                 {
-                                    @Html.ActionLink("See Feedback", "ReadFeedback", "Documents", new { documentId = doc.Id }, new { @class = "btn btn-default btn-upload" })
+                                    if (Model.FeedbackList[k].FeedbackExists)
+                                    {
+                                        @Html.ActionLink("See Feedback", "ReadFeedback", "Documents", new { documentId = doc.Id }, new { @class = "btn btn-default btn-upload" })
+                                    }
                                 }
                             }
-                        }
-                    </th>
-                </tr>
-                j++;
-            }
+                        </th>
+                    </tr>
+                    k++;
+                }
 
-        </table>
+            </table>
+        }
+        else
+        {
+            <p>You have not uploaded any hand-in for the assignment @Model.AssignmentDescriptionFilename</p>
+            @Html.ActionLink("Clear Hand-In Filter", "ShowDashboard", "DashboardVMs", new { assignmentDocId = 0, }, new { @class = "btn btn-default btn-upload" })
+
+        }
+
     }
-    else
+}
+else
+{
+    if (Model.HandIns != null)
     {
-        <p>There are currently no uploaded Hand-ins</p>
+        if (Model.HandIns.Count > 0)
+        {
+            <h3>All My Hand-ins</h3>
+            <table class="table table-striped" width="650">
+                <thead>
+                    <tr>
+                        <th>
+                            Filename
+                        </th>
+                        <th>
+                            Size
+                        </th>
+                        <th>
+                            Uploaded
+                        </th>
+                        <th>
+                            Due
+                        </th>
+                        <th>
+                            By
+                        </th>
+                        <th>
+                            State
+                        </th>
+                        <th>
+                            Options
+                        </th>
+                    </tr>
+                </thead>
+
+                @foreach (var doc in Model.HandIns)
+                {
+                    <tr>
+                        <td class="doclink @doc.MimeType.DefaultExtension">
+                            <a target="_blank" href="@Href("~/uploads/"+doc.Filename)">
+                                @doc.Filename
+                            </a>
+                        </td>
+                        <td>@doc.FileSize</td>
+                        <td>@doc.DateUploaded.ToShortDateString()</td>
+
+                        <td>
+                            @if (doc.DeadLine != null)
+                            {
+                                <span>@doc.DeadLine.ToString().Substring(0, 10)</span>
+                            }
+                        </td>
+                        <td>@doc.Owner.Email</td>
+                        <td>@doc.Status.Name</td>
+                        <th>
+                            @Html.ActionLink("Delete", "Delete", "Documents", new { id = doc.Id }, new { @class = "btn btn-default btn-delete" })
+                            @if (Model.FeedbackList != null)
+                            {
+                                if (Model.FeedbackList.Count > 0)
+                                {
+                                    if (Model.FeedbackList[j].FeedbackExists)
+                                    {
+                                        @Html.ActionLink("See Feedback", "ReadFeedback", "Documents", new { documentId = doc.Id }, new { @class = "btn btn-default btn-upload" })
+                                    }
+                                }
+                            }
+                        </th>
+                    </tr>
+                    j++;
+                }
+
+            </table>
+        }
+        else
+        {
+            <p>There are currently no uploaded Hand-ins</p>
+        }
     }
 }
 <br />

@@ -26,11 +26,15 @@ namespace LexiconLMS.ViewModels
 
         public List<Document> HandIns { get; set; }
 
-        public List<Document> AssignmentDescriptions { get; set; }
+        public List<AssignmentAndRowEmphasis> AssignmentDescriptionAndEmphasis { get; set; }
 
         public List<Document> OtherDocuments { get; set; }
 
         public List<FeedbackObject> FeedbackList { get; set; }
+
+        public bool FilterHandIns { get; set; }
+
+        public string AssignmentDescriptionFilename { get; set; }
     }
 
     public class FeedbackObject
@@ -38,5 +42,12 @@ namespace LexiconLMS.ViewModels
         public bool FeedbackExists { get; set; }
 
         public int FeedbackId { get; set; }
+    }
+
+    public class AssignmentAndRowEmphasis
+    {
+        public Document AssignmentDescription { get; set; }
+
+        public string RowEmphasis { get; set; }
     }
 }
