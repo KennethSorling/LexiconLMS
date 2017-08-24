@@ -7,13 +7,13 @@ namespace LexiconLMS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class alteredFeedBackAndDbContext : IMigrationMetadata
+    public sealed partial class mer2308 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(alteredFeedBackAndDbContext));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(mer2308));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708230141007_alteredFeedBackAndDbContext"; }
+            get { return "201708230707120_mer2308"; }
         }
         
         string IMigrationMetadata.Source

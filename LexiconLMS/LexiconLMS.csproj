@@ -185,13 +185,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IReferrer.cs" />
-    <Compile Include="Migrations\201708222123229_rebuildDatabaseNow.cs" />
-    <Compile Include="Migrations\201708222123229_rebuildDatabaseNow.Designer.cs">
-      <DependentUpon>201708222123229_rebuildDatabaseNow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708230141007_alteredFeedBackAndDbContext.cs" />
-    <Compile Include="Migrations\201708230141007_alteredFeedBackAndDbContext.Designer.cs">
-      <DependentUpon>201708230141007_alteredFeedBackAndDbContext.cs</DependentUpon>
+    <Compile Include="Migrations\201708230707120_mer2308.cs" />
+    <Compile Include="Migrations\201708230707120_mer2308.Designer.cs">
+      <DependentUpon>201708230707120_mer2308.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -243,6 +239,7 @@
     <Content Include="Content\Images\bmp.png" />
     <Content Include="Content\Images\c.png" />
     <Content Include="Content\Images\cpp.png" />
+    <Content Include="Content\Images\cs.png" />
     <Content Include="Content\Images\css.png" />
     <Content Include="Content\Images\csv.png" />
     <Content Include="Content\Images\dat.png" />
@@ -290,6 +287,7 @@
     <Content Include="Content\Images\scss.png" />
     <Content Include="Content\Images\smalllexiconlogo.png" />
     <Content Include="Content\Images\sql.png" />
+    <Content Include="Content\Images\Student1.jpg" />
     <Content Include="Content\Images\tga.png" />
     <Content Include="Content\Images\tgz.png" />
     <Content Include="Content\Images\tiff.png" />
@@ -474,11 +472,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708222123229_rebuildDatabaseNow.resx">
-      <DependentUpon>201708222123229_rebuildDatabaseNow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708230141007_alteredFeedBackAndDbContext.resx">
-      <DependentUpon>201708230141007_alteredFeedBackAndDbContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708230707120_mer2308.resx">
+      <DependentUpon>201708230707120_mer2308.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
