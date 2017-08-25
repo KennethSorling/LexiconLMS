@@ -90,7 +90,7 @@ namespace LexiconLMS.Controllers
 
             foreach (var sibling in siblings)
             {
-                if (sibling.Name.ToLower().Equals( module.Name.ToLower()))
+                if (sibling.Name.ToLower().Equals(module.Name.ToLower()))
                 {
                     ModelState.AddModelError("", $"There is already a Module named '{sibling.Name}' in this Course.");
                     break;
@@ -138,7 +138,7 @@ namespace LexiconLMS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles ="Teacher")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult Edit([Bind(Include = "Id,CourseId,Name,Description,StartDate,EndDate")] Module module)
         {
             var courseId = module.CourseId;
@@ -181,7 +181,7 @@ namespace LexiconLMS.Controllers
                 db.Entry(course).State = EntityState.Modified;
                 db.SaveChanges();
                 TempData["Message"] = "Module updated.";
-                return RedirectToAction("Manage", "Courses", new { id= courseId });
+                return RedirectToAction("Manage", "Courses", new { id = courseId });
             }
             ViewBag.CourseName = course.Name;
             return View(module);
@@ -189,7 +189,7 @@ namespace LexiconLMS.Controllers
 
         public ActionResult Manage(int id)
         {
-            var module = db.Modules.Where(m => m.Id == id).FirstOrDefault();
+            var module = db.Modules.Include("Activities").Where(m => m.Id == id).FirstOrDefault();
             var course = db.Courses.Where(c => c.Id == module.CourseId).FirstOrDefault();
             ViewBag.CourseName = course.Name;
             return View(module);
