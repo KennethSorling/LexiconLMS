@@ -114,7 +114,7 @@ else
                 if (item.RowEmphasis == "warning")
                 {
                     <tr class="warning">
-                        <td class="doclink" @item.AssignmentDescription.MimeType.DefaultExtension>
+                        <td class="doclink @item.AssignmentDescription.MimeType.DefaultExtension">
                             <a target="_blank" href="@Href("~/uploads/"+item.AssignmentDescription.Filename)">
                                 @item.AssignmentDescription.Filename
                             </a>
@@ -133,7 +133,7 @@ else
                 else if (item.RowEmphasis == "danger")
                 {
                     <tr class="danger">
-                        <td class="doclink" @item.AssignmentDescription.MimeType.DefaultExtension>
+                        <td class="doclink @item.AssignmentDescription.MimeType.DefaultExtension">
                             <a target="_blank" href="@Href("~/uploads/"+item.AssignmentDescription.Filename)">
                                 @item.AssignmentDescription.Filename
                             </a>
@@ -152,7 +152,7 @@ else
                 else
                 {
                     <tr>
-                        <td class="doclink" @item.AssignmentDescription.MimeType.DefaultExtension>
+                        <td class="doclink @item.AssignmentDescription.MimeType.DefaultExtension">
                             <a target="_blank" href="@Href("~/uploads/"+item.AssignmentDescription.Filename)">
                                 @item.AssignmentDescription.Filename
                             </a>
