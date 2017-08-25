@@ -215,10 +215,38 @@ namespace LexiconLMS.Controllers
 
                 path = Path.Combine(path, fileName);
 
+                // try to find the mime type for this file.
+                var mimeType = db.MimeTypes
+                    .Where(mt => mt.Name == uploadFile.ContentType)
+                    .FirstOrDefault();
+
+                if (mimeType == null)
+                {
+                    //this gives us "applciation/octet-stream", which is a good default compromise
+                    mimeType = db.MimeTypes
+                        .Where(mt => mt.DefaultExtension == "")
+                        .FirstOrDefault();
+                }
+
                 // Avoid collision with already uploaded files
                 int fileIndex = 0;
-                string extension = path.Substring(path.LastIndexOf(".") +1);
-                string basePath = path.Substring(0, path.LastIndexOf("."));
+                string basePath;
+                string extension = Path.GetExtension(fileName);
+
+                if (extension != null && extension.Length > 0)
+                {
+                    basePath = path.Substring(0, path.LastIndexOf("."));
+                }
+                else
+                {
+                    basePath = path;
+                    extension = mimeType.DefaultExtension;
+                    if (extension.Length == 0)
+                    {
+                        extension = "bin";
+                        fileName += ".bin";
+                    }
+                }
 
                 while (System.IO.File.Exists(path))
                 {
@@ -246,23 +274,7 @@ namespace LexiconLMS.Controllers
                     {
                         fileName = Path.GetFileName(path);
                     }
-
-
-                    // try to find the mime type for this file.
-                    var mimeType = db.MimeTypes
-                        .Where(mt => mt.Name == uploadFile.ContentType)
-                        .FirstOrDefault();
-
-                    if (mimeType == null)
-                    {
-                        //this gives us "applciation/octet-stream", which is a good default compromise
-                        mimeType = db.MimeTypes
-                            .Where(mt => mt.DefaultExtension == "")
-                            .FirstOrDefault();
-                    }
-
-
-
+                    
                     var doc = new Document
                     {
                         Filename = fileName,
